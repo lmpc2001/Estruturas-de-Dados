@@ -18,7 +18,7 @@ public class Graph implements NetworkADT {
 		if (size == coordinates.length) {
 			increaseCapacity();
 		}
-		Vertex newVertex = new Vertex("");
+		Vertex newVertex = new Vertex(false);
 		this.coordinates[size] = newVertex;
 	}
 
