@@ -1,3 +1,5 @@
+package com.example.domain;
+
 public class Player {
 	private String playerName;
 	private Bot[] playerBots;

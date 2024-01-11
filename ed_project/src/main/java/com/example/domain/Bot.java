@@ -11,14 +11,6 @@ public class Bot {
 		this.currentLocationCoordinates = currentLocationCoordinates;
 	}
 
-	private boolean validateName(String botName) {
-		if (botName.trim().length() < 3) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public String getBotName() {
 		return botName;
 	}
