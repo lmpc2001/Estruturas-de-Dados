@@ -1,5 +1,6 @@
 package com.example.structures.implementation;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.example.structures.adt.NetworkADT;
@@ -9,8 +10,12 @@ public class Graph implements NetworkADT {
 	int size;
 
 	public Graph(int size) {
-		this.coordinates = new Vertex[size]; // Podes ajustar conforme necessário
+		this.coordinates = new Vertex[size];
 		this.size = size;
+	}
+
+	public void setVertexs(Vertex[] newCoordinates) {
+		this.coordinates = newCoordinates;
 	}
 
 	@Override
@@ -18,14 +23,18 @@ public class Graph implements NetworkADT {
 		if (size == coordinates.length) {
 			increaseCapacity();
 		}
-		Vertex newVertex = new Vertex(false);
+		Vertex newVertex = new Vertex("", false);
 		this.coordinates[size] = newVertex;
 	}
 
 	@Override
 	public void removeVertex(Vertex vertex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'removeVertex'");
+		for (int i = 0; i < coordinates.length; i++) {
+			if (this.coordinates[i] == vertex) {
+				this.coordinates[i] = null;
+				size--;
+			}
+		}
 	}
 
 	@Override
@@ -36,8 +45,8 @@ public class Graph implements NetworkADT {
 
 	@Override
 	public void removeEdge(Vertex vertex1, Vertex vertex2) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'removeEdge'");
+		vertex1.removeNeighbor(vertex2);
+		vertex2.removeNeighbor(vertex1);
 	}
 
 	@Override
@@ -54,6 +63,43 @@ public class Graph implements NetworkADT {
 	@Override
 	public int size() {
 		return this.size;
+	}
+
+	public void getGraphMatrix() {
+		int n = coordinates.length;
+		int[][] adjacencyMatrix = new int[n][n];
+
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				adjacencyMatrix[i][j] = 0; // Inicializamos com 0
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			Vertex currentVertex = coordinates[i];
+			Vertex[] neighbors = currentVertex.getNeighbors();
+			double[] weights = currentVertex.getWeights();
+
+			for (int j = 0; j < neighbors.length; j++) {
+				Vertex neighbor = neighbors[j];
+				double weight = weights[j];
+
+				int row = Arrays.asList(coordinates).indexOf(currentVertex);
+				int col = Arrays.asList(coordinates).indexOf(neighbor);
+				System.out.println("Row: " + row + " Col: "+ col);
+				adjacencyMatrix[row][col] = (int) weight; // Podes ajustar conforme necessário
+			}
+		}
+
+		// Imprimir a matriz de adjacência
+		System.out.println("Matriz de Adjacência:");
+
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				System.out.print(adjacencyMatrix[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 	@Override
