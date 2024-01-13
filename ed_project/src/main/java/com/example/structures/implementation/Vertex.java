@@ -1,16 +1,18 @@
 package com.example.structures.implementation;
 
 public class Vertex {
+	String name;
 	boolean flag;
 	Vertex[] neighbors;
 	double[] weights;
 
 	int size = 0;
 
-	public Vertex(boolean flag) {
+	public Vertex(String name, boolean flag) {
+		this.name = name;
 		this.flag = flag;
-		this.neighbors = new Vertex[0];
-		this.weights = new double[0];
+		this.neighbors = new Vertex[1];
+		this.weights = new double[1];
 		this.size = 0;
 	}
 
@@ -34,6 +36,15 @@ public class Vertex {
 		neighbors[size] = neighbor;
 		weights[size] = weight;
 		size++;
+	}
+
+	public void removeNeighbor(Vertex neighbor) {
+		for (int i = 0; i < neighbors.length; i++) {
+			if (this.neighbors[i] == neighbor) {
+				this.neighbors[i] = null;
+				size--;
+			}
+		}
 	}
 
 	private void increaseCapacity() {
