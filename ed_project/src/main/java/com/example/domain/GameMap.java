@@ -1,12 +1,15 @@
 package com.example.domain;
 
+import com.example.structures.adt.GraphADT;
 import com.example.structures.implementation.Graph;
+import com.example.structures.implementation.Vertex;
 
-public class GameMap {
+public class GameMap extends Graph{
 	private Graph map;
 	private double edgeDensity;
 
-	public GameMap(int numberOfLocations, int edgeDensity) {
+	public GameMap(int numberOfLocations, double edgeDensity) {
+		super(numberOfLocations);
 		this.map = new Graph(numberOfLocations);
 		this.edgeDensity = edgeDensity;
 	}
@@ -23,4 +26,15 @@ public class GameMap {
 		this.edgeDensity = newEdgeDensity;
 	}
 
+	public void addVertex(Vertex Vertex) {
+		this.map.addVertex(Vertex);
+	}
+
+	public void setCoordinates(Vertex[] newCoordinates) {
+		this.map.setVertexes(newCoordinates);
+	}
+
+	public void getMatrix() {
+		this.map.getGraphMatrix();
+	}
 }
