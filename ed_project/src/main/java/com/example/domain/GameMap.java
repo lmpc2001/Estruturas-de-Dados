@@ -1,21 +1,18 @@
 package com.example.domain;
 
-import com.example.structures.adt.GraphADT;
-import com.example.structures.implementation.Graph;
-import com.example.structures.implementation.Vertex;
+import com.example.structures.implementation.graph.Graph;
+import com.example.structures.implementation.graph.Vertex;
 
-public class GameMap extends Graph{
-	private Graph map;
+public class GameMap extends Graph {
 	private double edgeDensity;
 
 	public GameMap(int numberOfLocations, double edgeDensity) {
 		super(numberOfLocations);
-		this.map = new Graph(numberOfLocations);
 		this.edgeDensity = edgeDensity;
 	}
 
 	public int getNumberOfLocations() {
-		return this.map.size();
+		return this.size();
 	}
 
 	public double getEdgeDensity() {
@@ -26,15 +23,18 @@ public class GameMap extends Graph{
 		this.edgeDensity = newEdgeDensity;
 	}
 
-	public void addVertex(Vertex Vertex) {
-		this.map.addVertex(Vertex);
+	public void seeMap() {
+		this.showGraphMatrix();
 	}
 
-	public void setCoordinates(Vertex[] newCoordinates) {
-		this.map.setVertexes(newCoordinates);
+	public int[][] getMap() {
+		return this.getGraphMatrix();
 	}
 
-	public void getMatrix() {
-		this.map.getGraphMatrix();
+	public boolean checkWin(Player oppositePlayer, Bot bot) {
+		Vertex botPosition = bot.getCurrentPosition();
+		Vertex oppositePlayerFlagPosition = oppositePlayer.getFlag();
+
+		return botPosition.equals(oppositePlayerFlagPosition);
 	}
 }
