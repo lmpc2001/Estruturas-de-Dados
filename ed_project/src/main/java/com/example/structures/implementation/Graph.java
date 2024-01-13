@@ -14,7 +14,7 @@ public class Graph implements NetworkADT {
 		this.size = size;
 	}
 
-	public void setVertexs(Vertex[] newCoordinates) {
+	public void setVertexes(Vertex[] newCoordinates) {
 		this.coordinates = newCoordinates;
 	}
 
