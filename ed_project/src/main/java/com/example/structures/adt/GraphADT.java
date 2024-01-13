@@ -2,7 +2,7 @@ package com.example.structures.adt;
 
 import java.util.Iterator;
 
-import com.example.structures.implementation.Vertex;
+import com.example.structures.implementation.graph.Vertex;
 
 /**
  *
