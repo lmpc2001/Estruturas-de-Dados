@@ -1,14 +1,22 @@
 package com.example.domain;
 
+import org.json.simple.JSONObject;
+
+import com.example.structures.implementation.graph.Vertex;
+
 public class Bot {
 	private String botName;
 	private String strategy;
-	private int[] currentLocationCoordinates;
+	private Vertex<Local> currentLocation;
 
-	public Bot(String botName, String strategy, int[] currentLocationCoordinates) {
+	public Bot(String botName) {
+		this.botName = botName;
+	}
+
+	public Bot(String botName, String strategy, Vertex position) {
 		this.botName = botName;
 		this.strategy = strategy;
-		this.currentLocationCoordinates = currentLocationCoordinates;
+		this.currentLocation = position;
 	}
 
 	public String getBotName() {
@@ -27,19 +35,29 @@ public class Bot {
 		this.strategy = strategy;
 	}
 
-	public int[] getCurrentLocationCoordinates() {
-		return currentLocationCoordinates;
+	public Vertex<Local> getCurrentPosition() {
+		return currentLocation;
 	}
 
-	public void setCurrentLocationCoordinates(int[] currentLocationCoordinates) {
-		this.currentLocationCoordinates = currentLocationCoordinates;
+	public void setCurrentPosition(Vertex<Local> newPosition) {
+		this.currentLocation = newPosition;
+	}
+
+	public JSONObject parseToJson() {
+		JSONObject jsonBot = new JSONObject();
+
+		jsonBot.put("Name", this.botName);
+		jsonBot.put("Strategy", this.strategy);
+		jsonBot.put("Location", this.currentLocation);
+
+		return jsonBot;
 	}
 
 	public String toString() {
 		return "Bot {" +
 				"Name: " + this.botName + "\n" +
 				"Strategy: " + this.strategy + "\n" +
-				"Current Location: " + this.currentLocationCoordinates + "\n" +
+				"Current Location: " + this.currentLocation + "\n" +
 				"}";
 	}
 }
