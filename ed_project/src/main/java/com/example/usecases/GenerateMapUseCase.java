@@ -1,23 +1,20 @@
 package com.example.usecases;
 
-import java.util.Random;
-
 import com.example.domain.GameMap;
-import com.example.structures.implementation.Vertex;
+import com.example.domain.Local;
+import com.example.structures.implementation.graph.Vertex;
 import com.example.utils.Randomness;
 import com.example.utils.Scanners;
 
 public class GenerateMapUseCase {
-	static Vertex[] locations;
+	static Vertex<Local>[] locationsVertex;
 	static int[] excludedNumbers;
 
 	public static GameMap execute() {
 
 		int numberOfLocations = Scanners.getInputInt("| Insira o nº de localizações que deseja para o Mapa : ");
-		locations = new Vertex[numberOfLocations];
+		locationsVertex = new Vertex[numberOfLocations];
 		excludedNumbers = new int[numberOfLocations];
-
-		System.out.println(locations.length);
 
 		String isBiDirectional = Scanners.getInputString("| Caminhos bidirecionais (Y/N) : ");
 
@@ -34,20 +31,23 @@ public class GenerateMapUseCase {
 		double edgeDensity = Scanners.getInputDouble("| Insira a densidade entre as arestas (eg. 0.5) : ");
 
 		for (int i = 0; i < numberOfLocations; i++) {
-			locations[i] = new Vertex("" + i, false);
+			locationsVertex[i] = new Vertex();
 		}
 
-		for (int i = 0; i < locations.length; i++) {
-			int randomNeighborIndex = Randomness.getRandomWithoutDuplicates(0, numberOfLocations, excludedNumbers);
+		for (int i = 0; i < locationsVertex.length; i++) {
+			int randomNeighborIndex = Randomness.getRandomNumber(0, numberOfLocations);
 			excludedNumbers[i] = randomNeighborIndex;
 
+			while (randomNeighborIndex == i) {
+				randomNeighborIndex = Randomness.getRandomNumber(0, numberOfLocations);
+				excludedNumbers[i] = randomNeighborIndex;
+			}
+
 			int randomDistanceBetweenNeighbors = Randomness.getRandomNumber(0, 15);
-			System.out.println(randomDistanceBetweenNeighbors);
 
-			Vertex vertex = locations[i];
-			System.out.println("Random Neighbor index: " + randomNeighborIndex);
+			Vertex vertex = locationsVertex[i];
 
-			Vertex randomNeighborVertex = locations[randomNeighborIndex];
+			Vertex randomNeighborVertex = locationsVertex[randomNeighborIndex];
 			vertex.addNeighbor(randomNeighborVertex, randomDistanceBetweenNeighbors);
 
 			if (isBiDirectional.equalsIgnoreCase("y")) {
@@ -56,7 +56,7 @@ public class GenerateMapUseCase {
 		}
 
 		GameMap map = new GameMap(numberOfLocations, edgeDensity);
-		map.setCoordinates(locations);
+		map.setVertexes(locationsVertex);
 
 		return map;
 	}

@@ -1,23 +1,28 @@
-package com.example.structures.implementation;
+package com.example.structures.implementation.graph;
 
-public class Vertex {
-	String name;
-	boolean flag;
+public class Vertex<T> {
+	T element;
 	Vertex[] neighbors;
 	double[] weights;
 
 	int size = 0;
 
-	public Vertex(String name, boolean flag) {
-		this.name = name;
-		this.flag = flag;
+	public Vertex() {
+		this.element = element;
+		this.neighbors = new Vertex[1];
+		this.weights = new double[1];
+		this.size = 0;
+	}
+	
+	public Vertex(T element) {
+		this.element = element;
 		this.neighbors = new Vertex[1];
 		this.weights = new double[1];
 		this.size = 0;
 	}
 
-	public boolean isFlag() {
-		return this.flag;
+	public T getElement(){
+		return this.element;
 	}
 
 	public Vertex[] getNeighbors() {
@@ -42,13 +47,15 @@ public class Vertex {
 		for (int i = 0; i < neighbors.length; i++) {
 			if (this.neighbors[i] == neighbor) {
 				this.neighbors[i] = null;
+				this.weights[i] = 0.0;
 				size--;
+				return;
 			}
 		}
 	}
 
 	private void increaseCapacity() {
-		int newCapacity = neighbors.length * 2;
+		int newCapacity = neighbors.length + 1;
 		neighbors = copyNeighborsArray(neighbors, newCapacity);
 		weights = copyWeightsArray(weights, newCapacity);
 	}
