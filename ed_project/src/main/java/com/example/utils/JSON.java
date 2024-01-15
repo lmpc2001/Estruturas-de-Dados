@@ -46,7 +46,7 @@ public class JSON {
 		jsonObject.put("map", jsonMapArray);
 		jsonObject.put("Players", jsonPlayersArray);
 
-		FileWriter file = new FileWriter(Properties.SAVE_GAMEMAP_FILE_PATH);
+		FileWriter file = new FileWriter(Properties.GAME_FILE_PATH);
 		file.write(jsonObject.toJSONString());
 		file.flush();
 
@@ -58,7 +58,7 @@ public class JSON {
 		Game resumeGame = new Game();
 
 		JSONParser parser = new JSONParser();
-		Object object = parser.parse(new FileReader(Properties.SAVE_GAMEMAP_FILE_PATH));
+		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
 
 		JSONObject jsonObj = (JSONObject) object;
 		JSONArray resumedMapMatrix = (JSONArray) jsonObj.get("map");
