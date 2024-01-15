@@ -6,7 +6,6 @@ import com.example.usecases.exceptions.EmptyMapException;
 
 public class Game {
 	private GameMap map;
-	// private LinkedQueue<Player> players;
 	private UnorderedList<Player> players;
 
 	public Game() {

@@ -28,13 +28,8 @@ public class JSON {
 		JSONArray jsonMapArray = new JSONArray();
 
 		for (Player player : players) {
-			jsonPlayersArray.add(player.parseToJson());
-			
+			jsonPlayersArray.add(player.parseToJson());			
 		}
-		
-		// do {
-		// 	jsonPlayersArray.add(players.dequeue().parseToJson());
-		// } while (!players.isEmpty());
 
 		JSONObject jsonObject = new JSONObject();
 

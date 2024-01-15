@@ -5,7 +5,6 @@ import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
-import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.utils.Randomness;
 
 public class GenerateKickOffPlayerUseCase {
@@ -17,14 +16,6 @@ public class GenerateKickOffPlayerUseCase {
 		int playerIndex = Randomness.getRandomNumber(0, Properties.MAX_PLAYERS);
 		int count = 0;
 
-		// do {
-		// if (count == playerIndex) {
-		// orderedPlayers.addToFront(gamePlayers.dequeue());
-		// } else {
-		// orderedPlayers.addToRear(gamePlayers.dequeue());
-		// }
-		// count++;
-		// } while (!gamePlayers.isEmpty());
 
 		for (Player player : gamePlayers) {
 			if (count == playerIndex) {
@@ -36,9 +27,5 @@ public class GenerateKickOffPlayerUseCase {
 		}
 
 		game.setPlayers(orderedPlayers);
-		// for (Player player : orderedPlayers) {
-		// 	game.addPlayer(player);
-		// }
-
 	}
 }

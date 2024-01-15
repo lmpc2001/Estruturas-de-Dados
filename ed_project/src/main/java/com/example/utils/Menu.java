@@ -6,14 +6,8 @@ import org.json.simple.parser.ParseException;
 
 import com.example.domain.Game;
 import com.example.domain.GameMap;
-import com.example.domain.Player;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
-import com.example.usecases.GenerateKickOffPlayerUseCase;
-import com.example.usecases.GenerateMapUseCase;
-import com.example.usecases.LoadPreviousGame;
-import com.example.usecases.SetFlagLocationUseCase;
-import com.example.usecases.SetPlayerBotsUseCase;
 import com.example.usecases.StartGameUseCase;
 import com.example.usecases.exceptions.EmptyMapException;
 
