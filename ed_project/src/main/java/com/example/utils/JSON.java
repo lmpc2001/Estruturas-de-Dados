@@ -15,8 +15,9 @@ import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
-import com.example.structures.implementation.UnorderedList;
+import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.implementation.graph.Vertex;
+import com.example.structures.implementation.list.UnorderedList;
 
 public class JSON {
 	public static void saveGame(Game game) throws IOException {
@@ -31,7 +32,7 @@ public class JSON {
 
 		JSONObject jsonObject = new JSONObject();
 
-		int[][] mapMatrix = map.getMap();
+		double[][] mapMatrix = map.downloadAdjencyMatrixWithWeights();
 
 		for (int i = 0; i < mapMatrix.length; i++) {
 			JSONArray mapLineMatrix = new JSONArray();
@@ -51,19 +52,58 @@ public class JSON {
 		System.out.println("Jogo Guardado com sucesso");
 	}
 
-	public static Game uploadGameMap() throws FileNotFoundException, IOException, ParseException {
-		Game resumeGame;
+	public static Game uploadGameMap()
+			throws FileNotFoundException, IOException, ParseException, ElementNotFoundException {
+		Game resumeGame = null;
 
 		JSONParser parser = new JSONParser();
-		Object object = parser.parse(new FileReader(Properties.UPLOAD_GAMEMAP_FILE_PATH));
+		Object object = parser.parse(new FileReader(Properties.SAVE_GAMEMAP_FILE_PATH));
 
 		JSONObject jsonObj = (JSONObject) object;
 		JSONArray resumedMapMatrix = (JSONArray) jsonObj.get("map");
 
 		JSONArray jsonArrayPlayers = (JSONArray) jsonObj.get("Players");
 
-		loadPlayers(jsonArrayPlayers);
+		loadMap(resumeGame, resumedMapMatrix);
+		loadPlayers(resumeGame, jsonArrayPlayers);
 
+		return null;
+	}
+
+	private static void loadMap(Game resumeGame, JSONArray mapMatrix) throws ElementNotFoundException {
+		Object[] lines = new Object[mapMatrix.size()];
+		double[][] loadedMapMatrix = new double[mapMatrix.size()][mapMatrix.size()];
+		int counter = 0;
+
+		for (Object line : mapMatrix) {
+			lines[counter] = line;
+			counter++;
+		}
+
+		GameMap map = new GameMap(lines.length, 0);
+
+		for (int i = 0; i < lines.length; i++) {
+			String splitedLine[] = lines[i].toString().replace("[", "").replace("]", "").split(",");
+
+			for (int j = 0; j < splitedLine.length; j++) {
+				loadedMapMatrix[i][j] = Double.parseDouble(splitedLine[j]);
+			}
+		}
+
+		for (int i = 0; i < loadedMapMatrix.length; i++) {
+			map.addVertex(i);
+		}
+
+		for (int i = 0; i < mapMatrix.size(); i++) {
+			for (int j = 0; j < mapMatrix.size(); j++) {
+				if (loadedMapMatrix[i][j] != 0) {
+					map.addEdge(i, j, loadedMapMatrix[i][j]);
+				}
+			}
+		}
+
+		map.printAdjencyMatrix();
+		map.printAdjencyMatrixWithWeights();
 	}
 
 	private static void loadPlayers(Game resumeGame, JSONArray jsonArrayPlayers) {
@@ -71,7 +111,7 @@ public class JSON {
 			JSONObject jsonPlayer = (JSONObject) player;
 
 			String playerName = (String) jsonPlayer.get("name");
-			Vertex flag = (Vertex) jsonPlayer.get("flag");
+			int[] flag = (int[]) jsonPlayer.get("flag");
 
 			Player loadedPlayer = new Player(playerName);
 
@@ -90,11 +130,9 @@ public class JSON {
 
 			String botName = (String) jsonPlayerBot.get("name");
 			String botStrategy = (String) jsonPlayerBot.get("Strategy");
-			String botLocation = (String) jsonPlayerBot.get("Location");
+			int[] botLocation = (int[]) jsonPlayerBot.get("Location");
 
-			Vertex vertex = new Vertex<>();
-
-			Bot loadedBot = new Bot(botName, botStrategy, vertex);
+			Bot loadedBot = new Bot(botName, botStrategy, botLocation);
 
 			loadedPlayer.addBot(loadedBot);
 		}
