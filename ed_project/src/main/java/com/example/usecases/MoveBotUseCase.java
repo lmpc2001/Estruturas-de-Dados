@@ -1,7 +1,5 @@
 package com.example.usecases;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.Player;
@@ -19,9 +17,13 @@ public class MoveBotUseCase {
 			playerToPlay = game.getPlayerTurn();
 
 			int linha = Scanners.getInputInt(
-					"[ " + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot: ");
+					"[" + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
 			int coluna = Scanners.getInputInt(
-					"[ " + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot: ");
+					"[" + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
+
+			if(linha == -1 || coluna == -1){
+				break;
+			}
 
 			UnorderedList<Player> gamePlayers = game.getPlayers();
 
@@ -36,8 +38,8 @@ public class MoveBotUseCase {
 
 					while (botCoordinates[0] == linha && botCoordinates[1] == coluna) {
 						System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
-						linha = Scanners.getInputInt("Insira a nova linha para onde deseja mover o bot: ");
-						coluna = Scanners.getInputInt("Insira a nova coluna para onde deseja mover o bot: ");
+						linha = Scanners.getInputInt("[" + playerToPlay.getPlayerName() + "]: Insira a nova linha para onde deseja mover o bot: ");
+						coluna = Scanners.getInputInt("[" + playerToPlay.getPlayerName() + "]: Insira a nova coluna para onde deseja mover o bot: ");
 					}
 
 				} while (!bots.isEmpty());
