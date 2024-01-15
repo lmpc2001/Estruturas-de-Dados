@@ -1,7 +1,7 @@
 package com.example.domain;
 
 import com.example.configs.Properties;
-import com.example.structures.implementation.UnorderedList;
+import com.example.structures.implementation.list.UnorderedList;
 
 public class Game {
 	GameMap map;

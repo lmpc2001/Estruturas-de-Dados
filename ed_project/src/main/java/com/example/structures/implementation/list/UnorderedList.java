@@ -1,5 +1,4 @@
-package com.example.structures.implementation;
-
+package com.example.structures.implementation.list;
 
 import com.example.structures.adt.UnorderListADT;
 import com.example.structures.exceptions.ElementNotFoundException;
@@ -52,7 +51,7 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 	@Override
 	public void addAfter(T element, T target) throws EmptyListException, ElementNotFoundException {
 		if (isEmpty()) {
-			throw new EmptyListException("Esta lista está vazia!");
+			throw new EmptyListException();
 		}
 		if (!listContains(element)) {
 			throw new ElementNotFoundException();
@@ -77,5 +76,22 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		this.list[targetIndex + 1] = element;
 		this.rear++;
 		this.modCount++;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("[");
+		for (int i = 0; i < rear; i++) {
+			sb.append(list[i]);
+
+			// Adiciona vírgula apenas se não for o último elemento
+			if (i < rear - 1) {
+				sb.append(", ");
+			}
+		}
+		sb.append("]");
+
+		return sb.toString();
 	}
 }

@@ -2,7 +2,6 @@ package com.example.usecases;
 
 import com.example.domain.GameMap;
 import com.example.domain.Player;
-import com.example.structures.implementation.graph.Vertex;
 import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.Scanners;
 
@@ -14,12 +13,13 @@ public class SetFlagLocationUseCase {
 			throw new EmptyMapException();
 		}
 
-		map.showGraphMatrix();
+		map.seeMap();
 
-		int vertexPosition = Scanners.getInputInt("Selecione a posição do vertice onde desejar guardar a bandeira: ");
+		int vertexLine = Scanners.getInputInt("Selecione a linha do vertice onde desejar guardar a bandeira: ");
+		int vertexCol = Scanners.getInputInt("Selecione a coluna do vertice onde desejar guardar a bandeira: ");
 
-		Vertex flagPosition = map.getVertex(vertexPosition);
+		int[] flagVertex = {vertexLine, vertexCol};
 
-		player.setFlag(flagPosition);
+		player.setFlag(flagVertex);
 	}
 }

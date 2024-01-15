@@ -1,6 +1,7 @@
-package com.example.structures.implementation;
+package com.example.structures.implementation.queue;
 
 import com.example.structures.adt.QueueADT;
+import com.example.structures.implementation.LinearNode;
 
 public class LinkedQueue<T> implements QueueADT<T> {
 	private LinearNode<T> frontNode;
@@ -31,6 +32,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
 		LinearNode<T> nextLinearNode = this.frontNode.getNext();
 
 		this.frontNode.setNext(nextLinearNode);
+		this.count--;
 
 		return tmp;
 	}
@@ -51,4 +53,13 @@ public class LinkedQueue<T> implements QueueADT<T> {
 		return count;
 	}
 
+	public String toString() {
+		LinearNode<T> current = this.frontNode;
+		String s = "LinkedQueue:\n";
+		while (current != null) {
+			s += current.getElement().toString() + "\n";
+			current = current.getNext();
+		}
+		return s;
+	}
 }

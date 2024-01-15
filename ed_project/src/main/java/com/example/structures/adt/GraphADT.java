@@ -2,26 +2,27 @@ package com.example.structures.adt;
 
 import java.util.Iterator;
 
-import com.example.structures.implementation.graph.Vertex;
+import com.example.structures.exceptions.ElementNotFoundException;
+import com.example.structures.exceptions.EmptyListException;
 
 /**
  *
  */
-public interface GraphADT {
+public interface GraphADT<T> {
 
 	/**
 	 * Adiciona um vertice ao grafo
 	 *
 	 * @param vertex vertice a ser adicionado
 	 */
-	public void addVertex(Vertex vertex);
+	public void addVertex(T vertex);
 
 	/**
 	 * Remove um vertice do grafo
 	 *
 	 * @param vertex vertice a remover
 	 */
-	public void removeVertex(Vertex vertex);
+	public void removeVertex(T vertex) throws ElementNotFoundException;
 
 	/**
 	 * Adiciona um caminho entre dois vertices
@@ -29,7 +30,7 @@ public interface GraphADT {
 	 * @param vertex1 vertice 1
 	 * @param vertex2 vertice 2
 	 */
-	public void addEdge(Vertex vertex1, Vertex vertex2, double weight);
+	public void addEdge(T vertex1, T vertex2) throws ElementNotFoundException;
 
 	/**
 	 * Remove um caminho entre dois vertices
@@ -37,7 +38,7 @@ public interface GraphADT {
 	 * @param vertex1 vertice 1
 	 * @param vertex2 vertice 2
 	 */
-	public void removeEdge(Vertex vertex1, Vertex vertex2);
+	public void removeEdge(T vertex1, T vertex2) throws ElementNotFoundException;
 
 	/**
 	 * Returns a breadth first iterator starting with the given vertex.
@@ -46,7 +47,7 @@ public interface GraphADT {
 	 * @return a breadth first iterator beginning at
 	 *         the given vertex
 	 */
-	Iterator iteratorBFS(Vertex startVertex);
+	Iterator<T> iteratorBFS(T startVertex);
 
 	/**
 	 * Returns a depth first iterator starting with the given vertex.
@@ -55,7 +56,7 @@ public interface GraphADT {
 	 * @return a depth first iterator starting at the
 	 *         given vertex
 	 */
-	Iterator iteratorDFS(Vertex startVertex);
+	Iterator<T> iteratorDFS(T startVertex);
 
 	/** 
 	 * Returns an iterator that contains the shortest path between
@@ -66,7 +67,7 @@ public interface GraphADT {
 	 * @return an iterator that contains the shortest 
 	 * path between the two vertices
 	 */
-	Iterator iteratorShortestPath(Vertex startVertex, Vertex targetVertex);
+	Iterator<T> iteratorShortestPath(T startVertex, T targetVertex) throws EmptyListException, ElementNotFoundException;
 
 	/**
 	 * Retorna true caso o grafo esteja vazio e false caso não esteja

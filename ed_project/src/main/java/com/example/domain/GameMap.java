@@ -1,9 +1,8 @@
 package com.example.domain;
 
-import com.example.structures.implementation.graph.Graph;
-import com.example.structures.implementation.graph.Vertex;
+import com.example.structures.implementation.network.Network;
 
-public class GameMap extends Graph {
+public class GameMap extends Network {
 	private double edgeDensity;
 
 	public GameMap(int numberOfLocations, double edgeDensity) {
@@ -24,17 +23,17 @@ public class GameMap extends Graph {
 	}
 
 	public void seeMap() {
-		this.showGraphMatrix();
-	}
-
-	public int[][] getMap() {
-		return this.getGraphMatrix();
+		this.printAdjencyMatrixWithWeights();
 	}
 
 	public boolean checkWin(Player oppositePlayer, Bot bot) {
-		Vertex botPosition = bot.getCurrentPosition();
-		Vertex oppositePlayerFlagPosition = oppositePlayer.getFlag();
+		int[] botPosition = bot.getCurrentPosition();
+		int[] oppositePlayerFlagPosition = oppositePlayer.getFlag();
 
-		return botPosition.equals(oppositePlayerFlagPosition);
+		if (botPosition[0] == oppositePlayerFlagPosition[0] && botPosition[1] == oppositePlayerFlagPosition[1]) {
+			return true;
+		}
+
+		return false;
 	}
 }

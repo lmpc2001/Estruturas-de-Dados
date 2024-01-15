@@ -3,13 +3,12 @@ package com.example.domain;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.example.structures.implementation.UnorderedList;
-import com.example.structures.implementation.graph.Vertex;
+import com.example.structures.implementation.list.UnorderedList;
 
 public class Player {
 	private String playerName;
 	private UnorderedList<Bot> playerBots;
-	private Vertex<Local> flag;
+	private int[] flag = new int[2];
 
 	public Player(String playerName) {
 		this.playerName = playerName;
@@ -32,25 +31,29 @@ public class Player {
 		this.playerBots.addToRear(playerBots);
 	}
 
-	public Vertex<Local> getFlag() {
+	public int[] getFlag() {
 		return this.flag;
 	}
 
-	public void setFlag(Vertex<Local> flagPosition) {
+	public void setFlag(int[] flagPosition) {
 		this.flag = flagPosition;
 	}
 
 	public JSONObject parseToJson() {
 		JSONObject jsonPlayer = new JSONObject();
 		JSONArray playerBotsJsonArray = new JSONArray();
+		JSONArray playerLocation = new JSONArray();
 
 		for(Bot playerBot : playerBots) {
 			playerBotsJsonArray.add(playerBot.parseToJson());
 		}
 
+		playerLocation.add(this.flag[0]);
+		playerLocation.add(this.flag[1]);
+
 		jsonPlayer.put("name", this.playerName);
 		jsonPlayer.put("bots", playerBotsJsonArray);
-		jsonPlayer.put("flag", this.flag);
+		jsonPlayer.put("flag", playerLocation);
 
 		return jsonPlayer;
 	}

@@ -1,19 +1,18 @@
 package com.example.domain;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import com.example.structures.implementation.graph.Vertex;
 
 public class Bot {
 	private String botName;
 	private String strategy;
-	private Vertex<Local> currentLocation;
+	private int[] currentLocation = new int[2];
 
 	public Bot(String botName) {
 		this.botName = botName;
 	}
 
-	public Bot(String botName, String strategy, Vertex position) {
+	public Bot(String botName, String strategy, int[] position) {
 		this.botName = botName;
 		this.strategy = strategy;
 		this.currentLocation = position;
@@ -35,20 +34,25 @@ public class Bot {
 		this.strategy = strategy;
 	}
 
-	public Vertex<Local> getCurrentPosition() {
+	public int[] getCurrentPosition() {
 		return currentLocation;
 	}
 
-	public void setCurrentPosition(Vertex<Local> newPosition) {
+	public void setCurrentPosition(int[] newPosition) {
 		this.currentLocation = newPosition;
 	}
 
 	public JSONObject parseToJson() {
 		JSONObject jsonBot = new JSONObject();
+		JSONArray botLocation = new JSONArray();
 
 		jsonBot.put("Name", this.botName);
 		jsonBot.put("Strategy", this.strategy);
-		jsonBot.put("Location", this.currentLocation);
+		
+		botLocation.add(this.currentLocation[0]);
+		botLocation.add(this.currentLocation[1]);
+		
+		jsonBot.put("Location", botLocation);
 
 		return jsonBot;
 	}

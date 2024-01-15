@@ -1,8 +1,9 @@
 package com.example.structures.adt;
 
-import com.example.structures.implementation.Vertex;
+import com.example.structures.exceptions.ElementNotFoundException;
+import com.example.structures.implementation.list.UnorderedList;
 
-public interface NetworkADT extends GraphADT {
+public interface NetworkADT<T> extends GraphADT<T> {
 	/**
 	 * Inserts an edge between two vertices of this graph.
 	 *
@@ -10,7 +11,7 @@ public interface NetworkADT extends GraphADT {
 	 * @param vertex2 the second vertex
 	 * @param weight  the weight
 	 */
-	void addEdge(Vertex vertex1, Vertex vertex2, double weight);
+	void addEdge(T vertex1, T vertex2, double weight) throws ElementNotFoundException;
 
 	/**
 	 * Returns the weight of the shortest path in this network.
@@ -19,5 +20,5 @@ public interface NetworkADT extends GraphADT {
 	 * @param vertex2 the second vertex
 	 * @return the weight of the shortest path in this network
 	 */
-	double shortestPathWeight(Vertex vertex1, Vertex vertex2);
+	public UnorderedList<T> shortestPathWeight(T vertex1, T vertex2) throws ElementNotFoundException;
 }

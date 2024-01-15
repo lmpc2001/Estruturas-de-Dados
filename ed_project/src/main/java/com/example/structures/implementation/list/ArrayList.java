@@ -1,4 +1,4 @@
-package com.example.structures.implementation;
+package com.example.structures.implementation.list;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -16,14 +16,14 @@ public abstract class ArrayList<T> implements ListADT<T> {
 	protected int rear;
 	protected int modCount;
 
-	public ArrayList() {
+	protected ArrayList() {
 		this.list = (T[]) (new Object[DEFAULT_SIZE]);
 		this.front = 0;
 		this.rear = 0;
 		this.modCount = 0;
 	}
 
-	public ArrayList(int size) {
+	protected ArrayList(int size) {
 		this.list = (T[]) (new Object[size]);
 		this.front = 0;
 		this.rear = 0;
@@ -33,7 +33,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 	@Override
 	public T removeFirst() throws EmptyListException {
 		if (isEmpty()) {
-			throw new EmptyListException("Esta lista já se encontra vazia!");
+			throw new EmptyListException();
 		}
 
 		T element = list[front];
@@ -51,7 +51,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 	@Override
 	public T removeLast() throws EmptyListException {
 		if (isEmpty()) {
-			throw new EmptyListException("Esta lista já se encontra vazia!");
+			throw new EmptyListException();
 		}
 
 		T element = this.list[rear];
@@ -69,7 +69,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 		T removedElement = null;
 
 		if (isEmpty()) {
-			throw new EmptyListException("Esta lista já se encontra vazia!");
+			throw new EmptyListException();
 		}
 
 		if (!listContains(element)) {
@@ -100,7 +100,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 	@Override
 	public T first() throws EmptyListException {
 		if (isEmpty()) {
-			throw new EmptyListException("Esta lista encontra-se vazia!");
+			throw new EmptyListException();
 		}
 		return this.list[front];
 	}
@@ -108,7 +108,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 	@Override
 	public T last() throws EmptyListException {
 		if (isEmpty()) {
-			throw new EmptyListException("Esta lista encontra-se vazia!");
+			throw new EmptyListException();
 		}
 		return this.list[rear];
 	}
