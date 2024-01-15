@@ -69,7 +69,7 @@ public class Player {
 	}
 
 	public String toString() {
-		return "Player {" +
+		return "Player {\n" +
 				"Name: " + this.playerName + "\n" +
 				"Bots: " + this.playerBots + "\n" +
 				"}";

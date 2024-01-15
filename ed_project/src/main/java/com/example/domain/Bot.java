@@ -58,7 +58,7 @@ public class Bot {
 	}
 
 	public String toString() {
-		return "Bot {" +
+		return "Bot {\n" +
 				"Name: " + this.botName + "\n" +
 				"Strategy: " + this.strategy + "\n" +
 				"Current Location: " + this.currentLocation + "\n" +

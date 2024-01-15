@@ -77,7 +77,6 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 		int current = indexVertex2;
 
 		while (current != -1) {
-			// shortestPath.addToFront(vertices.get(current).getData());
 			shortestPath.addToFront(vertex[(current)]);
 			current = predecessors[current];
 		}
