@@ -25,15 +25,4 @@ public class GameMap extends Network {
 	public void seeMap() {
 		this.printAdjencyMatrixWithWeights();
 	}
-
-	public boolean checkWin(Player oppositePlayer, Bot bot) {
-		int[] botPosition = bot.getCurrentPosition();
-		int[] oppositePlayerFlagPosition = oppositePlayer.getFlag();
-
-		if (botPosition[0] == oppositePlayerFlagPosition[0] && botPosition[1] == oppositePlayerFlagPosition[1]) {
-			return true;
-		}
-
-		return false;
-	}
 }

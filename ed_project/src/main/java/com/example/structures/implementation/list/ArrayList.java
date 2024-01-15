@@ -38,10 +38,10 @@ public abstract class ArrayList<T> implements ListADT<T> {
 
 		T element = list[front];
 		this.list[front] = null;
-
+		this.rear--;
+		
 		reorderArray();
 
-		this.rear--;
 		this.modCount++;
 
 		return element;
@@ -55,7 +55,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 		}
 
 		T element = this.list[rear];
-		this.list[rear] = null;
+		this.list[rear - 1] = null;
 
 		this.rear--;
 		this.modCount++;
@@ -110,7 +110,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 		if (isEmpty()) {
 			throw new EmptyListException();
 		}
-		return this.list[rear];
+		return this.list[rear - 1];
 	}
 
 	@Override
@@ -175,17 +175,18 @@ public abstract class ArrayList<T> implements ListADT<T> {
 			if (expectedModCount != modCount) {
 				throw new ConcurrentModificationException("Concorrência");
 			}
-			return (this.items[this.current] != null);
+			
+			return this.current < this.items.length && this.items[this.current] != null;
 		}
 
 		@Override
 		public T next() {
-            T temp = items[this.current];
-            if (hasNext()) {
-                this.current++;
-            }
-            return temp;
-        }
+			T temp = items[this.current];
+			if (hasNext()) {
+				this.current++;
+			}
+			return temp;
+		}
 
 	}
 }

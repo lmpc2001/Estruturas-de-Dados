@@ -3,16 +3,17 @@ package com.example.domain;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.example.structures.implementation.list.UnorderedList;
+import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.queue.LinkedQueue;
 
 public class Player {
 	private String playerName;
-	private UnorderedList<Bot> playerBots;
+	private LinkedQueue<Bot> playerBots;
 	private int[] flag = new int[2];
 
 	public Player(String playerName) {
 		this.playerName = playerName;
-		this.playerBots = new UnorderedList<>();
+		this.playerBots = new LinkedQueue<>();
 	}
 
 	public String getPlayerName() {
@@ -23,12 +24,12 @@ public class Player {
 		this.playerName = playerName;
 	}
 
-	public UnorderedList<Bot> getPlayerBots() {
+	public LinkedQueue<Bot> getPlayerBots() {
 		return playerBots;
 	}
 
 	public void addBot(Bot playerBots) {
-		this.playerBots.addToRear(playerBots);
+		this.playerBots.enqueue(playerBots);
 	}
 
 	public int[] getFlag() {
@@ -39,14 +40,23 @@ public class Player {
 		this.flag = flagPosition;
 	}
 
-	public JSONObject parseToJson() {
+	public Bot getBotToPlay() throws EmptyListException{
+		Bot botToMove = this.playerBots.dequeue();
+		this.playerBots.enqueue(botToMove);
+
+		return botToMove;
+	}
+
+	public JSONObject parseToJson() throws EmptyListException {
 		JSONObject jsonPlayer = new JSONObject();
 		JSONArray playerBotsJsonArray = new JSONArray();
 		JSONArray playerLocation = new JSONArray();
 
-		for(Bot playerBot : playerBots) {
-			playerBotsJsonArray.add(playerBot.parseToJson());
-		}
+		do {
+			playerBotsJsonArray.add(playerBots.dequeue().parseToJson());
+		} while (!playerBots.isEmpty());
+
+		System.out.println("Lenght da Queue principal de bots do player" + playerBots.size());
 
 		playerLocation.add(this.flag[0]);
 		playerLocation.add(this.flag[1]);

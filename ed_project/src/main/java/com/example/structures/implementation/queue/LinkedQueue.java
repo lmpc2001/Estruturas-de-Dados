@@ -1,6 +1,7 @@
 package com.example.structures.implementation.queue;
 
 import com.example.structures.adt.QueueADT;
+import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.LinearNode;
 
 public class LinkedQueue<T> implements QueueADT<T> {
@@ -15,23 +16,37 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	}
 
 	public LinkedQueue(T element) {
-		this.count = 0;
+		this.count = 1;
 		this.frontNode = new LinearNode(element);
-		this.rearNode = new LinearNode(element);
+		// this.rearNode = new LinearNode(element);
 	}
 
 	public void enqueue(T element) {
 		LinearNode<T> newElement = new LinearNode<T>(element);
 
-		this.frontNode.setNext(newElement);
-		this.rearNode = newElement;
+		if (this.frontNode == null) {
+			this.frontNode = newElement;
+		} else {
+			this.frontNode.setNext(newElement);
+		}
+
+		// this.rearNode = newElement;
+		this.count++;
 	}
 
-	public T dequeue() {
+	public T dequeue() throws EmptyListException {
+		if (isEmpty()) {
+			throw new EmptyListException("LinkedQueue: ");
+		}
+
 		T tmp = this.frontNode.getElement();
 		LinearNode<T> nextLinearNode = this.frontNode.getNext();
 
-		this.frontNode.setNext(nextLinearNode);
+		if (this.frontNode == null) {
+			this.rearNode = null;
+		}
+
+		this.frontNode = nextLinearNode;
 		this.count--;
 
 		return tmp;
@@ -42,11 +57,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	}
 
 	public boolean isEmpty() {
-		if (this.frontNode.getNext() != null) {
-			return false;
-		}
-
-		return true;
+		return count == 0;
 	}
 
 	public int size() {

@@ -1,10 +1,18 @@
 package com.example.usecases;
 
-import com.example.domain.GameMap;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
+import com.example.domain.Game;
+import com.example.structures.exceptions.ElementNotFoundException;
+import com.example.utils.JSON;
 
 public class LoadPreviousGame {
-	public static GameMap execute() {
+	public static Game execute() throws FileNotFoundException, IOException, ParseException, ElementNotFoundException {
+		Game resumeGame = JSON.resumeGame();
 
-		return null;
+		return resumeGame;
 	}
 }

@@ -42,7 +42,7 @@ public class GenerateMapUseCase {
 				excludedNumbers[i] = randomNeighborIndex;
 			}
 
-			int randomDistanceBetweenNeighbors = Randomness.getRandomNumber(0, 15);
+			int randomDistanceBetweenNeighbors = Randomness.getRandomNumber(0, 16);
 
 			map.addEdge(i, randomNeighborIndex, randomDistanceBetweenNeighbors);
 

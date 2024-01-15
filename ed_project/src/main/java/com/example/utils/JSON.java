@@ -16,11 +16,12 @@ import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
 import com.example.structures.exceptions.ElementNotFoundException;
-import com.example.structures.implementation.graph.Vertex;
+import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
+import com.example.usecases.exceptions.EmptyMapException;
 
 public class JSON {
-	public static void saveGame(Game game) throws IOException {
+	public static void saveGame(Game game) throws IOException, EmptyMapException, EmptyListException {
 		GameMap map = game.getGameMap();
 		UnorderedList<Player> players = game.getPlayers();
 		JSONArray jsonPlayersArray = new JSONArray();
@@ -28,7 +29,12 @@ public class JSON {
 
 		for (Player player : players) {
 			jsonPlayersArray.add(player.parseToJson());
+			
 		}
+		
+		// do {
+		// 	jsonPlayersArray.add(players.dequeue().parseToJson());
+		// } while (!players.isEmpty());
 
 		JSONObject jsonObject = new JSONObject();
 
@@ -52,9 +58,9 @@ public class JSON {
 		System.out.println("Jogo Guardado com sucesso");
 	}
 
-	public static Game uploadGameMap()
+	public static Game resumeGame()
 			throws FileNotFoundException, IOException, ParseException, ElementNotFoundException {
-		Game resumeGame = null;
+		Game resumeGame = new Game();
 
 		JSONParser parser = new JSONParser();
 		Object object = parser.parse(new FileReader(Properties.SAVE_GAMEMAP_FILE_PATH));
@@ -67,7 +73,7 @@ public class JSON {
 		loadMap(resumeGame, resumedMapMatrix);
 		loadPlayers(resumeGame, jsonArrayPlayers);
 
-		return null;
+		return resumeGame;
 	}
 
 	private static void loadMap(Game resumeGame, JSONArray mapMatrix) throws ElementNotFoundException {
@@ -104,6 +110,8 @@ public class JSON {
 
 		map.printAdjencyMatrix();
 		map.printAdjencyMatrixWithWeights();
+
+		resumeGame.setGameMap(map);
 	}
 
 	private static void loadPlayers(Game resumeGame, JSONArray jsonArrayPlayers) {
@@ -111,7 +119,10 @@ public class JSON {
 			JSONObject jsonPlayer = (JSONObject) player;
 
 			String playerName = (String) jsonPlayer.get("name");
-			int[] flag = (int[]) jsonPlayer.get("flag");
+			String[] unhandledFlagLocation = jsonPlayer.get("flag").toString().replace("[", "").replace("]", "")
+					.split(",");
+
+			int[] flag = { Integer.parseInt(unhandledFlagLocation[0]), Integer.parseInt(unhandledFlagLocation[1]) };
 
 			Player loadedPlayer = new Player(playerName);
 
@@ -130,7 +141,11 @@ public class JSON {
 
 			String botName = (String) jsonPlayerBot.get("name");
 			String botStrategy = (String) jsonPlayerBot.get("Strategy");
-			int[] botLocation = (int[]) jsonPlayerBot.get("Location");
+			String[] unhandledBotLocation = jsonPlayerBot.get("Location").toString().replace("[", "").replace("]", "")
+					.split(",");
+
+			int[] botLocation = { Integer.parseInt(unhandledBotLocation[0]),
+					Integer.parseInt(unhandledBotLocation[1]) };
 
 			Bot loadedBot = new Bot(botName, botStrategy, botLocation);
 

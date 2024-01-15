@@ -8,16 +8,27 @@ import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
 import com.example.structures.exceptions.ElementNotFoundException;
+import com.example.structures.exceptions.EmptyListException;
+import com.example.usecases.GenerateKickOffPlayerUseCase;
 import com.example.usecases.GenerateMapUseCase;
+import com.example.usecases.LoadPreviousGame;
 import com.example.usecases.SetFlagLocationUseCase;
 import com.example.usecases.SetPlayerBotsUseCase;
+import com.example.usecases.StartGameUseCase;
 import com.example.usecases.exceptions.EmptyMapException;
 
 public class Menu {
 	static Game game;
 	static GameMap map;
 
-	public static void showMainMenu() throws IOException, EmptyMapException, ParseException, ElementNotFoundException {
+	private StartGameUseCase startGameUseCase;
+
+	public Menu() {
+		this.startGameUseCase = new StartGameUseCase();
+	}
+
+	public void showMainMenu()
+			throws IOException, EmptyMapException, ParseException, ElementNotFoundException, EmptyListException {
 		boolean showMenu = true;
 
 		while (showMenu) {
@@ -30,35 +41,11 @@ public class Menu {
 
 			switch (Scanners.getInputInt("| Opção : ")) {
 				case 1: {
-					map = GenerateMapUseCase.execute();
-					game = new Game(map);
-
-					map.seeMap();
-
-					int numberOfPlayerBots = Scanners.getInputInt("| Nº de bots por jogador: ");
-
-					String namePlayer1 = Scanners.getInputString("| Nome do jogador 1: ");
-					Player player1 = new Player(namePlayer1);
-					SetFlagLocationUseCase.execute(map, player1);
-
-					String namePlayer2 = Scanners.getInputString("| Nome do jogador 2: ");
-					Player player2 = new Player(namePlayer2);
-					SetFlagLocationUseCase.execute(map, player2);
-
-					SetPlayerBotsUseCase.execute(player1, numberOfPlayerBots);
-					SetPlayerBotsUseCase.execute(player2, numberOfPlayerBots);
-
-					game.addPlayer(player1);
-					game.addPlayer(player2);
-
-					map.seeMap();
+					game = startGameUseCase.execute();
 					break;
 				}
 				case 2: {
-					// GameMap map = LoadPreviousGame.execute();
-					// game = new Game(map);
-
-					JSON.uploadGameMap();
+					// game = LoadPreviousGame.execute();
 
 					break;
 				}
@@ -87,7 +74,8 @@ public class Menu {
 					+ "| 1. Ver posição da bandeira \n"
 					+ "| 2. Ver nome do player \n"
 					+ "| 3. Ver mapa \n"
-					+ "| 3. Sair");
+					+ "| 4. Ver ordem dos jogadores \n"
+					+ "| 5. Sair");
 
 			switch (Scanners.getInputInt("| Opção : ")) {
 				case 1: {
@@ -99,6 +87,10 @@ public class Menu {
 				}
 				case 3: {
 					map.printAdjencyMatrixWithWeights();
+					break;
+				}
+				case 4: {
+					System.out.println(game.getPlayers().toString());
 					break;
 				}
 				default: {

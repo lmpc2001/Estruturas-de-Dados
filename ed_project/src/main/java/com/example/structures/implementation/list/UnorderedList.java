@@ -18,7 +18,7 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 	public void addToFront(T element) {
 		T[] tmpList = list;
 
-		if (this.rear == this.list.length - 1) {
+		if (this.rear == this.list.length) {
 			increaseListCapacity();
 		}
 
@@ -29,8 +29,6 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		tmpList[front] = element;
 		this.rear++;
 		this.modCount++;
-
-		this.list = tmpList;
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 			this.list[front] = element;
 		}
 
-		if (this.rear == this.list.length - 1) {
+		if (this.rear == this.list.length) {
 			increaseListCapacity();
 		}
 

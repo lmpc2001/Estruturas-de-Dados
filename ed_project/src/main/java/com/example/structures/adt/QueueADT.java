@@ -1,5 +1,7 @@
 package com.example.structures.adt;
 
+import com.example.structures.exceptions.EmptyListException;
+
 /**
  * Interface onde se encontram definidas todas as funções e seus tipos de dados
  * implementadas pela classe CircularArrayQueue
@@ -19,7 +21,7 @@ public interface QueueADT<T> {
 	 *
 	 * @return elemento na prossição da frente da queue
 	 */
-	public T dequeue();
+	public T dequeue() throws EmptyListException;
 
 	/**
 	 * Retorna, sem eliminar, o elemento da frente da queue
