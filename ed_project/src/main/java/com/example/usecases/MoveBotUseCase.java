@@ -28,10 +28,7 @@ public class MoveBotUseCase {
 			UnorderedList<Player> gamePlayers = game.getPlayers();
 
 			for (Player player : gamePlayers) {
-
 				LinkedQueue<Bot> bots = new LinkedQueue<>(player.getPlayerBots().first());
-
-				System.out.println(bots.toString());
 
 				do {
 					int[] botCoordinates = bots.dequeue().getCurrentPosition();

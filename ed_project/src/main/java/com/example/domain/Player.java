@@ -56,8 +56,6 @@ public class Player {
 			playerBotsJsonArray.add(playerBots.dequeue().parseToJson());
 		} while (!playerBots.isEmpty());
 
-		System.out.println("Lenght da Queue principal de bots do player" + playerBots.size());
-
 		playerLocation.add(this.flag[0]);
 		playerLocation.add(this.flag[1]);
 
