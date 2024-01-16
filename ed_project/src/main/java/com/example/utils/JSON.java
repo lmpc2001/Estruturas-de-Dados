@@ -20,7 +20,21 @@ import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
 import com.example.usecases.exceptions.EmptyMapException;
 
+/**
+ * Classe responsável pelos métodos de interação com ficheiros JSON
+ * 
+ */
 public class JSON {
+
+	/**
+	 * Método utilizado para guardar o jogo atual, escrevendo os seus detalhes num
+	 * ficheiro JSON
+	 * 
+	 * @param game instancia do objeto Game criado no inicio de cada novo jogo
+	 * @throws IOException
+	 * @throws EmptyMapException
+	 * @throws EmptyListException
+	 */
 	public static void saveGame(Game game) throws IOException, EmptyMapException, EmptyListException {
 		GameMap map = game.getGameMap();
 		UnorderedList<Player> players = game.getPlayers();
@@ -28,7 +42,7 @@ public class JSON {
 		JSONArray jsonMapArray = new JSONArray();
 
 		for (Player player : players) {
-			jsonPlayersArray.add(player.parseToJson());			
+			jsonPlayersArray.add(player.parseToJson());
 		}
 
 		JSONObject jsonObject = new JSONObject();
@@ -53,6 +67,14 @@ public class JSON {
 		System.out.println("Jogo Guardado com sucesso");
 	}
 
+	/**
+	 * Método utilizado para carregar os detalhes de um jogo anterior a partir de um
+	 * ficheiro JSON de modo a permitir a continuação do mesmo
+	 * 
+	 * @throws IOException
+	 * @throws EmptyMapException
+	 * @throws EmptyListException
+	 */
 	public static Game resumeGame()
 			throws FileNotFoundException, IOException, ParseException, ElementNotFoundException {
 		Game resumeGame = new Game();
@@ -71,6 +93,18 @@ public class JSON {
 		return resumeGame;
 	}
 
+	/**
+	 * Método responsável pelo processo de carregamento do mapa do último jogo
+	 * guardado
+	 * 
+	 * @param resumeGame instância da classe Game utilizada para
+	 *                   adicionar o mapa carregado a partir do ultimo
+	 *                   jogo guardado
+	 * 
+	 * @param mapMatrix  Array com os vértices do mapa do último jogo
+	 * 
+	 * @throws ElementNotFoundException
+	 */
 	private static void loadMap(Game resumeGame, JSONArray mapMatrix) throws ElementNotFoundException {
 		Object[] lines = new Object[mapMatrix.size()];
 		double[][] loadedMapMatrix = new double[mapMatrix.size()][mapMatrix.size()];
@@ -109,6 +143,17 @@ public class JSON {
 		resumeGame.setGameMap(map);
 	}
 
+	/**
+	 * Método responsável pelo processo de carregamento dos players do último jogo
+	 * guardado
+	 * 
+	 * @param resumeGame       instância da classe Game utilizada para
+	 *                         adicionar/guardar os players carregados do ultimo
+	 *                         jogo
+	 * 
+	 * @param jsonArrayPlayers Array com a informação carregada relativa aos
+	 *                         players do último jogo
+	 */
 	private static void loadPlayers(Game resumeGame, JSONArray jsonArrayPlayers) {
 		for (Object player : jsonArrayPlayers) {
 			JSONObject jsonPlayer = (JSONObject) player;
@@ -130,6 +175,17 @@ public class JSON {
 		}
 	}
 
+	/**
+	 * Método responsável pelo processo de carregamento dos Bots de cada jogador do
+	 * último jogo guardado
+	 * 
+	 * @param loadedPlayer        instância da classe Player referente ao jogador
+	 *                            carregado utilizada para atribuir os bots ao
+	 *                            jogador correto
+	 * 
+	 * @param jsonArrayPlayerBots Array com a informação carregada relativa aos
+	 *                            bots do Player do último jogo guardado
+	 */
 	private static void loadPlayerBots(Player loadedPlayer, JSONArray jsonArrayPlayerBots) {
 		for (Object playerBot : jsonArrayPlayerBots) {
 			JSONObject jsonPlayerBot = (JSONObject) playerBot;
