@@ -51,7 +51,7 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		if (isEmpty()) {
 			throw new EmptyListException();
 		}
-		if (!listContains(element)) {
+		if (!listContains(target)) {
 			throw new ElementNotFoundException();
 		}
 

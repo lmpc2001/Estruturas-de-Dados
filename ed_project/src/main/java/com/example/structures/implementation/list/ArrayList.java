@@ -39,7 +39,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 		T element = list[front];
 		this.list[front] = null;
 		this.rear--;
-		
+
 		reorderArray();
 
 		this.modCount++;
@@ -54,7 +54,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 			throw new EmptyListException();
 		}
 
-		T element = this.list[rear];
+		T element = this.list[rear - 1];
 		this.list[rear - 1] = null;
 
 		this.rear--;
@@ -144,6 +144,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 		boolean contains = false;
 
 		for (T el : this.list) {
+			System.out.println(el);
 			if (el.equals(element)) {
 				contains = true;
 				break;
@@ -175,7 +176,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 			if (expectedModCount != modCount) {
 				throw new ConcurrentModificationException("Concorrência");
 			}
-			
+
 			return this.current < this.items.length && this.items[this.current] != null;
 		}
 

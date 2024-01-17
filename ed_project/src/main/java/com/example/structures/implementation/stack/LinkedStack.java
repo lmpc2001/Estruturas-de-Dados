@@ -55,7 +55,7 @@ public class LinkedStack<T> implements StackADT<T> {
 	}
 
 	public boolean isEmpty() {
-		return this.topNode != null;
+		return this.topNode == null;
 	}
 
 	public int size() {
@@ -64,11 +64,22 @@ public class LinkedStack<T> implements StackADT<T> {
 
 	public String toString() {
 		LinearNode<T> current = this.topNode;
-		String s = "LinkedStack:\n";
+		StringBuilder sb = new StringBuilder();
+		int counter = 0;
+
+		sb.append("[");
 		while (current != null) {
-			s += current.getElement().toString() + "\n";
+			sb.append(current.getElement().toString());
 			current = current.getNext();
+
+			// Adiciona vírgula apenas se não for o último elemento
+			if (counter < this.size() - 1) {
+				sb.append(", ");
+			}
+			counter++;
 		}
-		return s;
+		sb.append("]");
+
+		return sb.toString();
 	}
 }

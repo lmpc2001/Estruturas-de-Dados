@@ -3,7 +3,6 @@ package com.example.usecases;
 import com.example.configs.Properties;
 import com.example.domain.Game;
 import com.example.domain.Player;
-import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
 import com.example.utils.Randomness;
 
@@ -14,7 +13,7 @@ public class GenerateKickOffPlayerUseCase {
 		this.game = game;
 	}
 
-	public void execute() throws EmptyListException {
+	public void execute() {
 		UnorderedList<Player> gamePlayers = game.getPlayers();
 		UnorderedList<Player> orderedPlayers = new UnorderedList<>(Properties.MAX_PLAYERS);
 
