@@ -8,8 +8,13 @@ import com.example.structures.implementation.list.UnorderedList;
 import com.example.utils.Randomness;
 
 public class GenerateKickOffPlayerUseCase {
+	private Game game;
 
-	public static void execute(Game game) throws EmptyListException {
+	public GenerateKickOffPlayerUseCase(Game game) {
+		this.game = game;
+	}
+
+	public void execute() throws EmptyListException {
 		UnorderedList<Player> gamePlayers = game.getPlayers();
 		UnorderedList<Player> orderedPlayers = new UnorderedList<>(Properties.MAX_PLAYERS);
 

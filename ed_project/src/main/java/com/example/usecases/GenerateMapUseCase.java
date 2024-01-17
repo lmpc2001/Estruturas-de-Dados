@@ -1,5 +1,6 @@
 package com.example.usecases;
 
+import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Pair;
 import com.example.structures.exceptions.ElementNotFoundException;
@@ -8,7 +9,13 @@ import com.example.utils.Randomness;
 import com.example.utils.Scanners;
 
 public class GenerateMapUseCase {
-	public static GameMap execute() throws ElementNotFoundException {
+	private Game game;
+
+	public GenerateMapUseCase(Game game) {
+		this.game = game;
+	}
+
+	public void execute() throws ElementNotFoundException {
 		int[] excludedNumbers;
 		int numberOfLocations = Scanners.getInputInt("| Insira o nº de localizações que deseja para o Mapa : ");
 		excludedNumbers = new int[numberOfLocations];
@@ -59,10 +66,10 @@ public class GenerateMapUseCase {
 
 			System.out.println(numberOfEdges);
 
-			for (int i = 0; i < numberOfEdges -1; i++) {
+			for (int i = 0; i < numberOfEdges - 1; i++) {
 				int randomVertexIndex = Randomness.getRandomNumber(0, numberOfLocations);
 				int randomNeighborIndex = Randomness.getRandomNumber(0, numberOfLocations);
-				
+
 				Pair<Integer> pair = new Pair<>(randomVertexIndex, randomNeighborIndex);
 
 				while (existPairVertex(pair, linkedVertex) || randomNeighborIndex == randomVertexIndex) {
@@ -79,7 +86,7 @@ public class GenerateMapUseCase {
 
 		}
 
-		return map;
+		game.setGameMap(map);
 	}
 
 	private static boolean existPairVertex(Pair compare, UnorderedList<Pair> pairList) {
