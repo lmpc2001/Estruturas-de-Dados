@@ -26,11 +26,12 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
 		if (this.frontNode == null) {
 			this.frontNode = newElement;
+			this.rearNode = newElement;
 		} else {
-			this.frontNode.setNext(newElement);
+			this.rearNode.setNext(newElement);
+			this.rearNode = newElement;
 		}
 
-		// this.rearNode = newElement;
 		this.count++;
 	}
 
@@ -66,11 +67,22 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
 	public String toString() {
 		LinearNode<T> current = this.frontNode;
-		String s = "LinkedQueue:\n";
+		StringBuilder sb = new StringBuilder();
+		int counter = 0;
+
+		sb.append("[");
 		while (current != null) {
-			s += current.getElement().toString() + "\n";
+			sb.append(current.getElement().toString());
 			current = current.getNext();
+
+			// Adiciona vírgula apenas se não for o último elemento
+			if (counter < this.size() - 1) {
+				sb.append(", ");
+			}
+			counter++;
 		}
-		return s;
+		sb.append("]");
+
+		return sb.toString();
 	}
 }
