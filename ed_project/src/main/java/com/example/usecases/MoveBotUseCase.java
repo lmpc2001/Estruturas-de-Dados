@@ -9,7 +9,13 @@ import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.utils.Scanners;
 
 public class MoveBotUseCase {
-	public static void execute(Game game) throws EmptyListException {
+	private Game game;
+
+	public MoveBotUseCase(Game game) {
+		this.game = game;
+	}
+
+	public void execute() throws EmptyListException {
 		boolean play = true;
 		Player playerToPlay;
 
@@ -17,11 +23,13 @@ public class MoveBotUseCase {
 			playerToPlay = game.getPlayerTurn();
 
 			int linha = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
+					"[" + playerToPlay.getPlayerName()
+							+ "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
 			int coluna = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
+					"[" + playerToPlay.getPlayerName()
+							+ "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
 
-			if(linha == -1 || coluna == -1){
+			if (linha == -1 || coluna == -1) {
 				break;
 			}
 
@@ -35,8 +43,10 @@ public class MoveBotUseCase {
 
 					while (botCoordinates[0] == linha && botCoordinates[1] == coluna) {
 						System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
-						linha = Scanners.getInputInt("[" + playerToPlay.getPlayerName() + "]: Insira a nova linha para onde deseja mover o bot: ");
-						coluna = Scanners.getInputInt("[" + playerToPlay.getPlayerName() + "]: Insira a nova coluna para onde deseja mover o bot: ");
+						linha = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
+								+ "]: Insira a nova linha para onde deseja mover o bot: ");
+						coluna = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
+								+ "]: Insira a nova coluna para onde deseja mover o bot: ");
 					}
 
 				} while (!bots.isEmpty());
@@ -51,6 +61,7 @@ public class MoveBotUseCase {
 			play = !game.checkWin(botToMove);
 		} while (play);
 
-		System.out.println("Parabéns " + playerToPlay.getPlayerName() + "! Conseguiste capturar a bandeira do teu adversário!");
+		System.out.println(
+				"Parabéns " + playerToPlay.getPlayerName() + "! Conseguiste capturar a bandeira do teu adversário!");
 	}
 }

@@ -68,32 +68,6 @@ public class JSON {
 	}
 
 	/**
-	 * Método utilizado para carregar os detalhes de um jogo anterior a partir de um
-	 * ficheiro JSON de modo a permitir a continuação do mesmo
-	 * 
-	 * @throws IOException
-	 * @throws EmptyMapException
-	 * @throws EmptyListException
-	 */
-	public static Game resumeGame()
-			throws FileNotFoundException, IOException, ParseException, ElementNotFoundException {
-		Game resumeGame = new Game();
-
-		JSONParser parser = new JSONParser();
-		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
-
-		JSONObject jsonObj = (JSONObject) object;
-		JSONArray resumedMapMatrix = (JSONArray) jsonObj.get("map");
-
-		JSONArray jsonArrayPlayers = (JSONArray) jsonObj.get("Players");
-
-		loadMap(resumeGame, resumedMapMatrix);
-		loadPlayers(resumeGame, jsonArrayPlayers);
-
-		return resumeGame;
-	}
-
-	/**
 	 * Método responsável pelo processo de carregamento do mapa do último jogo
 	 * guardado
 	 * 
@@ -104,8 +78,17 @@ public class JSON {
 	 * @param mapMatrix  Array com os vértices do mapa do último jogo
 	 * 
 	 * @throws ElementNotFoundException
+	 * @throws ParseException 
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	private static void loadMap(Game resumeGame, JSONArray mapMatrix) throws ElementNotFoundException {
+	public static GameMap loadMap() throws ElementNotFoundException, FileNotFoundException, IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
+
+		JSONObject jsonObj = (JSONObject) object;
+		JSONArray mapMatrix = (JSONArray) jsonObj.get("map");
+
 		Object[] lines = new Object[mapMatrix.size()];
 		double[][] loadedMapMatrix = new double[mapMatrix.size()][mapMatrix.size()];
 		int counter = 0;
@@ -137,24 +120,26 @@ public class JSON {
 			}
 		}
 
-		map.printAdjencyMatrix();
-		map.printAdjencyMatrixWithWeights();
-
-		resumeGame.setGameMap(map);
+		return map;
 	}
 
 	/**
 	 * Método responsável pelo processo de carregamento dos players do último jogo
 	 * guardado
+	 * @throws ParseException 
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 * 
-	 * @param resumeGame       instância da classe Game utilizada para
-	 *                         adicionar/guardar os players carregados do ultimo
-	 *                         jogo
-	 * 
-	 * @param jsonArrayPlayers Array com a informação carregada relativa aos
-	 *                         players do último jogo
 	 */
-	private static void loadPlayers(Game resumeGame, JSONArray jsonArrayPlayers) {
+	public static UnorderedList<Player> loadPlayers() throws FileNotFoundException, IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
+
+		JSONObject jsonObj = (JSONObject) object;
+		JSONArray jsonArrayPlayers = (JSONArray) jsonObj.get("Players");
+
+		UnorderedList<Player> resumedGamePlayers = new UnorderedList<>(jsonArrayPlayers.size());
+
 		for (Object player : jsonArrayPlayers) {
 			JSONObject jsonPlayer = (JSONObject) player;
 
@@ -171,8 +156,10 @@ public class JSON {
 			JSONArray jsonArrayPlayerBots = (JSONArray) jsonPlayer.get("bots");
 			loadPlayerBots(loadedPlayer, jsonArrayPlayerBots);
 
-			resumeGame.addPlayer(loadedPlayer);
+			resumedGamePlayers.addToRear(loadedPlayer);
 		}
+
+		return resumedGamePlayers;
 	}
 
 	/**
