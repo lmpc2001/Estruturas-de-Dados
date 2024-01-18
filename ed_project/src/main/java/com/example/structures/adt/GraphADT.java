@@ -7,6 +7,7 @@ import com.example.structures.exceptions.EmptyListException;
 
 /**
  *
+ * @author Luís Costa [8200737]
  */
 public interface GraphADT<T> {
 

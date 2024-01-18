@@ -6,6 +6,7 @@ import com.example.structures.exceptions.EmptyListException;
  * Interface onde se encontram definidas todas as funções e seus tipos de dados
  * implementadas pela classe LinkedStack
  * 
+ * @author Luís Costa [8200737]
  * @param <T>
  */
 public interface StackADT<T> {
