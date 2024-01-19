@@ -42,43 +42,47 @@ public interface GraphADT<T> {
 	public void removeEdge(T vertex1, T vertex2) throws ElementNotFoundException;
 
 	/**
-	 * Returns a breadth first iterator starting with the given vertex.
+	 * Retorna um iterador de largura a começar no vértice especificado.
 	 * 
-	 * @param startVertex the starting vertex
-	 * @return a breadth first iterator beginning at
-	 *         the given vertex
+	 * @param startVertex o vértice de início
+	 * @return um iterador de largura a começar no
+	 *         vértice especificado
+	 * @throws ElementNotFoundException se o vértice não for encontrado
 	 */
-	Iterator<T> iteratorBFS(T startVertex);
+
+	Iterator<T> iteratorBFS(T startVertex) throws ElementNotFoundException, EmptyListException;
 
 	/**
-	 * Returns a depth first iterator starting with the given vertex.
+	 * Retorna um iterador de profundidade a começar no vértice especificado.
 	 *
-	 * @param startVertex the starting vertex
-	 * @return a depth first iterator starting at the
-	 *         given vertex
+	 * @param startVertex o vértice de início
+	 * @return um iterador de profundidade a começar no
+	 *         vértice especificado
 	 */
+
 	Iterator<T> iteratorDFS(T startVertex);
 
-	/** 
-	 * Returns an iterator that contains the shortest path between
-	 * the two vertices. 
+	/**
+	 * Retorna um iterador que contém o caminho mais curto entre
+	 * os dois vértices.
 	 *
-	 * @param startVertex the starting vertex
-	 * @param targetVertex the ending vertex
-	 * @return an iterator that contains the shortest 
-	 * path between the two vertices
+	 * @param startVertex  O vértice de origem
+	 * @param targetVertex O vértice de destino
+	 * @return um iterador que contém o caminho mais curto
+	 *         entre os dois vértices
 	 */
+
 	Iterator<T> iteratorShortestPath(T startVertex, T targetVertex) throws EmptyListException, ElementNotFoundException;
 
 	/**
-	 * Retorna true caso o grafo esteja vazio e false caso não esteja
+	 * Retorna true caso o grafo esteja vazio ou false caso contrário
 	 *
 	 * @return true ou false
 	 */
 	public boolean isEmpty();
 
 	/**
-	 * Retorna true caso o grafo seja conexo ou false caso nao seja
+	 * Retorna true caso o grafo seja conexo ou false caso contrário
 	 *
 	 * @return true ou false
 	 */
