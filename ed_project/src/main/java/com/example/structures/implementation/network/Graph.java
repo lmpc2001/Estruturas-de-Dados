@@ -9,18 +9,46 @@ import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.structures.implementation.stack.LinkedStack;
 
+/**
+ * A classe Graph<T> implementa a interface GraphADT<T> e representa um
+ * grafo através de uma matriz de adjacência.
+ * 
+ * Este grafo pode armazenar elementos de tipo genérico T e fornece operações
+ * típicas de um grafo, tais como: adicionar e remover vértices, adicionar e
+ * remover arestas, obter o tamanho do grafo, criar iteradores para travessias
+ * BFS, DFS e encontrar o caminho mais curto entre dois vértices.
+ *
+ * @author Luís Costa [8200737]
+ * @param <T> O tipo de dados a ser armazenado nos vértices do grafo.
+ * @see com.example.structures.adt.GraphADT
+ * @see com.example.structures.exceptions.EmptyListException
+ * @see com.example.structures.implementation.stack.LinkedStack
+ * @see com.example.structures.implementation.queue.LinkedQueue
+ * @see com.example.structures.implementation.list.UnorderedList
+ * @see com.example.structures.exceptions.ElementNotFoundException
+ * @version 1.0
+ */
 public class Graph<T> implements GraphADT<T> {
     protected T[] vertex;
     protected boolean[][] adjMatrix; // adjacency matrix
 
     int numOfVertices;
 
+    /**
+     * Cria uma nova instância de um grafo<T> inicializando a sua lista de vértices
+     * com o tamanho enviado pelo utilizador.
+     */
     public Graph(int size) {
         this.vertex = (T[]) (new Object[size]);
         this.adjMatrix = new boolean[size][size];
         this.numOfVertices = 0;
     }
 
+    /**
+     * Adiciona um novo vértice ao grafo.
+     *
+     * @param newVertex O vértice a ser adicionado ao grafo.
+     */
     @Override
     public void addVertex(T newVertex) {
         if (numOfVertices == vertex.length) {
@@ -36,6 +64,14 @@ public class Graph<T> implements GraphADT<T> {
         numOfVertices++;
     }
 
+    /**
+     * Remove um vértice específico do grafo, bem como todas as arestas conectadas
+     * ao mesmo.
+     *
+     * @param removeVertex O vértice a ser removido do grafo.
+     * @throws ElementNotFoundException Se o vértice a ser removido não for
+     *                                  encontrado no grafo.
+     */
     @Override
     public void removeVertex(T removeVertex) throws ElementNotFoundException {
         int removeVertexIndex = findVertexIndex(removeVertex);
@@ -61,6 +97,14 @@ public class Graph<T> implements GraphADT<T> {
         }
     }
 
+    /**
+     * Adiciona uma aresta entre dois vértices no grafo.
+     *
+     * @param vertex1 O vertice de origem.
+     * @param vertex2 O vertice de chegada.
+     * @throws ElementNotFoundException Se um dos vértices não for encontrado no
+     *                                  grafo.
+     */
     @Override
     public void addEdge(T vertex1, T vertex2) throws ElementNotFoundException {
         int indexVertex1 = findVertexIndex(vertex1);
@@ -72,6 +116,14 @@ public class Graph<T> implements GraphADT<T> {
         }
     }
 
+    /**
+     * Remove a aresta entre dois vértices no grafo.
+     *
+     * @param vertex1 O vertice de origem.
+     * @param vertex2 O vertice de chegada.
+     * @throws ElementNotFoundException Se um dos vértices não for encontrado no
+     *                                  grafo.
+     */
     @Override
     public void removeEdge(T vertex1, T vertex2) throws ElementNotFoundException {
         int indexVertex1 = findVertexIndex(vertex1);
@@ -83,41 +135,115 @@ public class Graph<T> implements GraphADT<T> {
         }
     }
 
+    /**
+     * Verifica se o grafo está vazio.
+     *
+     * @return true se o grafo estiver vazio, false caso contrário.
+     */
     @Override
     public boolean isEmpty() {
         return this.numOfVertices <= 0;
     }
 
+    /**
+     * Verifica se o grafo é um grafo conectado.
+     *
+     * @return true se o grafo for conectado, false caso contrário.
+     * @throws UnsupportedOperationException Este método ainda não foi implementado.
+     */
     @Override
     public boolean isConnected() {
         throw new UnsupportedOperationException("Unimplemented method 'isConnected'");
     }
 
+    /**
+     * Retorna o número de vértices no grafo.
+     *
+     * @return O número de vértices no grafo.
+     */
     @Override
     public int size() {
         return this.numOfVertices;
     }
 
+    /**
+     * Retorna um iterador para a travessia do grafo em largura (BFS) a partir de um
+     * vértice inicial.
+     *
+     * @param startVertex O vértice de partida para a travessia.
+     * @return Um iterador para a travessia BFS.
+     * @throws ElementNotFoundException
+     * @throws EmptyListException
+     * @throws UnsupportedOperationException Este método ainda não foi implementado.
+     */
     @Override
-    public Iterator<T> iteratorBFS(T startVertex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iteratorBFS'");
+    public Iterator<T> iteratorBFS(T startVertex) throws ElementNotFoundException, EmptyListException {
+        int startVertexIndex = findVertexIndex(startVertex);
+        boolean[] visited = new boolean[numOfVertices];
+
+        LinkedQueue<Integer> path = new LinkedQueue<>();
+        UnorderedList<T> result = new UnorderedList<>();
+
+        visited[startVertexIndex] = true;
+        path.enqueue(startVertexIndex);
+
+        while (!path.isEmpty()) {
+            int currentVertexIndex = path.dequeue();
+            result.addToRear(vertex[currentVertexIndex]);
+
+            for (int i = 0; i < numOfVertices; i++) {
+                if (adjMatrix[currentVertexIndex][i] && !visited[i]) {
+                    visited[i] = true;
+                    path.enqueue(i);
+                }
+            }
+        }
+
+        return result.iterator();
     }
 
+    /**
+     * Retorna um iterador para a travessia do grafo em profundidade (DFS) a partir
+     * de um vértice inicial.
+     *
+     * @param startVertex O vértice de partida para a travessia.
+     * @return Um iterador para a travessia DFS.
+     * @throws UnsupportedOperationException Este método ainda não foi implementado.
+     */
     @Override
     public Iterator<T> iteratorDFS(T startVertex) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'iteratorDFS'");
     }
 
+    /**
+     * Retorna um iterador para o caminho mais curto entre dois vértices no grafo.
+     *
+     * @param startVertex  O vértice de partida.
+     * @param targetVertex O vértice de destino.
+     * @return Um iterador para o caminho mais curto entre os vértices.
+     * @throws EmptyListException       Se a lista estiver vazia.
+     * @throws ElementNotFoundException Se um dos vértices não for encontrado no
+     *                                  grafo.
+     */
     @Override
-    public Iterator<T> iteratorShortestPath(T startVertex, T targetVertex) throws EmptyListException, ElementNotFoundException {
+    public Iterator<T> iteratorShortestPath(T startVertex, T targetVertex)
+            throws EmptyListException, ElementNotFoundException {
         int startVertexIndex = findVertexIndex(startVertex);
         int targetVertexIndex = findVertexIndex(targetVertex);
 
         return iteratorShortestPath(startVertexIndex, targetVertexIndex);
     }
 
+    /**
+     * Retorna um iterador para o caminho mais curto entre dois vértices no grafo.
+     *
+     * @param startVertexIndex  O index do vértice de partida.
+     * @param targetVertexIndex O index do vértice de destino.
+     * @return Um iterador para o caminho mais curto entre os vértices.
+     * @throws EmptyListException Se a lista estiver vazia.
+     * 
+     */
     public Iterator<T> iteratorShortestPath(int startVertexIndex, int targetVertexIndex) throws EmptyListException {
         UnorderedList<T> resultPath = new UnorderedList<>();
         if (startVertexIndex < 0 || targetVertexIndex < 0) {
@@ -134,6 +260,16 @@ public class Graph<T> implements GraphADT<T> {
         return resultPath.iterator();
     }
 
+    /**
+     * Retorna um iterador referente aos indices dos vértices que constituem o
+     * caminho mais curto entre dois vértices no grafo.
+     *
+     * @param startIndex  O index do vértice de partida.
+     * @param targetIndex O index do vértice de destino.
+     * @return Um iterador para o caminho mais curto entre os vértices.
+     * @throws EmptyListException Se a lista estiver vazia.
+     * 
+     */
     private Iterator<Integer> iteratorShortestPathIndices(int startIndex, int targetIndex) throws EmptyListException {
         int currentVertex = startIndex;
         UnorderedList<Integer> shortestPath = new UnorderedList<>();
@@ -173,6 +309,9 @@ public class Graph<T> implements GraphADT<T> {
 
     }
 
+    /**
+     * Imprime a matriz de adjacência do grafo na consola.
+     */
     public void printAdjencyMatrix() {
         for (int i = 0; i < numOfVertices; i++) {
             for (int j = 0; j < numOfVertices; j++) {
@@ -182,10 +321,22 @@ public class Graph<T> implements GraphADT<T> {
         }
     }
 
+    /**
+     * Retorna a matriz de adjacência do grafo.
+     *
+     * @return A matriz de adjacência do grafo.
+     */
     public boolean[][] downloadAdjencyMatrix() {
-		return this.adjMatrix;
-	}
+        return this.adjMatrix;
+    }
 
+    /**
+     * Encontra o índice de um vértice no array
+     * 
+     * @param vertex
+     * @return index do vértice caso exista
+     * @throws ElementNotFoundException Se o elemento não existir no grafo
+     */
     protected int findVertexIndex(T vertex) throws ElementNotFoundException {
         for (int i = 0; i < numOfVertices; i++) {
             if (this.vertex[i].equals(vertex)) {

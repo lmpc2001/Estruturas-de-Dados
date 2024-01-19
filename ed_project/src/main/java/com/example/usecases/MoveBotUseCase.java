@@ -8,8 +8,57 @@ import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.utils.Scanners;
 
+/**
+ * A classe MoveBotUseCase é responsável por executar as operações relacionadas
+ * com o movimento dos bots no jogo.
+ * Faz parte dos casos de uso no domínio da aplicação, tratando especificamente
+ * da movimentação estratégica dos bots pelos jogadores.
+ * 
+ 
+ * Esta classe requer uma instância da classe Game para funcionar corretamente.
+ * O método principal, execute(),
+ * guia o processo de movimentação dos bots durante o jogo, interagindo com os
+ * jogadores para definir novas posições.
+ 
+ * 
+ * 
+ 
+ * O método execute() solicita ao jogador a posição desejada para onde mover o
+ * bot, evitando posições já ocupadas pelos adversários ou pelos seus bots
+ * restantes.
+ * O loop continua até que um jogador capture a bandeira do adversário, momento
+ * em que a vitória é declarada.
+ 
+ * 
+ *
+ * @author Luís Costa [8200737]
+ * @version 1.0
+ * @see com.example.domain.Game
+ * @see com.example.domain.Player
+ * @see com.example.domain.Bot
+ * @see com.example.structures.exceptions.EmptyListException
+ * @see com.example.structures.implementation.list.UnorderedList
+ * @see com.example.structures.implementation.queue.LinkedQueue
+ * @see com.example.utils.Scanners
+ */
 public class MoveBotUseCase {
-	public static void execute(Game game) throws EmptyListException {
+	private Game game;
+
+	/**
+	 * Constrói uma nova instância de {@code MoveBotUseCase}.
+	 *
+	 * @param game O jogo no qual os bots serão movidos.
+	 */
+	public MoveBotUseCase(Game game) {
+		this.game = game;
+	}
+
+	/**
+	 * Executa o processo de movimentação dos bots no jogo.
+	 *
+	 * @throws EmptyListException Se a queue de bots estiver vazia.
+	 */
+	public void execute() throws EmptyListException {
 		boolean play = true;
 		Player playerToPlay;
 
@@ -17,11 +66,13 @@ public class MoveBotUseCase {
 			playerToPlay = game.getPlayerTurn();
 
 			int linha = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
+					"[" + playerToPlay.getPlayerName()
+							+ "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
 			int coluna = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName() + "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
+					"[" + playerToPlay.getPlayerName()
+							+ "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
 
-			if(linha == -1 || coluna == -1){
+			if (linha == -1 || coluna == -1) {
 				break;
 			}
 
@@ -35,8 +86,10 @@ public class MoveBotUseCase {
 
 					while (botCoordinates[0] == linha && botCoordinates[1] == coluna) {
 						System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
-						linha = Scanners.getInputInt("[" + playerToPlay.getPlayerName() + "]: Insira a nova linha para onde deseja mover o bot: ");
-						coluna = Scanners.getInputInt("[" + playerToPlay.getPlayerName() + "]: Insira a nova coluna para onde deseja mover o bot: ");
+						linha = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
+								+ "]: Insira a nova linha para onde deseja mover o bot: ");
+						coluna = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
+								+ "]: Insira a nova coluna para onde deseja mover o bot: ");
 					}
 
 				} while (!bots.isEmpty());
@@ -51,6 +104,7 @@ public class MoveBotUseCase {
 			play = !game.checkWin(botToMove);
 		} while (play);
 
-		System.out.println("Parabéns " + playerToPlay.getPlayerName() + "! Conseguiste capturar a bandeira do teu adversário!");
+		System.out.println(
+				"Parabéns " + playerToPlay.getPlayerName() + "! Conseguiste capturar a bandeira do teu adversário!");
 	}
 }

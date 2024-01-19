@@ -4,6 +4,24 @@ import com.example.structures.adt.UnorderListADT;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
 
+/**
+ * A classe UnorderedList<T> faz extende à classe ArrayList<T> e implementa a
+ * interface UnorderListADT<T> herdando os métodos base de interação com uma
+ * lista da classe ArrayList<T> e especifica os métodos de adição de novos
+ * elementos com base nos métodos definidos pela interface UnorderListADT<T>
+ * 
+ * Pode armazenar elementos de tipo genérico T e fornece as operações
+ * tradicionais de uma lista não ordenada, como adição no inicio, adição no fim,
+ * adição após um elemento específico bem como as restantes operações
+ * tradicionais de uma lista.
+ * 
+ * @author Luís Costa [8200737]
+ * @param <T> O tipo de elemento que a lista pode armazenar.
+ * @see com.example.structures.adt.UnorderListADT
+ * @see com.example.structures.exceptions.ElementNotFoundException
+ * @see com.example.structures.exceptions.EmptyListException
+ * @version 1.0
+ */
 public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> {
 
 	public UnorderedList() {
@@ -14,6 +32,12 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		super(size);
 	}
 
+	/**
+	 * Adiciona o elemento especificado ao início da lista.
+	 * Se a lista estiver cheia, aumenta a capacidade antes de adicionar o elemento.
+	 *
+	 * @param element O elemento a ser adicionado ao início da lista.
+	 */
 	@Override
 	public void addToFront(T element) {
 		T[] tmpList = list;
@@ -31,6 +55,12 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		this.modCount++;
 	}
 
+	/**
+	 * Adiciona o elemento especificado ao final da lista.
+	 * Se a lista estiver cheia, aumenta a capacidade antes de adicionar o elemento.
+	 *
+	 * @param element O elemento a ser adicionado ao final da lista.
+	 */
 	@Override
 	public void addToRear(T element) {
 		if (isEmpty()) {
@@ -46,12 +76,23 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		this.modCount++;
 	}
 
+	/**
+	 * Adiciona o elemento especificado após o elemento identificado na lista.
+	 * Se a lista estiver cheia, aumenta a capacidade antes de adicionar o elemento.
+	 *
+	 * @param element O elemento a ser adicionado na lista.
+	 * @param target  O elemento após o qual o novo elemento será adicionado.
+	 * @throws EmptyListException       Se a lista estiver vazia.
+	 * @throws ElementNotFoundException Se o elemento especificado não for
+	 *                                  encontrado na
+	 *                                  lista.
+	 */
 	@Override
 	public void addAfter(T element, T target) throws EmptyListException, ElementNotFoundException {
 		if (isEmpty()) {
 			throw new EmptyListException();
 		}
-		if (!listContains(element)) {
+		if (!listContains(target)) {
 			throw new ElementNotFoundException();
 		}
 
@@ -76,6 +117,11 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 		this.modCount++;
 	}
 
+	/**
+	 * Retorna uma representação da lista na forma de String.
+	 *
+	 * @return Uma String que representa a lista no formato [elemento1, elemento2, ...]
+	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 

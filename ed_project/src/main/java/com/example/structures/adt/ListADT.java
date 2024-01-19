@@ -9,6 +9,7 @@ import com.example.structures.exceptions.EmptyListException;
  * Interface onde se encontram definidos todas as funções e seus tipos de dados
  * implementadas pela classe ArrayUnorderedList
  *
+ * @author Luís Costa [8200737]
  * @param <T>
  */
 public interface ListADT<T> extends Iterable<T> {
