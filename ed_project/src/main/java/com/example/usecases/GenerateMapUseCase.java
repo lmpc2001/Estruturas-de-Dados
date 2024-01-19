@@ -8,13 +8,45 @@ import com.example.structures.implementation.list.UnorderedList;
 import com.example.utils.Randomness;
 import com.example.utils.Scanners;
 
+/**
+ * A classe GenerateMapUseCase é responsável por correr todas as operações relacionadas com a criação do mapa do jogo.
+ * Faz parte dos casos de uso no domínio da aplicação, tratando especificamente da criação do grafo associado ao mapa e das conexões entre as suas localizações.
+ * 
+ * O método principal execute(), conduz o processo de criação do mapa, permitindo ao utilizador definir o número de localizações, a bidirecionalidade dos caminhos,
+ * e a densidade das arestas entre as localizações.
+ * 
+ * O método execute() interage com o utilizador para obter as configurações desejadas
+ * Em seguida, gera o mapa conforme as especificações e associa-o ao jogo.
+ * 
+ *
+ * @author Luís Costa [8200737]
+ * @version 1.0
+ * @see com.example.domain.Game
+ * @see com.example.domain.GameMap
+ * @see com.example.domain.Pair
+ * @see com.example.structures.exceptions.ElementNotFoundException
+ * @see com.example.structures.implementation.list.UnorderedList
+ * @see com.example.utils.Randomness
+ * @see com.example.utils.Scanners
+ */
 public class GenerateMapUseCase {
 	private Game game;
 
+	/**
+	 * Constrói uma nova instância de da classe GenerateMapUseCase.
+	 *
+	 * @param game O jogo ao qual o mapa deve ser associado.
+	 */
 	public GenerateMapUseCase(Game game) {
 		this.game = game;
 	}
 
+	/**
+	 * Executa o processo de criação do mapa para o jogo.
+	 *
+	 * @throws ElementNotFoundException Se um vértice não for encontrado no grafo
+	 *                                  durante a execução.
+	 */
 	public void execute() throws ElementNotFoundException {
 		int[] excludedNumbers;
 		int numberOfLocations = Scanners.getInputInt("| Insira o nº de localizações que deseja para o Mapa : ");
@@ -89,6 +121,15 @@ public class GenerateMapUseCase {
 		game.setGameMap(map);
 	}
 
+	/**
+	 * Verifica se um par de vértices já existe numa lista de pares de vertices
+	 * fornecia.
+	 *
+	 * @param compare  O par a ser comparado.
+	 * @param pairList A lista de pares a ser verificada.
+	 * @return true se o par já existe na lista, false casocontrário.
+	 * 
+	 */
 	private static boolean existPairVertex(Pair compare, UnorderedList<Pair> pairList) {
 		for (Pair existPair : pairList) {
 			if (existPair.compareTo(compare) == 1) {

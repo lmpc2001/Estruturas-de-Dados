@@ -8,13 +8,56 @@ import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.utils.Scanners;
 
+/**
+ * A classe MoveBotUseCase é responsável por executar as operações relacionadas
+ * com o movimento dos bots no jogo.
+ * Faz parte dos casos de uso no domínio da aplicação, tratando especificamente
+ * da movimentação estratégica dos bots pelos jogadores.
+ * 
+ 
+ * Esta classe requer uma instância da classe Game para funcionar corretamente.
+ * O método principal, execute(),
+ * guia o processo de movimentação dos bots durante o jogo, interagindo com os
+ * jogadores para definir novas posições.
+ 
+ * 
+ * 
+ 
+ * O método execute() solicita ao jogador a posição desejada para onde mover o
+ * bot, evitando posições já ocupadas pelos adversários ou pelos seus bots
+ * restantes.
+ * O loop continua até que um jogador capture a bandeira do adversário, momento
+ * em que a vitória é declarada.
+ 
+ * 
+ *
+ * @author Luís Costa [8200737]
+ * @version 1.0
+ * @see com.example.domain.Game
+ * @see com.example.domain.Player
+ * @see com.example.domain.Bot
+ * @see com.example.structures.exceptions.EmptyListException
+ * @see com.example.structures.implementation.list.UnorderedList
+ * @see com.example.structures.implementation.queue.LinkedQueue
+ * @see com.example.utils.Scanners
+ */
 public class MoveBotUseCase {
 	private Game game;
 
+	/**
+	 * Constrói uma nova instância de {@code MoveBotUseCase}.
+	 *
+	 * @param game O jogo no qual os bots serão movidos.
+	 */
 	public MoveBotUseCase(Game game) {
 		this.game = game;
 	}
 
+	/**
+	 * Executa o processo de movimentação dos bots no jogo.
+	 *
+	 * @throws EmptyListException Se a queue de bots estiver vazia.
+	 */
 	public void execute() throws EmptyListException {
 		boolean play = true;
 		Player playerToPlay;
