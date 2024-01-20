@@ -17,12 +17,12 @@ import com.example.utils.Scanners;
  * 
  *
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.GameMap
  * @see com.example.utils.Scanners
  * @see com.example.usecases.exceptions.EmptyMapException;
+ * 
  */
 public class SetFlagLocationUseCase {
 	private Game game;
@@ -31,7 +31,7 @@ public class SetFlagLocationUseCase {
 	 * Constrói uma nova instância da classe StartGameUseCase.
 	 *
 	 * @param game Instancia da classe jogo referente ao jogo atual
-	 *             
+	 * 
 	 */
 	public SetFlagLocationUseCase(Game game) {
 		this.game = game;
@@ -40,23 +40,24 @@ public class SetFlagLocationUseCase {
 	/**
 	 * Executa o processo de definição de bots para jogadores.
 	 *
-	 * @param player             O jogador que irá definir a localização da sua bandeira
+	 * @param player O jogador que irá definir a localização da sua bandeira
 	 * 
 	 */
 	public void execute(Player player) throws EmptyMapException {
+		int vertexIndex;
 		GameMap map = game.getGameMap();
 
 		if (map.isEmpty()) {
 			throw new EmptyMapException();
 		}
 
-		map.seeMap();
+		map.seeVertex();
 
-		int vertexLine = Scanners.getInputInt("Selecione a linha do vertice onde desejar guardar a bandeira: ");
-		int vertexCol = Scanners.getInputInt("Selecione a coluna do vertice onde desejar guardar a bandeira: ");
+		do {
+			vertexIndex = Scanners.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
+			
+		} while (!this.game.getGameMap().isValidPosition(vertexIndex));
 
-		int[] flagVertex = { vertexLine, vertexCol };
-
-		player.setFlag(flagVertex);
+		player.setFlag(vertexIndex);
 	}
 }

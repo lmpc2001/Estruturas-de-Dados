@@ -108,10 +108,10 @@ public class Game {
 	 * @throws EmptyListException se a lista de jogadores estiver vazia
 	 */
 	public boolean checkWin(Bot bot) throws EmptyListException {
-		int[] botPosition = bot.getCurrentPosition();
-		int[] oppositePlayerFlagPosition = players.first().getFlag();
+		int botPosition = bot.getCurrentPosition();
+		int oppositePlayerFlagPosition = players.first().getFlag();
 
-		if (botPosition[0] == oppositePlayerFlagPosition[0] && botPosition[1] == oppositePlayerFlagPosition[1]) {
+		if (botPosition == oppositePlayerFlagPosition) {
 			return true;
 		}
 

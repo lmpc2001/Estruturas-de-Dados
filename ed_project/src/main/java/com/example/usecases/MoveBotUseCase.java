@@ -5,7 +5,8 @@ import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
-import com.example.structures.implementation.queue.LinkedQueue;
+import com.example.structures.implementation.network.exceptions.InvalidValueException;
+import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.Scanners;
 
 /**
@@ -14,25 +15,24 @@ import com.example.utils.Scanners;
  * Faz parte dos casos de uso no domínio da aplicação, tratando especificamente
  * da movimentação estratégica dos bots pelos jogadores.
  * 
- 
+ * 
  * Esta classe requer uma instância da classe Game para funcionar corretamente.
  * O método principal, execute(),
  * guia o processo de movimentação dos bots durante o jogo, interagindo com os
  * jogadores para definir novas posições.
- 
  * 
  * 
- 
+ * 
+ * 
  * O método execute() solicita ao jogador a posição desejada para onde mover o
  * bot, evitando posições já ocupadas pelos adversários ou pelos seus bots
  * restantes.
  * O loop continua até que um jogador capture a bandeira do adversário, momento
  * em que a vitória é declarada.
- 
  * 
  *
+ * 
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.Bot
@@ -40,6 +40,7 @@ import com.example.utils.Scanners;
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.structures.implementation.queue.LinkedQueue
  * @see com.example.utils.Scanners
+ * 
  */
 public class MoveBotUseCase {
 	private Game game;
@@ -56,50 +57,57 @@ public class MoveBotUseCase {
 	/**
 	 * Executa o processo de movimentação dos bots no jogo.
 	 *
-	 * @throws EmptyListException Se a queue de bots estiver vazia.
+	 * @throws EmptyListException    Se a queue de bots estiver vazia.
+	 * @throws InvalidValueException Se o valor inserido for inválido enquanto
+	 *                               index da lista
+	 * @throws EmptyMapException     Se o mapa para o jogo não estiver definido
+	 * 
 	 */
-	public void execute() throws EmptyListException {
+	public void execute()
+			throws EmptyListException, InvalidValueException, EmptyMapException {
 		boolean play = true;
 		Player playerToPlay;
 
 		do {
 			playerToPlay = game.getPlayerTurn();
 
-			int linha = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName()
-							+ "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
-			int coluna = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName()
-							+ "]: Insira a linha para onde deseja mover o bot (Digite -1 para sair): ");
+			int newLocation = Scanners.getInputInt(
+					"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot (Digite -1 para sair): ");
 
-			if (linha == -1 || coluna == -1) {
+			if (newLocation == -1) {
 				break;
 			}
 
 			UnorderedList<Player> gamePlayers = game.getPlayers();
 
-			for (Player player : gamePlayers) {
-				LinkedQueue<Bot> bots = new LinkedQueue<>(player.getPlayerBots().first());
-
-				do {
-					int[] botCoordinates = bots.dequeue().getCurrentPosition();
-
-					while (botCoordinates[0] == linha && botCoordinates[1] == coluna) {
-						System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
-						linha = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
-								+ "]: Insira a nova linha para onde deseja mover o bot: ");
-						coluna = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
-								+ "]: Insira a nova coluna para onde deseja mover o bot: ");
-					}
-
-				} while (!bots.isEmpty());
+			while (game.getGameMap().isPositionOccupied(newLocation, gamePlayers)) {
+				System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
+				newLocation = Scanners.getInputInt(
+						"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot: ");
 			}
 
 			Bot botToMove = playerToPlay.getBotToPlay();
 
-			int[] newCoordinates = { linha, coluna };
+			// switch (botToMove.getStrategy().toString()) {
+			// case "Shortest_Path":
+			// int nextPosition;
 
-			botToMove.setCurrentPosition(newCoordinates);
+			// do {
+			// nextPosition = Scanners.getInputInt("[" + playerToPlay.getPlayerName()
+			// + "]: Insira a nova linha para onde deseja mover o bot: ");
+			// } while (game.getGameMap().isValidPosition(nextPosition));
+
+			// botToMove.moveByShortestPath(game.getGameMap(), newLocation);
+			// break;
+			// case "Random":
+			// botToMove.moveRandomly(game.getGameMap());
+			// break;
+			// case "Objective_Weighted":
+			// botToMove.moveRandomly(game.getGameMap());
+			// break;
+			// }
+
+			botToMove.setCurrentPosition(newLocation);
 
 			play = !game.checkWin(botToMove);
 		} while (play);

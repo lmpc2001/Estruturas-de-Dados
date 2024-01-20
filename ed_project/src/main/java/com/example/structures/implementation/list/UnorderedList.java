@@ -3,6 +3,7 @@ package com.example.structures.implementation.list;
 import com.example.structures.adt.UnorderListADT;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.network.exceptions.InvalidValueException;
 
 /**
  * A classe UnorderedList<T> faz extende à classe ArrayList<T> e implementa a
@@ -18,9 +19,10 @@ import com.example.structures.exceptions.EmptyListException;
  * @author Luís Costa [8200737]
  * @param <T> O tipo de elemento que a lista pode armazenar.
  * @see com.example.structures.adt.UnorderListADT
- * @see com.example.structures.exceptions.ElementNotFoundException
  * @see com.example.structures.exceptions.EmptyListException
- * @version 1.0
+ * @see com.example.structures.exceptions.ElementNotFoundException
+ * @see com.example.structures.implementation.network.exceptions.InvalidValueException;
+ * 
  */
 public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> {
 
@@ -118,9 +120,54 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 	}
 
 	/**
+	 * Procura e retorna um elemento especifico da lista
+	 *
+	 * @return elemento encontrado
+	 * @throws EmptyListException       se a lista estiver vazia
+	 * @throws ElementNotFoundException se o elemento a procurar não existir na
+	 *                                  lista
+	 */
+	@Override
+	public T getElement(T element) throws EmptyListException, ElementNotFoundException {
+		if (isEmpty()) {
+			throw new EmptyListException();
+		}
+
+		for (T t : list) {
+			if (element.equals(t)) {
+				return t;
+			}
+		}
+
+		throw new ElementNotFoundException();
+	}
+
+	/**
+	 * Procura e retorna um elemento especifico da lista
+	 *
+	 * @param elementIndex o index do elemento a retornar
+	 * @return elemento encontrado
+	 * @throws EmptyListException       se a lista estiver vazia
+	 * @throws ElementNotFoundException se o elemento a procurar não existir na
+	 *                                  lista
+	 */
+	public T getElement(int elementIndex) throws EmptyListException, InvalidValueException {
+		if (isEmpty()) {
+			throw new EmptyListException();
+		}
+
+		if(elementIndex< 0 || elementIndex> size()) {
+			throw new InvalidValueException("O index " + elementIndex + " é inválido para esta lista");
+		}
+
+		return this.list[elementIndex];
+	}
+
+	/**
 	 * Retorna uma representação da lista na forma de String.
 	 *
-	 * @return Uma String que representa a lista no formato [elemento1, elemento2, ...]
+	 * @return Uma String que representa a lista no formato [elemento1, elemento2,
+	 *         ...]
 	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

@@ -60,7 +60,7 @@ public interface GraphADT<T> {
 	 *         vértice especificado
 	 */
 
-	Iterator<T> iteratorDFS(T startVertex);
+	Iterator<T> iteratorDFS(T startVertex) throws ElementNotFoundException, EmptyListException;
 
 	/**
 	 * Retorna um iterador que contém o caminho mais curto entre

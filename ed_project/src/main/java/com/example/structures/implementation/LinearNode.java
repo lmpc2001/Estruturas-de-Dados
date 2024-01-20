@@ -16,7 +16,7 @@ package com.example.structures.implementation;
  * 
  * @author Luís Costa [8200737]
  * @param <T> O tipo de elemento que o nó pode armazenar.
- * @version 1.0
+ * 
  */
 public class LinearNode<T> {
 	private LinearNode<T> next;

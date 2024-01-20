@@ -19,7 +19,7 @@ import com.example.structures.implementation.LinearNode;
  * @see com.example.structures.adt.StackADT
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.implementation.LinearNode
- * @version 1.0
+ * 
  */
 public class LinkedStack<T> implements StackADT<T> {
 	private LinearNode<T> topNode;

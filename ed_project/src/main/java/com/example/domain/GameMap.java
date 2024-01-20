@@ -1,12 +1,18 @@
 package com.example.domain;
 
+import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.network.Network;
+import com.example.structures.implementation.queue.LinkedQueue;
 
 /**
  * Classe representativa do mapa de jogo baseado numa rede de localizações.
  * 
  * @author Luís Costa [8200737]
+ * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.implementation.network.Network
+ * @see com.example.structures.implementation.queue.LinkedQueue
+ * @see com.example.structures.implementation.list.UnorderedList
  * 
  */
 public class GameMap extends Network {
@@ -53,10 +59,73 @@ public class GameMap extends Network {
 	}
 
 	/**
+	 * Verifica se uma posição no mapa está ocupada por algum bot de qualquer
+	 * jogador.
+	 *
+	 * @param newPosition A posição a ser verificada.
+	 * @param gamePlayers A lista de jogadores no jogo.
+	 * @return true se a posição estiver ocupada, false caso contrário.
+	 * @throws EmptyListException Se a lista de jogadores estiver vazia.
+	 */
+	public boolean isPositionOccupied(int newPosition, UnorderedList<Player> gamePlayers) throws EmptyListException {
+		for (Player player : gamePlayers) {
+			LinkedQueue<Bot> bots = new LinkedQueue<>(player.getPlayerBots().first());
+
+			do {
+				int botLocation = bots.dequeue().getCurrentPosition();
+
+				if (botLocation == newPosition) {
+					return true;
+				}
+
+			} while (!bots.isEmpty());
+		}
+
+		return false;
+	}
+
+	/**
+	 * Verifica se um vertice existe validando o indice recebido.
+	 *
+	 * @param vertexIndex o indice do vertice a validar
+	 * @return true se o indice do vertice for válido ou flase caso contrário
+	 */
+	public boolean isValidPosition(int vertexIndex) {
+		return vertexIndex >= 0 && vertexIndex < getNumberOfLocations();
+	}
+
+	/**
+	 * Verifica se os indices dos vertices são válidos e se existe uma aresta que os
+	 * ligue
+	 *
+	 * @param startVertexIndex  o indice do vertice inicial a validar
+	 * @param targetVertexIndex o indice do vertice de destino a validar
+	 * @return true se os indices dos vertices forem válidos e existir um caminho
+	 *         entre eles ou false caso contrário
+	 */
+	public boolean isValidPositionWithEdge(int startVertexIndex, int targetVertexIndex) {
+		return targetVertexIndex >= 0 && targetVertexIndex < getNumberOfLocations()
+				&& adjMatrix[startVertexIndex][targetVertexIndex]; // Valida se a posição é válida e se existe um
+																	// caminho entre os dois pontos
+	}
+
+	/**
 	 * Exibe o mapa do jogo, apresentando a matriz de adjacência com os pesos
 	 * das arestas.
 	 */
 	public void seeMap() {
 		this.printAdjencyMatrixWithWeights();
+	}
+
+	/**
+	 * Exibe o cconjunto de vértices/locais presentes no mapa
+	 */
+	public void seeVertex() {
+		System.out.print("\n|Posições: ");
+		for (int i = 0; i < this.getVertex().length; i++) {
+			System.out.print(i + " ");
+		}
+
+		System.out.println();
 	}
 }
