@@ -208,12 +208,35 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startVertex O vértice de partida para a travessia.
      * @return Um iterador para a travessia DFS.
+     * @throws EmptyListException Se a lista estiver vazia
      * @throws UnsupportedOperationException Este método ainda não foi implementado.
+     * @throws ElementNotFoundException Se o elemento a procurar não existir na lista em questão
      */
     @Override
-    public Iterator<T> iteratorDFS(T startVertex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iteratorDFS'");
+    public Iterator<T> iteratorDFS(T startVertex) throws ElementNotFoundException, EmptyListException {
+        int startVertexIndex = findVertexIndex(startVertex);
+        boolean[] visited = new boolean[numOfVertices];
+
+        LinkedStack<Integer> path = new LinkedStack<>();
+        UnorderedList<T> result = new UnorderedList<>();
+
+        path.push(startVertexIndex);
+
+        while (!path.isEmpty()) {
+            int currentVertexIndex = path.pop();
+            if (!visited[currentVertexIndex]) {
+                result.addToRear(vertex[currentVertexIndex]);
+                visited[currentVertexIndex] = true;
+
+                for (int i = numOfVertices - 1; i >= 0; i--) {
+                    if (adjMatrix[currentVertexIndex][i] && !visited[i]) {
+                        path.push(i);
+                    }
+                }
+            }
+        }
+
+        return result.iterator();
     }
 
     /**
@@ -315,7 +338,7 @@ public class Graph<T> implements GraphADT<T> {
     public void printAdjencyMatrix() {
         for (int i = 0; i < numOfVertices; i++) {
             for (int j = 0; j < numOfVertices; j++) {
-                System.out.print(adjMatrix[i][j] + " ");
+                System.out.print((adjMatrix[i][j] ? "1" : "0") + " ");
             }
             System.out.println();
         }
@@ -328,6 +351,15 @@ public class Graph<T> implements GraphADT<T> {
      */
     public boolean[][] downloadAdjencyMatrix() {
         return this.adjMatrix;
+    }
+
+    /**
+     * Retorna a lista de vértices do grafo.
+     *
+     * @return A lista de vértices do grafo.
+     */
+    public T[] getVertex() {
+        return this.vertex;
     }
 
     /**

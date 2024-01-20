@@ -52,6 +52,15 @@ public interface ListADT<T> extends Iterable<T> {
     public T last() throws EmptyListException;
 
     /**
+     * Função responsável por procurar e retornar um elemento especifico da lista
+     *
+     * @return elemento encontrado
+     * @throws EmptyListException se a lista estiver vazia
+     * @throws ElementNotFoundException se o elemento a procurar não existir na lista
+     */
+    public T getElement(T element) throws EmptyListException, ElementNotFoundException;
+
+    /**
      * Função responsável por verificar se a lista está ou não vazia
      *
      * @return true se a lista estiver vazia, caso contrário return false

@@ -17,7 +17,7 @@ import com.example.structures.implementation.queue.LinkedQueue;
 public class Player {
 	private String playerName;
 	private LinkedQueue<Bot> playerBots;
-	private int[] flag = new int[2];
+	private int flag;
 
 	/**
 	 * Cria um novo jogador com o nome fornecido.
@@ -68,19 +68,19 @@ public class Player {
 	/**
 	 * Obtém a posição atual da bandeira do jogador.
 	 *
-	 * @return uma array contendo a posição da bandeira [x, y]
+	 * @return o index do vértice onde está colocada a bandeira
 	 */
-	public int[] getFlag() {
+	public int getFlag() {
 		return this.flag;
 	}
 
 	/**
 	 * Define a posição da bandeira do jogador.
 	 *
-	 * @param flagPosition um array contendo a posição da bandeira [x, y]
+	 * @param flagPosition o index do vértice onde está colocada a bandeira
 	 */
-	public void setFlag(int[] flagPosition) {
-		this.flag = flagPosition;
+	public void setFlag(int flagVertex) {
+		this.flag = flagVertex;
 	}
 
 	/**
@@ -106,18 +106,15 @@ public class Player {
 	public JSONObject parseToJson() throws EmptyListException {
 		JSONObject jsonPlayer = new JSONObject();
 		JSONArray playerBotsJsonArray = new JSONArray();
-		JSONArray playerLocation = new JSONArray();
 
 		do {
 			playerBotsJsonArray.add(playerBots.dequeue().parseToJson());
 		} while (!playerBots.isEmpty());
 
-		playerLocation.add(this.flag[0]);
-		playerLocation.add(this.flag[1]);
 
 		jsonPlayer.put("name", this.playerName);
 		jsonPlayer.put("bots", playerBotsJsonArray);
-		jsonPlayer.put("flag", playerLocation);
+		jsonPlayer.put("flag", this.flag);
 
 		return jsonPlayer;
 	}

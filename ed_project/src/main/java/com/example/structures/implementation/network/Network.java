@@ -144,7 +144,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 
 		for (int i = 0; i < numOfVertices; i++) {
 			if (i == 0) {
-				System.out.print("\t");
+				System.out.print("\n\t");
 			}
 			System.out.print(alphabet[i] + "\t");
 		}
@@ -175,7 +175,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 	 * @param currentVertex O vértice para encontrar os vizinhos
 	 * @return Uma lista não ordenada com os índices dos vértices vizinhos
 	 */
-	private UnorderedList<Integer> getNeighbors(int currentVertex) {
+	public UnorderedList<Integer> getNeighbors(int currentVertex) {
 		UnorderedList<Integer> neighbors = new UnorderedList<>();
 
 		for (int i = 0; i < numOfVertices; i++) {

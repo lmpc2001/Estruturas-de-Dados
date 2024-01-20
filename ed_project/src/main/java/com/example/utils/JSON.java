@@ -15,10 +15,11 @@ import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
-import com.example.structures.exceptions.ElementNotFoundException;
-import com.example.structures.exceptions.EmptyListException;
-import com.example.structures.implementation.list.UnorderedList;
 import com.example.usecases.exceptions.EmptyMapException;
+import com.example.structures.exceptions.EmptyListException;
+import com.example.domain.exceptions.InvalidStrategyException;
+import com.example.structures.implementation.list.UnorderedList;
+import com.example.structures.exceptions.ElementNotFoundException;
 
 /**
  * Classe responsável pelos métodos de interação com ficheiros JSON
@@ -78,11 +79,12 @@ public class JSON {
 	 * @param mapMatrix  Array com os vértices do mapa do último jogo
 	 * 
 	 * @throws ElementNotFoundException
-	 * @throws ParseException 
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * @throws ParseException
+	 * @throws IOException
+	 * @throws FileNotFoundException
 	 */
-	public static GameMap loadMap() throws ElementNotFoundException, FileNotFoundException, IOException, ParseException {
+	public static GameMap loadMap()
+			throws ElementNotFoundException, FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
 
@@ -126,12 +128,14 @@ public class JSON {
 	/**
 	 * Método responsável pelo processo de carregamento dos players do último jogo
 	 * guardado
-	 * @throws ParseException 
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * 
+	 * @throws ParseException
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws InvalidStrategyException 
 	 * 
 	 */
-	public static UnorderedList<Player> loadPlayers() throws FileNotFoundException, IOException, ParseException {
+	public static UnorderedList<Player> loadPlayers() throws FileNotFoundException, IOException, ParseException, InvalidStrategyException {
 		JSONParser parser = new JSONParser();
 		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
 
@@ -144,14 +148,11 @@ public class JSON {
 			JSONObject jsonPlayer = (JSONObject) player;
 
 			String playerName = (String) jsonPlayer.get("name");
-			String[] unhandledFlagLocation = jsonPlayer.get("flag").toString().replace("[", "").replace("]", "")
-					.split(",");
-
-			int[] flag = { Integer.parseInt(unhandledFlagLocation[0]), Integer.parseInt(unhandledFlagLocation[1]) };
+			String flag = String.valueOf(jsonPlayer.get("flag"));
 
 			Player loadedPlayer = new Player(playerName);
 
-			loadedPlayer.setFlag(flag);
+			loadedPlayer.setFlag(Integer.valueOf(flag));
 
 			JSONArray jsonArrayPlayerBots = (JSONArray) jsonPlayer.get("bots");
 			loadPlayerBots(loadedPlayer, jsonArrayPlayerBots);
@@ -172,20 +173,34 @@ public class JSON {
 	 * 
 	 * @param jsonArrayPlayerBots Array com a informação carregada relativa aos
 	 *                            bots do Player do último jogo guardado
+	 * @throws InvalidStrategyException 
 	 */
-	private static void loadPlayerBots(Player loadedPlayer, JSONArray jsonArrayPlayerBots) {
+	private static void loadPlayerBots(Player loadedPlayer, JSONArray jsonArrayPlayerBots) throws InvalidStrategyException {
 		for (Object playerBot : jsonArrayPlayerBots) {
 			JSONObject jsonPlayerBot = (JSONObject) playerBot;
 
-			String botName = (String) jsonPlayerBot.get("name");
+			String botName = (String) jsonPlayerBot.get("Name");
 			String botStrategy = (String) jsonPlayerBot.get("Strategy");
-			String[] unhandledBotLocation = jsonPlayerBot.get("Location").toString().replace("[", "").replace("]", "")
-					.split(",");
+			String botLocation = String.valueOf(jsonPlayerBot.get("Location"));
 
-			int[] botLocation = { Integer.parseInt(unhandledBotLocation[0]),
-					Integer.parseInt(unhandledBotLocation[1]) };
+			Bot loadedBot;
 
-			Bot loadedBot = new Bot(botName, botStrategy, botLocation);
+			switch (botStrategy) {
+				case "Shortest_Path":
+					loadedBot = new Bot(botName, Bot.Strategy.Shortest_Path, Integer.valueOf(botLocation));
+					break;
+
+				case "Random":
+					loadedBot = new Bot(botName, Bot.Strategy.Random, Integer.valueOf(botLocation));
+					break;
+
+				case "Objective_Weighted":
+					loadedBot = new Bot(botName, Bot.Strategy.Objective_Weighted, Integer.valueOf(botLocation));
+					break;
+
+				default:
+					throw new InvalidStrategyException(botStrategy);
+			}
 
 			loadedPlayer.addBot(loadedBot);
 		}

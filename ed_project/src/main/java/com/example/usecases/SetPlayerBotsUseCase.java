@@ -26,9 +26,9 @@ import com.example.utils.Scanners;
  */
 public class SetPlayerBotsUseCase {
 
-	 /**
-     * Constrói uma nova instância da classe SetPlayerBotsUseCase.
-     */
+	/**
+	 * Constrói uma nova instância da classe SetPlayerBotsUseCase.
+	 */
 	public SetPlayerBotsUseCase() {
 	}
 
@@ -42,7 +42,7 @@ public class SetPlayerBotsUseCase {
 	public void execute(Player player, int numberOfPlayerBots) {
 		for (int i = 0; i < numberOfPlayerBots; i++) {
 			String botName = Scanners
-					.getInputString("Defina o nome do bot " + i + " do player " + player.getPlayerName() + ":");
+					.getInputString("Defina o nome do bot " + (i + 1) + " do player " + player.getPlayerName() + ":");
 
 			Bot bot = new Bot(botName);
 			bot.setCurrentPosition(player.getFlag());

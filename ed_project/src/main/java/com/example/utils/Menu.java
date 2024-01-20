@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import com.example.domain.Game;
 import com.example.domain.Player;
+import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.usecases.GenerateKickOffPlayerUseCase;
@@ -13,6 +14,7 @@ import com.example.usecases.GenerateMapUseCase;
 import com.example.usecases.LoadPreviousGameUseCase;
 import com.example.usecases.MoveBotUseCase;
 import com.example.usecases.SetFlagLocationUseCase;
+import com.example.usecases.SetPlayerBotsStrategyUseCase;
 import com.example.usecases.SetPlayerBotsUseCase;
 import com.example.usecases.SetPlayersUseCase;
 import com.example.usecases.StartGameUseCase;
@@ -21,14 +23,15 @@ import com.example.usecases.exceptions.EmptyMapException;
 public class Menu {
 	private Game game;
 
-	private StartGameUseCase startGameUseCase;
-	private GenerateKickOffPlayerUseCase generateKickOffPlayerUseCase;
-	private LoadPreviousGameUseCase loadPreviousGameUseCase;
-	private GenerateMapUseCase generateMapUseCase;
-	private SetFlagLocationUseCase setFlagLocationUseCase;
-	private SetPlayersUseCase setPlayersUseCase;
-	private SetPlayerBotsUseCase setPlayerBotsUseCase;
 	private MoveBotUseCase moveBotUseCase;
+	private StartGameUseCase startGameUseCase;
+	private SetPlayersUseCase setPlayersUseCase;
+	private GenerateMapUseCase generateMapUseCase;
+	private SetPlayerBotsUseCase setPlayerBotsUseCase;
+	private SetFlagLocationUseCase setFlagLocationUseCase;
+	private LoadPreviousGameUseCase loadPreviousGameUseCase;
+	private GenerateKickOffPlayerUseCase generateKickOffPlayerUseCase;
+	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;
 
 	public Menu() {
 		this.game = new Game();
@@ -37,13 +40,14 @@ public class Menu {
 		this.generateMapUseCase = new GenerateMapUseCase(game);
 		this.setFlagLocationUseCase = new SetFlagLocationUseCase(game);
 		this.loadPreviousGameUseCase = new LoadPreviousGameUseCase(game);
+		this.setPlayerBotsStrategyUseCase = new SetPlayerBotsStrategyUseCase();
 		this.generateKickOffPlayerUseCase = new GenerateKickOffPlayerUseCase(game);
 		this.startGameUseCase = new StartGameUseCase(game, generateKickOffPlayerUseCase,moveBotUseCase);
-		this.setPlayersUseCase = new SetPlayersUseCase(game, setFlagLocationUseCase, setPlayerBotsUseCase);
+		this.setPlayersUseCase = new SetPlayersUseCase(game, setFlagLocationUseCase, setPlayerBotsUseCase, setPlayerBotsStrategyUseCase);
 	}
 
 	public void showMainMenu()
-			throws IOException, EmptyMapException, ElementNotFoundException, EmptyListException, ParseException {
+			throws IOException, EmptyMapException, ElementNotFoundException, EmptyListException, ParseException, InvalidStrategyException {
 		boolean showMenu = true;
 
 		while (showMenu) {

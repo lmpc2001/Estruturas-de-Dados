@@ -96,9 +96,7 @@ public class GenerateMapUseCase {
 
 			double numberOfEdges = (numberOfLocations * (numberOfLocations - 1)) * edgeDensity;
 
-			System.out.println(numberOfEdges);
-
-			for (int i = 0; i < numberOfEdges - 1; i++) {
+			for (int i = 0; i < numberOfEdges; i++) {
 				int randomVertexIndex = Randomness.getRandomNumber(0, numberOfLocations);
 				int randomNeighborIndex = Randomness.getRandomNumber(0, numberOfLocations);
 

@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
+import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.implementation.list.UnorderedList;
 import com.example.utils.JSON;
@@ -33,6 +34,7 @@ import com.example.utils.JSON;
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.GameMap
+ * @see com.example.domain.exceptions.InvalidStrategyException
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.structures.exceptions.ElementNotFoundException
  */
@@ -51,14 +53,17 @@ public class LoadPreviousGameUseCase {
 	/**
 	 * Executa o processo de carregamento de um jogo anteriormente salvo.
 	 *
-	 * @throws IOException              Se ocorrer um erro de leitura/escrita durante
+	 * @throws IOException              Se ocorrer um erro de leitura/escrita
+	 *                                  durante
 	 *                                  o carregamento a partir do ficheiro JSON.
 	 * @throws ParseException           Se ocorrer um erro de análise durante o
 	 *                                  carregamento do ficheiro JSON.
 	 * @throws ElementNotFoundException Se um elemento não for encontrado durante o
 	 *                                  carregamento.
+	 * @throws InvalidStrategyException Se a estratégia escolhida não existir nas
+	 *                                  opções fornecidas
 	 */
-	public void execute() throws IOException, ParseException, ElementNotFoundException {
+	public void execute() throws IOException, ParseException, ElementNotFoundException, InvalidStrategyException {
 		GameMap map = JSON.loadMap();
 		UnorderedList<Player> players = JSON.loadPlayers();
 

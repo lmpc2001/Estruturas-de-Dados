@@ -45,6 +45,8 @@ public class LinkedQueueTest {
 		assertEquals("A" , queue.dequeue());
 		assertEquals(2 , queue.size());
 		assertEquals("[B, C]" , queue.toString());
+
+		assertEquals("B", queue.first());
 	}
 
 	@Test

@@ -1,22 +1,35 @@
 package com.example.domain;
 
+import java.util.Iterator;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import com.example.structures.exceptions.ElementNotFoundException;
+import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.list.UnorderedList;
+import com.example.structures.implementation.network.exceptions.InvalidValueException;
+import com.example.structures.implementation.queue.LinkedQueue;
+import com.example.utils.Randomness;
 
 /**
  * Classe representativa de um bot no jogo, contendo informações sobre seu nome,
  * estratégia e localização atual.
  * 
  * @author Luís Costa [8200737]
+ * @see com.example.utils.Randomness
  * @see com.example.usecases.exceptions.EmptyMapException
  * @see com.example.structures.exceptions.EmptyListException
+ * @see com.example.structures.implementation.queue.LinkedQueue
  * @see com.example.structures.implementation.list.UnorderedList
+ * @see com.example.structures.exceptions.ElementNotFoundException
+ * @see com.example.structures.implementation.network.exceptions.InvalidValueException
  * 
  */
 public class Bot {
 	private String botName;
-	private String strategy;
-	private int[] currentLocation = new int[2];
+	private Strategy strategy;
+	private int currentLocation;
 
 	/**
 	 * Cria um novo bot com o nome fornecido.
@@ -32,12 +45,19 @@ public class Bot {
 	 *
 	 * @param botName  o nome do bot
 	 * @param strategy a estratégia do bot
-	 * @param position a posição inicial do bot
+	 * @param vertexIndex a posição inicial do bot
 	 */
-	public Bot(String botName, String strategy, int[] position) {
+	public Bot(String botName, Strategy strategy, int vertexIndex) {
 		this.botName = botName;
 		this.strategy = strategy;
-		this.currentLocation = position;
+		this.currentLocation = vertexIndex;
+	}
+
+	/**
+	 * Estratégias de movimentação disponíveis para os bots
+	 */
+	public enum Strategy {
+		Shortest_Path, Random, Objective_Weighted
 	}
 
 	/**
@@ -63,7 +83,7 @@ public class Bot {
 	 *
 	 * @return a estratégia do bot
 	 */
-	public String getStrategy() {
+	public Strategy getStrategy() {
 		return strategy;
 	}
 
@@ -72,7 +92,7 @@ public class Bot {
 	 *
 	 * @param strategy a nova estratégia do bot
 	 */
-	public void setStrategy(String strategy) {
+	public void setStrategy(Strategy strategy) {
 		this.strategy = strategy;
 	}
 
@@ -81,7 +101,7 @@ public class Bot {
 	 *
 	 * @return um array representando a posição atual do bot [x, y]
 	 */
-	public int[] getCurrentPosition() {
+	public int getCurrentPosition() {
 		return currentLocation;
 	}
 
@@ -90,8 +110,53 @@ public class Bot {
 	 *
 	 * @param newPosition o novo array representando a posição atual do bot [x, y]
 	 */
-	public void setCurrentPosition(int[] newPosition) {
-		this.currentLocation = newPosition;
+	public void setCurrentPosition(int newPosition) {
+		this.currentLocation = newPosition ;
+	}
+
+	/**
+	 * Movimenta o bot pelo mapa, escolhendo a próxima posição de forma aleatória
+	 * 
+	 * @param gameMap mapa do jogo pelo qual o bot irá circular
+	 * @throws EmptyListException se a lista estiver vazia
+	 * 
+	 */
+	public void moveRandomly(GameMap gameMap) throws EmptyListException {
+		UnorderedList<Integer> neighbors = gameMap.getNeighbors(this.getCurrentPosition());
+
+		if (!neighbors.isEmpty()) {
+			int neighborIndex = neighbors.getElement(Randomness.getRandomNumber(0, neighbors.size()));
+
+			if (gameMap.isValidPositionWithEdge(this.getCurrentPosition(), neighborIndex)) {
+				setCurrentPosition(neighborIndex);
+			}
+		}
+	}
+
+	/**
+	 * Movimenta o bot pelo mapa, adoptando o caminho mais curto até uma determinada
+	 * posição
+	 * 
+	 * @param gameMap mapa do jogo pelo qual o bot irá circular
+	 * @throws EmptyListException se a lista estiver vazia
+	 * @throws ElementNotFoundException 
+	 * @throws InvalidValueException 
+	 * 
+	 */
+	public void moveByShortestPath(GameMap gameMap, int targetLocation) throws EmptyListException, InvalidValueException, ElementNotFoundException {
+		int currentLocation = this.getCurrentPosition();
+		
+		Iterator<Integer> shortestPathIterator = gameMap.iteratorShortestPath(currentLocation, targetLocation);
+
+		LinkedQueue<Integer> path = new LinkedQueue<>();
+
+		while (shortestPathIterator.hasNext()) {
+			path.enqueue(shortestPathIterator.next());
+		}
+
+		while (!path.isEmpty()) {
+			this.setCurrentPosition(path.dequeue());
+		}		
 	}
 
 	/**
@@ -105,12 +170,8 @@ public class Bot {
 		JSONArray botLocation = new JSONArray();
 
 		jsonBot.put("Name", this.botName);
-		jsonBot.put("Strategy", this.strategy);
-
-		botLocation.add(this.currentLocation[0]);
-		botLocation.add(this.currentLocation[1]);
-
-		jsonBot.put("Location", botLocation);
+		jsonBot.put("Strategy", this.strategy.toString());
+		jsonBot.put("Location", this.currentLocation);
 
 		return jsonBot;
 	}
