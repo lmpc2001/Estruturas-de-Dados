@@ -20,6 +20,23 @@ import com.example.usecases.SetPlayersUseCase;
 import com.example.usecases.StartGameUseCase;
 import com.example.usecases.exceptions.EmptyMapException;
 
+/**
+ * A classe Menu é responsável por apresentar e gerir as opções do menu do jogo.
+ * Utiliza os casos de uso e interage com o jogador para realizar a configuração
+ * e execução do jogo.
+ * 
+ * @author Luís Costa [8200737]
+ * @see com.example.usecases.MoveBotUseCase
+ * @see com.example.usecases.StartGameUseCase
+ * @see com.example.usecases.SetPlayersUseCase
+ * @see com.example.usecases.GenerateMapUseCase
+ * @see com.example.usecases.SetPlayerBotsUseCase
+ * @see com.example.usecases.SetFlagLocationUseCase
+ * @see com.example.usecases.LoadPreviousGameUseCase
+ * @see com.example.usecases.GenerateKickOffPlayerUseCase
+ * @see com.example.usecases.SetPlayerBotsStrategyUseCase
+ * 
+ */
 public class Menu {
 	private Game game;
 
@@ -33,6 +50,10 @@ public class Menu {
 	private GenerateKickOffPlayerUseCase generateKickOffPlayerUseCase;
 	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;
 
+	/**
+	 * Construtor da classe Menu utilizado para criar uma nova instância do menu que
+	 * possibilite a interação com o jogo
+	 */
 	public Menu() {
 		this.game = new Game();
 		this.moveBotUseCase = new MoveBotUseCase(game);
@@ -40,14 +61,28 @@ public class Menu {
 		this.generateMapUseCase = new GenerateMapUseCase(game);
 		this.setFlagLocationUseCase = new SetFlagLocationUseCase(game);
 		this.loadPreviousGameUseCase = new LoadPreviousGameUseCase(game);
-		this.setPlayerBotsStrategyUseCase = new SetPlayerBotsStrategyUseCase();
+		this.setPlayerBotsStrategyUseCase = new SetPlayerBotsStrategyUseCase(game);
 		this.generateKickOffPlayerUseCase = new GenerateKickOffPlayerUseCase(game);
-		this.startGameUseCase = new StartGameUseCase(game, generateKickOffPlayerUseCase,moveBotUseCase);
-		this.setPlayersUseCase = new SetPlayersUseCase(game, setFlagLocationUseCase, setPlayerBotsUseCase, setPlayerBotsStrategyUseCase);
+		this.startGameUseCase = new StartGameUseCase(game, generateKickOffPlayerUseCase, moveBotUseCase);
+		this.setPlayersUseCase = new SetPlayersUseCase(game, setFlagLocationUseCase, setPlayerBotsUseCase,
+				setPlayerBotsStrategyUseCase);
 	}
 
+	/**
+	 * Apresenta o menu principal do jogo, permitindo ao jogador escolher entre
+	 * diferentes opções.
+	 *
+	 * @throws IOException              Se ocorrer um erro de leitura/escrita no
+	 *                                  ficheiro JSON.
+	 * @throws EmptyMapException        Se o mapa estiver vazio.
+	 * @throws ElementNotFoundException Se um elemento não for encontrado.
+	 * @throws EmptyListException       Se a lista estiver vazia.
+	 * @throws ParseException           Se ocorrer um erro de análise de JSON.
+	 * @throws InvalidStrategyException Se a estratégia for inválida.
+	 */
 	public void showMainMenu()
-			throws IOException, EmptyMapException, ElementNotFoundException, EmptyListException, ParseException, InvalidStrategyException {
+			throws IOException, EmptyMapException, ElementNotFoundException, EmptyListException, ParseException,
+			InvalidStrategyException {
 		boolean showMenu = true;
 
 		while (showMenu) {
@@ -88,6 +123,13 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Apresenta o menu de configurações do jogo, permitindo ao jogador visualizar
+	 * informações específicas do jogo em curso.
+	 *
+	 * @throws EmptyMapException  Se o mapa estiver vazio.
+	 * @throws EmptyListException Se a lista estiver vazia.
+	 */
 	private void showGameConfigurationMenu() throws EmptyMapException, EmptyListException {
 		boolean showMenu = true;
 
@@ -102,9 +144,10 @@ public class Menu {
 
 			switch (Scanners.getInputInt("| Opção : ")) {
 				case 1: {
-						Player actualPlayer = this.game.getPlayers().first();
+					Player actualPlayer = this.game.getPlayers().first();
 
-						System.out.println("[" + actualPlayer.getPlayerName() +"] A tua bandeira está na posição: " + actualPlayer.getFlag());
+					System.out.println("[" + actualPlayer.getPlayerName() + "] A tua bandeira está na posição: "
+							+ actualPlayer.getFlag());
 					break;
 				}
 				case 2: {

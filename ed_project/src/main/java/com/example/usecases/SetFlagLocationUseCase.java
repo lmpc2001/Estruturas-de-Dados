@@ -17,12 +17,12 @@ import com.example.utils.Scanners;
  * 
  *
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.GameMap
  * @see com.example.utils.Scanners
  * @see com.example.usecases.exceptions.EmptyMapException;
+ * 
  */
 public class SetFlagLocationUseCase {
 	private Game game;

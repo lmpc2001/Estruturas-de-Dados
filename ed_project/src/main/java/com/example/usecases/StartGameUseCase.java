@@ -19,12 +19,12 @@ import com.example.usecases.exceptions.EmptyMapException;
  * 
  *
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.usecases.exceptions.EmptyMapException
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.exceptions.ElementNotFoundException
  * @see com.example.structures.implementation.network.exceptions.InvalidValueException
+ * 
  */
 public class StartGameUseCase {
 	private Game game;

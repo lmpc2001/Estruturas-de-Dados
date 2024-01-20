@@ -22,7 +22,7 @@ import com.example.structures.implementation.network.exceptions.InvalidValueExce
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.exceptions.ElementNotFoundException
  * @see com.example.structures.implementation.network.exceptions.InvalidValueException;
- * @version 1.0
+ * 
  */
 public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> {
 

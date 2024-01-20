@@ -3,11 +3,9 @@ package com.example.usecases;
 import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.Player;
-import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.network.exceptions.InvalidValueException;
-import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.Scanners;
 
@@ -35,7 +33,6 @@ import com.example.utils.Scanners;
  *
  * 
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.Bot
@@ -43,6 +40,7 @@ import com.example.utils.Scanners;
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.structures.implementation.queue.LinkedQueue
  * @see com.example.utils.Scanners
+ * 
  */
 public class MoveBotUseCase {
 	private Game game;

@@ -26,13 +26,13 @@ import com.example.utils.Scanners;
  *
  * 
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.utils.Scanners
  * @see com.example.usecases.exceptions.EmptyMapException
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.domain.exceptions.InvalidStrategyException
+ * 
  */
 public class SetPlayersUseCase {
 	private Game game;

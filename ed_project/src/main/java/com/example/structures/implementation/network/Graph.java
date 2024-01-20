@@ -26,7 +26,7 @@ import com.example.structures.implementation.stack.LinkedStack;
  * @see com.example.structures.implementation.queue.LinkedQueue
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.structures.exceptions.ElementNotFoundException
- * @version 1.0
+ * 
  */
 public class Graph<T> implements GraphADT<T> {
     protected T[] vertex;

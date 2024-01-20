@@ -20,12 +20,12 @@ import com.example.utils.Randomness;
  * colocando o jogador escolhido no início da lista
  * 
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.utils.Randomness
  * @see com.example.configs.Properties
  * @see com.example.structures.implementation.list.UnorderedList
+ * 
  */
 public class GenerateKickOffPlayerUseCase {
 	private Game game;

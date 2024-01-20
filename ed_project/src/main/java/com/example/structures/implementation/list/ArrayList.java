@@ -21,7 +21,7 @@ import com.example.structures.exceptions.EmptyListException;
  * @see com.example.structures.adt.ListADT
  * @see com.example.structures.exceptions.ElementNotFoundException
  * @see com.example.structures.exceptions.EmptyListException
- * @version 1.0
+ * 
  */
 public abstract class ArrayList<T> implements ListADT<T> {
 	private final int DEFAULT_SIZE = Properties.LIST_DEFAULT_SIZE;

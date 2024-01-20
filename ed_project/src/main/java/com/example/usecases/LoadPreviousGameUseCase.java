@@ -29,7 +29,6 @@ import com.example.utils.JSON;
  * jogo restaurado.
  * 
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.utils.JSON
  * @see com.example.domain.Game
  * @see com.example.domain.Player
@@ -37,6 +36,7 @@ import com.example.utils.JSON;
  * @see com.example.domain.exceptions.InvalidStrategyException
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.structures.exceptions.ElementNotFoundException
+ * 
  */
 public class LoadPreviousGameUseCase {
 	private Game resumeGame;

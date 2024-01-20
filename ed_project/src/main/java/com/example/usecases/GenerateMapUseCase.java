@@ -20,7 +20,6 @@ import com.example.utils.Scanners;
  * 
  *
  * @author Luís Costa [8200737]
- * @version 1.0
  * @see com.example.domain.Game
  * @see com.example.domain.GameMap
  * @see com.example.domain.Pair
@@ -28,6 +27,7 @@ import com.example.utils.Scanners;
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.utils.Randomness
  * @see com.example.utils.Scanners
+ * 
  */
 public class GenerateMapUseCase {
 	private Game game;
