@@ -1,6 +1,8 @@
 package com.example.usecases;
 
+import com.example.configs.Properties;
 import com.example.domain.Bot;
+import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.EmptyListException;
@@ -13,18 +15,21 @@ import com.example.utils.Scanners;
  * A estratégia é escolhida interativamente para cada bot.
  *
  * @author Luís Costa [8200737]
- * @see com.example.domain.Player
  * @see com.example.domain.Bot
+ * @see com.example.domain.Game
+ * @see com.example.domain.Player
  * @see com.example.domain.exceptions.InvalidStrategyException
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.implementation.queue.LinkedQueue
  * @see com.example.utils.Scanners
  */
 public class SetPlayerBotsStrategyUseCase {
+	private Game game;
+
 	/**
 	 * Construtor da classe SetPlayerBotsStrategyUseCase.
 	 */
-	public SetPlayerBotsStrategyUseCase() {
+	public SetPlayerBotsStrategyUseCase(Game game) {
 
 	}
 
@@ -47,21 +52,46 @@ public class SetPlayerBotsStrategyUseCase {
 					.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
 							+ " [1- Shortest_Path, 2- Random, 3- Objective_Weighted]: ");
 
-			switch (botStrategy) {
-				case 1:
-					bot.setStrategy(Bot.Strategy.Shortest_Path);
-					break;
-				case 2:
-					bot.setStrategy(Bot.Strategy.Random);
-					break;
-				case 3:
-					bot.setStrategy(Bot.Strategy.Objective_Weighted);
-					break;
-
-				default:
-					throw new InvalidStrategyException();
+			while (!isStrategyValid(botStrategy - 1)) {
+				System.out.println("A estratégia selecionada já foi adotada por outro bot!");
+				botStrategy = Scanners
+						.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
+								+ " [1- Shortest_Path, 2- Random, 3- Objective_Weighted]: ");
 			}
 
+			bot.setStrategy(Bot.Strategy.values()[botStrategy - 1]);
+
 		} while (!playerBots.isEmpty());
+	}
+
+	/**
+	 * Verifica se a estratégia escolhida pelo utilizador pode ser atribuída ao bot
+	 *
+	 * @param strategyIndex O índice da estratégia a ser verificada.
+	 * @return true se a estratégia for válida para atribuíção, false caso
+	 *         contrário.
+	 * @throws EmptyListException Se a lista estiver vazia.
+	 */
+	private boolean isStrategyValid(int strategyIndex) throws EmptyListException {
+		if (strategyIndex < Bot.Strategy.values().length - 1 || strategyIndex > Bot.Strategy.values().length - 1) {
+			return false;
+		}
+
+		if (this.game.getPlayers().first().getPlayerBots().size()
+				* Properties.MAX_PLAYERS > Bot.Strategy.values().length - 1) {
+			return true;
+		}
+
+		for (Player playerInGame : this.game.getPlayers()) {
+			LinkedQueue<Bot> botsWithStrategyToVerify = new LinkedQueue<>(playerInGame.getPlayerBots().first());
+
+			do {
+				if (botsWithStrategyToVerify.dequeue().getStrategy() == Bot.Strategy.values()[strategyIndex - 1]) {
+					return false;
+				}
+			} while (!botsWithStrategyToVerify.isEmpty());
+		}
+
+		return true;
 	}
 }
