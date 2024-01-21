@@ -121,6 +121,25 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	}
 
 	/**
+	 * Possibilita a cópia de uma queue para uma nova, permitindo a sua edição sem
+	 * influenciar a queue original
+	 * 
+	 * @return uma cópia da queue original
+	 */
+	public LinkedQueue<T> copyLinkedQueue() {
+		LinkedQueue<T> newQueue = new LinkedQueue<>();
+
+		LinearNode<T> currentNode = this.frontNode;
+
+		while (currentNode != null) {
+			newQueue.enqueue(currentNode.getElement());
+			currentNode = currentNode.getNext();
+		}
+
+		return newQueue;
+	}
+
+	/**
 	 * Retorna uma representação da queue com recurso a uma string.
 	 *
 	 * @return Uma string de representação daqueue.
