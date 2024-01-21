@@ -77,7 +77,7 @@ public class Player {
 	/**
 	 * Define a posição da bandeira do jogador.
 	 *
-	 * @param flagPosition o index do vértice onde está colocada a bandeira
+	 * @param flagVertex o index do vértice onde está colocada a bandeira
 	 */
 	public void setFlag(int flagVertex) {
 		this.flag = flagVertex;

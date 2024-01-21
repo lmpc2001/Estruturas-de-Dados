@@ -39,9 +39,8 @@ public class SetPlayersUseCase {
 	private Game game;
 	private SetPlayerBotsUseCase setPlayerBotsUseCase;
 	private SetFlagLocationUseCase setFlagLocationUseCase;
-	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;	
+	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;
 	private ScannersADT scanner;
-
 
 	/**
 	 * Constrói uma nova instância da classe SetPlayersUseCase.
@@ -55,8 +54,9 @@ public class SetPlayersUseCase {
 	 *                                     cada jogador.
 	 * @param setPlayerBotsStrategyUseCase Caso de uso para configuração da
 	 *                                     estratégia a ser utilizada por cada cada
-	 *                                     bot
-	 *                                     .
+	 *                                     bot.
+	 * @param scanner                      Libraria a utilizar para interagir com o
+	 *                                     utilizador
 	 */
 	public SetPlayersUseCase(Game game,
 			SetFlagLocationUseCase setFlagLocationUseCase,

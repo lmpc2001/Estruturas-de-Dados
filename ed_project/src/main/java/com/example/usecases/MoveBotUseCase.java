@@ -49,7 +49,9 @@ public class MoveBotUseCase {
 	/**
 	 * Constrói uma nova instância de {@code MoveBotUseCase}.
 	 *
-	 * @param game O jogo no qual os bots serão movidos.
+	 * @param game    O jogo no qual os bots serão movidos.
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
 	public MoveBotUseCase(Game game, ScannersADT scanner) {
 		this.game = game;
@@ -73,7 +75,8 @@ public class MoveBotUseCase {
 			playerToPlay = game.getPlayerTurn();
 
 			int newLocation = scanner.getInputInt(
-					"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot (Digite -1 para sair): ");
+					"[" + playerToPlay.getPlayerName()
+							+ "]: Escolha o vértice para onde deseja mover o bot (Digite -1 para sair): ");
 
 			if (newLocation == -1) {
 				break;

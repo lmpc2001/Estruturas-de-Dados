@@ -158,7 +158,8 @@ public class Menu {
 					break;
 				}
 				case 3: {
-					System.out.println(this.game.getPlayers().toString());
+					this.game.getGameMap().printAdjencyMatrixWithWeights();
+					this.game.getGameMap().printAdjencyMatrix();
 					break;
 				}
 				default: {

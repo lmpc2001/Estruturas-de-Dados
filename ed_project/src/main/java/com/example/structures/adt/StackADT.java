@@ -3,18 +3,18 @@ package com.example.structures.adt;
 import com.example.structures.exceptions.EmptyListException;
 
 /**
- * Interface onde se encontram definidas todas as funções e seus tipos de dados
- * implementadas pela classe LinkedStack
+ * Interface onde se encontram definidas todas as funções e os tipos de dados a
+ * implementar no desenvolvimento de uma pilha
  * 
  * @author Luís Costa [8200737]
- * @param <T>
+ * @param <T> O tipo de dados dos elementos a armazenar na pilha
  */
 public interface StackADT<T> {
 
 	/**
 	 * Adiciona um elemento ao topo da stack
 	 *
-	 * @param element
+	 * @param element o elemento a adicionar à pilha
 	 */
 	public void push(T element);
 
@@ -22,6 +22,7 @@ public interface StackADT<T> {
 	 * Remove e retorna o elemento do topo da stack
 	 *
 	 * @return o elemento removido do topo da stack
+	 * @throws EmptyListException se a pilha estiver vazia
 	 */
 	public T pop() throws EmptyListException;
 
@@ -29,6 +30,7 @@ public interface StackADT<T> {
 	 * Retorna o elemento do topo da stack
 	 *
 	 * @return elemento T do topo da stack
+	 * @throws EmptyListException se a pilha estiver vazia
 	 */
 	public T peek() throws EmptyListException;
 

@@ -43,7 +43,10 @@ public class GenerateMapUseCase {
 	/**
 	 * Constrói uma nova instância de da classe GenerateMapUseCase.
 	 *
-	 * @param game O jogo ao qual o mapa deve ser associado.
+	 * @param game      O jogo ao qual o mapa deve ser associado.
+	 * @param randomLib Libraria a utilizar para gerar valores aleatórios
+	 * @param scanner   Libraria a utilizar para interagir com o
+	 *                  utilizador
 	 */
 	public GenerateMapUseCase(Game game, RandomnessADT randomLib, ScannersADT scanner) {
 		this.game = game;
@@ -123,7 +126,6 @@ public class GenerateMapUseCase {
 
 				map.addEdge(randomVertexIndex, randomNeighborIndex, randomDistanceBetweenNeighbors);
 			}
-
 		}
 
 		game.setGameMap(map);

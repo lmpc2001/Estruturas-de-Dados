@@ -13,7 +13,7 @@ public class ElementNotFoundException extends Exception {
 	 * Construtor adicional que permite especificar o elemento a procurar e
 	 * que não foi encontrado na estrutura em questão.
 	 *
-	 * @param strategy A estratégia que se tentou associar ao bot.
+	 * @param element o elemento que se tentou procurar.
 	 */
 	public ElementNotFoundException(String element) {
 		super("O elemento " + element + " não se encontra nesta lista");

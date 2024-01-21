@@ -98,7 +98,10 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	 * @return O elemento no início da queue.
 	 * @throws EmptyListException Se a queue estiver vazia.
 	 */
-	public T first() {
+	public T first() throws EmptyListException {
+		if(isEmpty()) {
+			throw new EmptyListException();
+		}
 		return this.frontNode.getElement();
 	}
 

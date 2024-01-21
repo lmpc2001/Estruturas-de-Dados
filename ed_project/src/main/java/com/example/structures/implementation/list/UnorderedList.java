@@ -26,10 +26,19 @@ import com.example.structures.implementation.network.exceptions.InvalidValueExce
  */
 public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> {
 
+	/**
+	 * Cria uma nova lista não ordenada com o tamanho padrão
+	 * 
+	 */
 	public UnorderedList() {
 		super();
 	}
 
+	/**
+	 * Cria uma nova lista não ordenada com um tamanho especificado
+	 * 
+	 * @param size tamanho da lista
+	 */
 	public UnorderedList(int size) {
 		super(size);
 	}
@@ -147,16 +156,15 @@ public class UnorderedList<T> extends ArrayList<T> implements UnorderListADT<T> 
 	 *
 	 * @param elementIndex o index do elemento a retornar
 	 * @return elemento encontrado
-	 * @throws EmptyListException       se a lista estiver vazia
-	 * @throws ElementNotFoundException se o elemento a procurar não existir na
-	 *                                  lista
+	 * @throws EmptyListException    se a lista estiver vazia
+	 * @throws InvalidValueException se o index fornecido for inválido
 	 */
 	public T getElement(int elementIndex) throws EmptyListException, InvalidValueException {
 		if (isEmpty()) {
 			throw new EmptyListException();
 		}
 
-		if(elementIndex< 0 || elementIndex> size()) {
+		if (elementIndex < 0 || elementIndex > size()) {
 			throw new InvalidValueException("O index " + elementIndex + " é inválido para esta lista");
 		}
 

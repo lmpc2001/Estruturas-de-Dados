@@ -29,6 +29,9 @@ public class SetPlayerBotsUseCase {
 
 	/**
 	 * Constrói uma nova instância da classe SetPlayerBotsUseCase.
+	 * 
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
 	public SetPlayerBotsUseCase(ScannersADT scanner) {
 		this.scanner = scanner;

@@ -31,8 +31,9 @@ public class SetFlagLocationUseCase {
 	/**
 	 * Constrói uma nova instância da classe StartGameUseCase.
 	 *
-	 * @param game Instancia da classe jogo referente ao jogo atual
-	 * 
+	 * @param game    Instancia da classe jogo referente ao jogo atual
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
 	public SetFlagLocationUseCase(Game game, ScannersADT scanner) {
 		this.game = game;
@@ -43,7 +44,7 @@ public class SetFlagLocationUseCase {
 	 * Executa o processo de definição de bots para jogadores.
 	 *
 	 * @param player O jogador que irá definir a localização da sua bandeira
-	 * 
+	 * @throws EmptyMapException se o mapa estiver vazio
 	 */
 	public void execute(Player player) throws EmptyMapException {
 		int vertexIndex;
@@ -57,7 +58,7 @@ public class SetFlagLocationUseCase {
 
 		do {
 			vertexIndex = scanner.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
-			
+
 		} while (!this.game.getGameMap().isValidPosition(vertexIndex));
 
 		player.setFlag(vertexIndex);

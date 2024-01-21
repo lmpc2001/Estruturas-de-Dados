@@ -30,6 +30,11 @@ public class SetPlayerBotsStrategyUseCase {
 
 	/**
 	 * Construtor da classe SetPlayerBotsStrategyUseCase.
+	 * 
+	 * @param game    o jogo do qual serão carregados os jogadores para definição
+	 *                das estratégias dos bots
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
 	public SetPlayerBotsStrategyUseCase(Game game, ScannersADT scanner) {
 		this.game = game;

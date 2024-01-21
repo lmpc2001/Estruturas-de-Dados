@@ -49,6 +49,7 @@ public class LinkedStack<T> implements StackADT<T> {
 	 * Adiciona um elemento ao topo da stack.
 	 *
 	 * @param element O elemento a ser adicionado à stack.
+	 * @param <T> O tipo de elemento que a stack pode armazenar.
 	 */
 	public void push(T element) {
 		LinearNode<T> tmp = this.topNode;

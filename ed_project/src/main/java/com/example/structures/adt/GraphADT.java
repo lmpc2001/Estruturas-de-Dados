@@ -22,6 +22,9 @@ public interface GraphADT<T> {
 	 * Remove um vertice do grafo
 	 *
 	 * @param vertex vertice a remover
+	 * 
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  grafo
 	 */
 	public void removeVertex(T vertex) throws ElementNotFoundException;
 
@@ -30,6 +33,9 @@ public interface GraphADT<T> {
 	 *
 	 * @param vertex1 vertice 1
 	 * @param vertex2 vertice 2
+	 * 
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  grafo
 	 */
 	public void addEdge(T vertex1, T vertex2) throws ElementNotFoundException;
 
@@ -38,6 +44,8 @@ public interface GraphADT<T> {
 	 *
 	 * @param vertex1 vertice 1
 	 * @param vertex2 vertice 2
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  grafo
 	 */
 	public void removeEdge(T vertex1, T vertex2) throws ElementNotFoundException;
 
@@ -47,7 +55,9 @@ public interface GraphADT<T> {
 	 * @param startVertex o vértice de início
 	 * @return um iterador de largura a começar no
 	 *         vértice especificado
-	 * @throws ElementNotFoundException se o vértice não for encontrado
+	 * @throws EmptyListException       Se a fila estiver vazia
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  grafo
 	 */
 
 	Iterator<T> iteratorBFS(T startVertex) throws ElementNotFoundException, EmptyListException;
@@ -58,6 +68,10 @@ public interface GraphADT<T> {
 	 * @param startVertex o vértice de início
 	 * @return um iterador de profundidade a começar no
 	 *         vértice especificado
+	 * 
+	 * @throws EmptyListException       Se a fila estiver vazia
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  grafo
 	 */
 
 	Iterator<T> iteratorDFS(T startVertex) throws ElementNotFoundException, EmptyListException;
@@ -70,8 +84,11 @@ public interface GraphADT<T> {
 	 * @param targetVertex O vértice de destino
 	 * @return um iterador que contém o caminho mais curto
 	 *         entre os dois vértices
+	 * 
+	 * @throws EmptyListException       Se a fila estiver vazia
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  grafo
 	 */
-
 	Iterator<T> iteratorShortestPath(T startVertex, T targetVertex) throws EmptyListException, ElementNotFoundException;
 
 	/**
