@@ -98,7 +98,10 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	 * @return O elemento no início da queue.
 	 * @throws EmptyListException Se a queue estiver vazia.
 	 */
-	public T first() {
+	public T first() throws EmptyListException {
+		if(isEmpty()) {
+			throw new EmptyListException();
+		}
 		return this.frontNode.getElement();
 	}
 
@@ -118,6 +121,25 @@ public class LinkedQueue<T> implements QueueADT<T> {
 	 */
 	public int size() {
 		return count;
+	}
+
+	/**
+	 * Possibilita a cópia de uma queue para uma nova, permitindo a sua edição sem
+	 * influenciar a queue original
+	 * 
+	 * @return uma cópia da queue original
+	 */
+	public LinkedQueue<T> copyLinkedQueue() {
+		LinkedQueue<T> newQueue = new LinkedQueue<>();
+
+		LinearNode<T> currentNode = this.frontNode;
+
+		while (currentNode != null) {
+			newQueue.enqueue(currentNode.getElement());
+			currentNode = currentNode.getNext();
+		}
+
+		return newQueue;
 	}
 
 	/**

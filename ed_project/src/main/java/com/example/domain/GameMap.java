@@ -69,7 +69,7 @@ public class GameMap extends Network {
 	 */
 	public boolean isPositionOccupied(int newPosition, UnorderedList<Player> gamePlayers) throws EmptyListException {
 		for (Player player : gamePlayers) {
-			LinkedQueue<Bot> bots = new LinkedQueue<>(player.getPlayerBots().first());
+			LinkedQueue<Bot> bots = player.getPlayerBots().copyLinkedQueue();
 
 			do {
 				int botLocation = bots.dequeue().getCurrentPosition();

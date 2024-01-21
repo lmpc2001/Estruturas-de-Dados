@@ -4,7 +4,7 @@ import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
 import com.example.usecases.exceptions.EmptyMapException;
-import com.example.utils.Scanners;
+import com.example.utils.ScannersADT;
 
 /**
  * A classe SetFlagLocationUseCase é responsável pela definição da
@@ -20,28 +20,31 @@ import com.example.utils.Scanners;
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.GameMap
- * @see com.example.utils.Scanners
+ * @see com.example.utils.ScannersADT
  * @see com.example.usecases.exceptions.EmptyMapException;
  * 
  */
 public class SetFlagLocationUseCase {
 	private Game game;
+	private ScannersADT scanner;
 
 	/**
 	 * Constrói uma nova instância da classe StartGameUseCase.
 	 *
-	 * @param game Instancia da classe jogo referente ao jogo atual
-	 * 
+	 * @param game    Instancia da classe jogo referente ao jogo atual
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
-	public SetFlagLocationUseCase(Game game) {
+	public SetFlagLocationUseCase(Game game, ScannersADT scanner) {
 		this.game = game;
+		this.scanner = scanner;
 	}
 
 	/**
 	 * Executa o processo de definição de bots para jogadores.
 	 *
 	 * @param player O jogador que irá definir a localização da sua bandeira
-	 * 
+	 * @throws EmptyMapException se o mapa estiver vazio
 	 */
 	public void execute(Player player) throws EmptyMapException {
 		int vertexIndex;
@@ -54,8 +57,8 @@ public class SetFlagLocationUseCase {
 		map.seeVertex();
 
 		do {
-			vertexIndex = Scanners.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
-			
+			vertexIndex = scanner.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
+
 		} while (!this.game.getGameMap().isValidPosition(vertexIndex));
 
 		player.setFlag(vertexIndex);

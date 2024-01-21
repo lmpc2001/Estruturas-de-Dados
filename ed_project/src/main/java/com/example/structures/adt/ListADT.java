@@ -10,7 +10,7 @@ import com.example.structures.exceptions.EmptyListException;
  * implementadas pela classe ArrayUnorderedList
  *
  * @author Luís Costa [8200737]
- * @param <T>
+ * @param <T> O tipo de dados dos elementos a armazenar na pilha
  */
 public interface ListADT<T> extends Iterable<T> {
 
@@ -18,6 +18,8 @@ public interface ListADT<T> extends Iterable<T> {
      * Função responsável por remover e retornar o primeiro elemento da lista
      *
      * @return primeiro elemento da lista
+     * @throws EmptyListException Se a lista estiver vazia
+     * 
      */
     public T removeFirst() throws EmptyListException;
 
@@ -25,6 +27,8 @@ public interface ListADT<T> extends Iterable<T> {
      * Função responsável por remover e retornar o último elemento da lista
      *
      * @return último elemento da lista
+     * @throws EmptyListException Se a lista estiver vazia
+     * 
      */
     public T removeLast() throws EmptyListException;
 
@@ -34,6 +38,9 @@ public interface ListADT<T> extends Iterable<T> {
      *
      * @param element
      * @return o eleemento especifico da lista
+     * @throws EmptyListException       Se a lista estiver vazia
+     * @throws ElementNotFoundException Se o elemento a procurar não existir na
+     *                                  lista
      */
     public T remove(T element) throws EmptyListException, ElementNotFoundException;
 
@@ -41,6 +48,7 @@ public interface ListADT<T> extends Iterable<T> {
      * Função responsável por retornar o primeiro elemento da lista
      *
      * @return primeiro elemento da lista
+     * @throws EmptyListException Se a lista estiver vazia
      */
     public T first() throws EmptyListException;
 
@@ -48,15 +56,19 @@ public interface ListADT<T> extends Iterable<T> {
      * Função responsável por retornar o último elemento da lista
      *
      * @return último elemento da lista
+     * @throws EmptyListException Se a lista estiver vazia
+     * 
      */
     public T last() throws EmptyListException;
 
     /**
      * Função responsável por procurar e retornar um elemento especifico da lista
      *
+     * @param element o elemento a procurar
      * @return elemento encontrado
-     * @throws EmptyListException se a lista estiver vazia
-     * @throws ElementNotFoundException se o elemento a procurar não existir na lista
+     * @throws EmptyListException       se a lista estiver vazia
+     * @throws ElementNotFoundException se o elemento a procurar não existir na
+     *                                  lista
      */
     public T getElement(T element) throws EmptyListException, ElementNotFoundException;
 

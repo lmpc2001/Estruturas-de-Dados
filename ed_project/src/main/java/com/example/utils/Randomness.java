@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Luís Costa [8200737
  * ]
  */
-public class Randomness {
+public class Randomness implements RandomnessADT {
 	static Random random = new Random();
 
 	/**
@@ -24,7 +24,7 @@ public class Randomness {
 	 *         valores excluídos.
 	 * 
 	 */
-	public static int getRandomWithoutDuplicates(int min, int max, int[] exclude) {
+	public int getRandomWithoutDuplicates(int min, int max, int[] exclude) {
 		Arrays.sort(exclude);
 		int randomNumber = min + random.nextInt(max - min);
 		for (int ex : exclude) {
@@ -42,7 +42,7 @@ public class Randomness {
 	 * @param max O valor máximo do intervalo.
 	 * @return Um número aleatório dentro do intervalo.
 	 */
-	public static int getRandomNumber(int min, int max) {
+	public int getRandomNumber(int min, int max) {
 		int randomNumber = min + random.nextInt((max) - min);
 
 		return randomNumber;

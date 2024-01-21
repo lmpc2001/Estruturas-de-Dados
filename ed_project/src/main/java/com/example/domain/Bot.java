@@ -11,6 +11,7 @@ import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.network.exceptions.InvalidValueException;
 import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.utils.Randomness;
+import com.example.utils.RandomnessADT;
 
 /**
  * Classe representativa de um bot no jogo, contendo informações sobre seu nome,
@@ -43,8 +44,8 @@ public class Bot {
 	/**
 	 * Cria um novo bot com o nome, estratégia e posição fornecidos.
 	 *
-	 * @param botName  o nome do bot
-	 * @param strategy a estratégia do bot
+	 * @param botName     o nome do bot
+	 * @param strategy    a estratégia do bot
 	 * @param vertexIndex a posição inicial do bot
 	 */
 	public Bot(String botName, Strategy strategy, int vertexIndex) {
@@ -111,21 +112,23 @@ public class Bot {
 	 * @param newPosition o novo array representando a posição atual do bot [x, y]
 	 */
 	public void setCurrentPosition(int newPosition) {
-		this.currentLocation = newPosition ;
+		this.currentLocation = newPosition;
 	}
 
 	/**
 	 * Movimenta o bot pelo mapa, escolhendo a próxima posição de forma aleatória
 	 * 
-	 * @param gameMap mapa do jogo pelo qual o bot irá circular
+	 * @param gameMap   mapa do jogo pelo qual o bot irá circular
+	 * @param randomLib libraria a utilizar para escolher de forma aletória o
+	 *                  proximo vertice para onde o bot se deverá deslocar
 	 * @throws EmptyListException se a lista estiver vazia
 	 * 
 	 */
-	public void moveRandomly(GameMap gameMap) throws EmptyListException {
+	public void moveRandomly(GameMap gameMap, RandomnessADT randomLib) throws EmptyListException {
 		UnorderedList<Integer> neighbors = gameMap.getNeighbors(this.getCurrentPosition());
 
 		if (!neighbors.isEmpty()) {
-			int neighborIndex = neighbors.getElement(Randomness.getRandomNumber(0, neighbors.size()));
+			int neighborIndex = neighbors.getElement(randomLib.getRandomNumber(0, neighbors.size()));
 
 			if (gameMap.isValidPositionWithEdge(this.getCurrentPosition(), neighborIndex)) {
 				setCurrentPosition(neighborIndex);
@@ -138,14 +141,15 @@ public class Bot {
 	 * posição
 	 * 
 	 * @param gameMap mapa do jogo pelo qual o bot irá circular
-	 * @throws EmptyListException se a lista estiver vazia
-	 * @throws ElementNotFoundException 
-	 * @throws InvalidValueException 
+	 * @throws EmptyListException       se a lista estiver vazia
+	 * @throws ElementNotFoundException
+	 * @throws InvalidValueException
 	 * 
 	 */
-	public void moveByShortestPath(GameMap gameMap, int targetLocation) throws EmptyListException, InvalidValueException, ElementNotFoundException {
+	public void moveByShortestPath(GameMap gameMap, int targetLocation)
+			throws EmptyListException, InvalidValueException, ElementNotFoundException {
 		int currentLocation = this.getCurrentPosition();
-		
+
 		Iterator<Integer> shortestPathIterator = gameMap.iteratorShortestPath(currentLocation, targetLocation);
 
 		LinkedQueue<Integer> path = new LinkedQueue<>();
@@ -156,7 +160,7 @@ public class Bot {
 
 		while (!path.isEmpty()) {
 			this.setCurrentPosition(path.dequeue());
-		}		
+		}
 	}
 
 	/**

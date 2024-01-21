@@ -3,27 +3,37 @@ package com.example.structures.adt;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
 
-public interface UnorderListADT<T> extends ListADT<T>{
-	/**
-     * Adds the specified element to the front of the list
+/**
+ * Interface onde se encontram definidos os métodos básicos a implementar numa
+ * lista não
+ * ordenada.
+ * 
+ * @author Luís Costa [8200737]
+ * @param <T> Tipo dos elementos armazenados na lista.
+ */
+public interface UnorderListADT<T> extends ListADT<T> {
+    /**
+     * Adiciona o elemento especificado no início da lista.
      *
-     * @param element the element to be added to this list
+     * @param element o elemento a ser adicionado a esta lista.
      */
     public void addToFront(T element);
 
     /**
-     * Adds the specified element to the rear of the list
+     * Adiciona o elemento especificado no final da lista.
      *
-     * @param element the element to be added to this list
+     * @param element o elemento a ser adicionado a esta lista.
      */
     public void addToRear(T element);
 
     /**
-     * Adds the specified element after a particular element already in the list
+     * Adiciona o elemento especificado após um elemento já presente na lista.
      *
-     * @param element the element to be added to this list
-     * @param target the target element already in the list
-     * @throws EmptyListException
+     * @param element o elemento a ser adicionado a esta lista.
+     * @param target  o elemento alvo já presente na lista.
+     * @throws EmptyListException       Se a lista estiver vazia.
+     * @throws ElementNotFoundException Se o elemento alvo não for encontrado na
+     *                                  lista.
      */
     public void addAfter(T element, T target) throws EmptyListException, ElementNotFoundException;
 }

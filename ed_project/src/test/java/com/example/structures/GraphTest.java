@@ -45,7 +45,7 @@ public class GraphTest {
 		graph.addEdge("A", "B");
 
 		assertTrue(graph.downloadAdjencyMatrix()[0][1]);
-		assertTrue(graph.downloadAdjencyMatrix()[1][0]);
+		assertFalse(graph.downloadAdjencyMatrix()[1][0]);
 	}
 
 	@Test
@@ -78,16 +78,16 @@ public class GraphTest {
 		Iterator<String> iterator = graph.iteratorBFS("A");
 
 		assertTrue(iterator.hasNext());
-		assertEquals(0, iterator.next());
+		assertEquals("A", iterator.next());
 
 		assertTrue(iterator.hasNext());
-		assertEquals(1, iterator.next());
+		assertEquals("B", iterator.next());
 
 		assertTrue(iterator.hasNext());
-		assertEquals(2, iterator.next());
+		assertEquals("C", iterator.next());
 
 		assertTrue(iterator.hasNext());
-		assertEquals(3, iterator.next());
+		assertEquals("D", iterator.next());
 
 		assertFalse(iterator.hasNext());
 	}
@@ -108,16 +108,16 @@ public class GraphTest {
 		Iterator<String> iterator = graph.iteratorShortestPath(0, 3);
 
 		assertTrue(iterator.hasNext());
-		assertEquals(0, iterator.next());
+		assertEquals("A", iterator.next());
 
 		assertTrue(iterator.hasNext());
-		assertEquals(1, iterator.next());
+		assertEquals("B", iterator.next());
 
 		assertTrue(iterator.hasNext());
-		assertEquals(2, iterator.next());
+		assertEquals("C", iterator.next());
 
 		assertTrue(iterator.hasNext());
-		assertEquals(3, iterator.next());
+		assertEquals("D", iterator.next());
 
 		assertFalse(iterator.hasNext());
 	}

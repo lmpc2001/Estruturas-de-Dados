@@ -7,7 +7,7 @@ import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.network.exceptions.InvalidValueException;
 import com.example.usecases.exceptions.EmptyMapException;
-import com.example.utils.Scanners;
+import com.example.utils.ScannersADT;
 
 /**
  * A classe MoveBotUseCase é responsável por executar as operações relacionadas
@@ -33,25 +33,29 @@ import com.example.utils.Scanners;
  *
  * 
  * @author Luís Costa [8200737]
+ * @see com.example.domain.Bot
  * @see com.example.domain.Game
  * @see com.example.domain.Player
- * @see com.example.domain.Bot
+ * @see com.example.utils.ScannersADT
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.implementation.list.UnorderedList
  * @see com.example.structures.implementation.queue.LinkedQueue
- * @see com.example.utils.Scanners
  * 
  */
 public class MoveBotUseCase {
 	private Game game;
+	private ScannersADT scanner;
 
 	/**
 	 * Constrói uma nova instância de {@code MoveBotUseCase}.
 	 *
-	 * @param game O jogo no qual os bots serão movidos.
+	 * @param game    O jogo no qual os bots serão movidos.
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
-	public MoveBotUseCase(Game game) {
+	public MoveBotUseCase(Game game, ScannersADT scanner) {
 		this.game = game;
+		this.scanner = scanner;
 	}
 
 	/**
@@ -63,16 +67,16 @@ public class MoveBotUseCase {
 	 * @throws EmptyMapException     Se o mapa para o jogo não estiver definido
 	 * 
 	 */
-	public void execute()
-			throws EmptyListException, InvalidValueException, EmptyMapException {
+	public void execute() throws EmptyListException, InvalidValueException, EmptyMapException {
 		boolean play = true;
 		Player playerToPlay;
 
 		do {
 			playerToPlay = game.getPlayerTurn();
 
-			int newLocation = Scanners.getInputInt(
-					"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot (Digite -1 para sair): ");
+			int newLocation = scanner.getInputInt(
+					"[" + playerToPlay.getPlayerName()
+							+ "]: Escolha o vértice para onde deseja mover o bot (Digite -1 para sair): ");
 
 			if (newLocation == -1) {
 				break;
@@ -82,7 +86,7 @@ public class MoveBotUseCase {
 
 			while (game.getGameMap().isPositionOccupied(newLocation, gamePlayers)) {
 				System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
-				newLocation = Scanners.getInputInt(
+				newLocation = scanner.getInputInt(
 						"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot: ");
 			}
 

@@ -37,6 +37,8 @@ public class Graph<T> implements GraphADT<T> {
     /**
      * Cria uma nova instância de um grafo<T> inicializando a sua lista de vértices
      * com o tamanho enviado pelo utilizador.
+     * 
+     * @param size tamanho inicial do grafo
      */
     public Graph(int size) {
         this.vertex = (T[]) (new Object[size]);
@@ -112,7 +114,7 @@ public class Graph<T> implements GraphADT<T> {
 
         if (indexVertex1 >= 0 && indexVertex2 >= 0) {
             adjMatrix[indexVertex1][indexVertex2] = true;
-            adjMatrix[indexVertex2][indexVertex1] = true;
+            // adjMatrix[indexVertex2][indexVertex1] = true;
         }
     }
 
@@ -172,8 +174,9 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startVertex O vértice de partida para a travessia.
      * @return Um iterador para a travessia BFS.
-     * @throws ElementNotFoundException
-     * @throws EmptyListException
+     * @throws ElementNotFoundException      se o elemento a procurar não for
+     *                                       encontrado
+     * @throws EmptyListException            Se a fila estiver vazia
      * @throws UnsupportedOperationException Este método ainda não foi implementado.
      */
     @Override
@@ -208,9 +211,10 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startVertex O vértice de partida para a travessia.
      * @return Um iterador para a travessia DFS.
-     * @throws EmptyListException Se a lista estiver vazia
+     * @throws EmptyListException            Se a lista estiver vazia
      * @throws UnsupportedOperationException Este método ainda não foi implementado.
-     * @throws ElementNotFoundException Se o elemento a procurar não existir na lista em questão
+     * @throws ElementNotFoundException      Se o elemento a procurar não existir na
+     *                                       lista em questão
      */
     @Override
     public Iterator<T> iteratorDFS(T startVertex) throws ElementNotFoundException, EmptyListException {
@@ -365,7 +369,7 @@ public class Graph<T> implements GraphADT<T> {
     /**
      * Encontra o índice de um vértice no array
      * 
-     * @param vertex
+     * @param vertex o vertice a procurar no grafo
      * @return index do vértice caso exista
      * @throws ElementNotFoundException Se o elemento não existir no grafo
      */
@@ -377,6 +381,40 @@ public class Graph<T> implements GraphADT<T> {
         }
 
         throw new ElementNotFoundException(vertex.toString());
+    }
+
+    /**
+     * Verifica se existe um caminho que vá do vértice 1 ao vértice 2
+     * 
+     * @param vertex1 vertice de partida
+     * @param vertex2 vertice de destino
+     * @return true se existir um caminho entre os dois vértices, false caso
+     *         contrário
+     * @throws ElementNotFoundException Se algum dos vertices não existir no grafo
+     */
+    public boolean hasEdge(T vertex1, T vertex2) throws ElementNotFoundException {
+        int vertex1Index = findVertexIndex(vertex1);
+        int vertex2Index = findVertexIndex(vertex2);
+
+        return adjMatrix[vertex1Index][vertex2Index];
+    }
+
+    /**
+     * Obtém o número de caminhos existentes no grafo
+     * 
+     * @return número de caminhos no grafo
+     */
+    public int numberOfEdges() {
+        int numOfEdges = 0;
+        for (int i = 0; i < adjMatrix.length; i++) {
+            for (int j = 0; j < adjMatrix.length; j++) {
+                if (adjMatrix[i][j]) {
+                    numOfEdges++;
+                }
+            }
+        }
+
+        return numOfEdges;
     }
 
     private void increaseCapacity() {

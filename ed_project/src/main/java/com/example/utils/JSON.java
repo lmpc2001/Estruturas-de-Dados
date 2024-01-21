@@ -15,15 +15,16 @@ import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
-import com.example.usecases.exceptions.EmptyMapException;
-import com.example.structures.exceptions.EmptyListException;
 import com.example.domain.exceptions.InvalidStrategyException;
-import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.exceptions.ElementNotFoundException;
+import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.list.UnorderedList;
+import com.example.usecases.exceptions.EmptyMapException;
 
 /**
  * Classe responsável pelos métodos de interação com ficheiros JSON
  * 
+ * @author Luís Costa [8200737]
  */
 public class JSON {
 
@@ -33,8 +34,8 @@ public class JSON {
 	 * 
 	 * @param game instancia do objeto Game criado no inicio de cada novo jogo
 	 * @throws IOException
-	 * @throws EmptyMapException
-	 * @throws EmptyListException
+	 * @throws EmptyMapException Se o mapa ainda não tiver sido definido
+	 * @throws EmptyListException Se a lista estiver vazia 
 	 */
 	public static void saveGame(Game game) throws IOException, EmptyMapException, EmptyListException {
 		GameMap map = game.getGameMap();
@@ -72,19 +73,14 @@ public class JSON {
 	 * Método responsável pelo processo de carregamento do mapa do último jogo
 	 * guardado
 	 * 
-	 * @param resumeGame instância da classe Game utilizada para
-	 *                   adicionar o mapa carregado a partir do ultimo
-	 *                   jogo guardado
-	 * 
-	 * @param mapMatrix  Array com os vértices do mapa do último jogo
-	 * 
-	 * @throws ElementNotFoundException
+	 * @return o mapa de jogo carregado
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no conjunto
 	 * @throws ParseException
 	 * @throws IOException
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException Se o ficheiro a utilizar não for encontrado
 	 */
 	public static GameMap loadMap()
-			throws ElementNotFoundException, FileNotFoundException, IOException, ParseException {
+			throws ElementNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		Object object = parser.parse(new FileReader(Properties.GAME_FILE_PATH));
 
@@ -129,6 +125,7 @@ public class JSON {
 	 * Método responsável pelo processo de carregamento dos players do último jogo
 	 * guardado
 	 * 
+	 * @return a lista de jogadores do jogo guardado
 	 * @throws ParseException
 	 * @throws IOException
 	 * @throws FileNotFoundException

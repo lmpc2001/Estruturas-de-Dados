@@ -6,8 +6,9 @@ import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.LinearNode;
 import com.example.structures.implementation.queue.LinkedQueue;
-import com.example.utils.Scanners;
+import com.example.utils.ScannersADT;
 
 /**
  * Classe responsável por definir a estratégia de movimentação para os bots de
@@ -21,16 +22,23 @@ import com.example.utils.Scanners;
  * @see com.example.domain.exceptions.InvalidStrategyException
  * @see com.example.structures.exceptions.EmptyListException
  * @see com.example.structures.implementation.queue.LinkedQueue
- * @see com.example.utils.Scanners
+ * @see com.example.utils.ScannersADT
  */
 public class SetPlayerBotsStrategyUseCase {
 	private Game game;
+	private ScannersADT scanner;
 
 	/**
 	 * Construtor da classe SetPlayerBotsStrategyUseCase.
+	 * 
+	 * @param game    o jogo do qual serão carregados os jogadores para definição
+	 *                das estratégias dos bots
+	 * @param scanner Libraria a utilizar para interagir com o
+	 *                utilizador
 	 */
-	public SetPlayerBotsStrategyUseCase(Game game) {
-
+	public SetPlayerBotsStrategyUseCase(Game game, ScannersADT scanner) {
+		this.game = game;
+		this.scanner = scanner;
 	}
 
 	/**
@@ -39,22 +47,22 @@ public class SetPlayerBotsStrategyUseCase {
 	 * de um jogador.
 	 *
 	 * @param player O jogador para o qual a estratégia dos bots será definida.
-	 * @throws EmptyListException       Se a lista de bots do jogador estiver vazia.
-	 * @throws InvalidStrategyException Se a estratégia escolhida for inválida.
+	 * @throws EmptyListException Se a lista de bots do jogador estiver vazia.
+	 * 
 	 */
-	public void execute(Player player) throws EmptyListException, InvalidStrategyException {
-		LinkedQueue<Bot> playerBots = new LinkedQueue<>(player.getPlayerBots().first());
+	public void execute(Player player) throws EmptyListException {
+		LinkedQueue<Bot> playerBots = player.getPlayerBots().copyLinkedQueue();
 
 		do {
 			Bot bot = playerBots.dequeue();
 
-			int botStrategy = Scanners
+			int botStrategy = scanner
 					.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
 							+ " [1- Shortest_Path, 2- Random, 3- Objective_Weighted]: ");
 
 			while (!isStrategyValid(botStrategy - 1)) {
 				System.out.println("A estratégia selecionada já foi adotada por outro bot!");
-				botStrategy = Scanners
+				botStrategy = scanner
 						.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
 								+ " [1- Shortest_Path, 2- Random, 3- Objective_Weighted]: ");
 			}
@@ -73,7 +81,7 @@ public class SetPlayerBotsStrategyUseCase {
 	 * @throws EmptyListException Se a lista estiver vazia.
 	 */
 	private boolean isStrategyValid(int strategyIndex) throws EmptyListException {
-		if (strategyIndex < Bot.Strategy.values().length - 1 || strategyIndex > Bot.Strategy.values().length - 1) {
+		if (strategyIndex < 0 || strategyIndex > Bot.Strategy.values().length - 1) {
 			return false;
 		}
 
@@ -83,10 +91,10 @@ public class SetPlayerBotsStrategyUseCase {
 		}
 
 		for (Player playerInGame : this.game.getPlayers()) {
-			LinkedQueue<Bot> botsWithStrategyToVerify = new LinkedQueue<>(playerInGame.getPlayerBots().first());
+			LinkedQueue<Bot> botsWithStrategyToVerify = playerInGame.getPlayerBots().copyLinkedQueue();
 
 			do {
-				if (botsWithStrategyToVerify.dequeue().getStrategy() == Bot.Strategy.values()[strategyIndex - 1]) {
+				if (botsWithStrategyToVerify.dequeue().getStrategy() == Bot.Strategy.values()[strategyIndex]) {
 					return false;
 				}
 			} while (!botsWithStrategyToVerify.isEmpty());

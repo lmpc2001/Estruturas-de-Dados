@@ -49,23 +49,26 @@ public class Menu {
 	private LoadPreviousGameUseCase loadPreviousGameUseCase;
 	private GenerateKickOffPlayerUseCase generateKickOffPlayerUseCase;
 	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;
+	Randomness randomLib = new Randomness();
+	Scanners scanner = new Scanners();
 
 	/**
 	 * Construtor da classe Menu utilizado para criar uma nova instância do menu que
 	 * possibilite a interação com o jogo
 	 */
 	public Menu() {
+
 		this.game = new Game();
-		this.moveBotUseCase = new MoveBotUseCase(game);
-		this.setPlayerBotsUseCase = new SetPlayerBotsUseCase();
-		this.generateMapUseCase = new GenerateMapUseCase(game);
-		this.setFlagLocationUseCase = new SetFlagLocationUseCase(game);
+		this.moveBotUseCase = new MoveBotUseCase(game, scanner);
+		this.setPlayerBotsUseCase = new SetPlayerBotsUseCase(scanner);
+		this.generateMapUseCase = new GenerateMapUseCase(game, randomLib, scanner);
+		this.setFlagLocationUseCase = new SetFlagLocationUseCase(game, scanner);
 		this.loadPreviousGameUseCase = new LoadPreviousGameUseCase(game);
-		this.setPlayerBotsStrategyUseCase = new SetPlayerBotsStrategyUseCase(game);
-		this.generateKickOffPlayerUseCase = new GenerateKickOffPlayerUseCase(game);
+		this.setPlayerBotsStrategyUseCase = new SetPlayerBotsStrategyUseCase(game, scanner);
+		this.generateKickOffPlayerUseCase = new GenerateKickOffPlayerUseCase(game, randomLib);
 		this.startGameUseCase = new StartGameUseCase(game, generateKickOffPlayerUseCase, moveBotUseCase);
 		this.setPlayersUseCase = new SetPlayersUseCase(game, setFlagLocationUseCase, setPlayerBotsUseCase,
-				setPlayerBotsStrategyUseCase);
+				setPlayerBotsStrategyUseCase, scanner);
 	}
 
 	/**
@@ -94,7 +97,7 @@ public class Menu {
 					+ "| 5. Sair \n"
 					+ "************************************");
 
-			switch (Scanners.getInputInt("\n| Opção : ")) {
+			switch (scanner.getInputInt("\n| Opção : ")) {
 				case 1: {
 					generateMapUseCase.execute();
 					setPlayersUseCase.execute();
@@ -142,7 +145,7 @@ public class Menu {
 					+ "| 5. Sair \n"
 					+ "******************************************************");
 
-			switch (Scanners.getInputInt("| Opção : ")) {
+			switch (scanner.getInputInt("| Opção : ")) {
 				case 1: {
 					Player actualPlayer = this.game.getPlayers().first();
 
@@ -155,7 +158,8 @@ public class Menu {
 					break;
 				}
 				case 3: {
-					System.out.println(this.game.getPlayers().toString());
+					this.game.getGameMap().printAdjencyMatrixWithWeights();
+					this.game.getGameMap().printAdjencyMatrix();
 					break;
 				}
 				default: {

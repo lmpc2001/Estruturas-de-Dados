@@ -67,7 +67,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 	@Override
 	public void addEdge(T vertex1, T vertex2, double weight) throws ElementNotFoundException {
 		super.addEdge(vertex1, vertex2);
-
+		
 		if (weight < 0.0) {
 			throw new InvalidValueException();
 		}
