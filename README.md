@@ -131,10 +131,11 @@ $ mvn test -Dtest="com.example.**"
 
 ## Estrutura do repositório
 
-- Pasta "Docs" : Contem a documentação fornecida pelos docentes da disciplina
-- ApiDocs : Contem o JavaDoc do projeto ([Para abrir clique aqui](./target/site/apidocs/index.html))
-- Pasta "Files" : Contem os seguintes ficheiros
-  - Ficheiro resultante da exportação do Jogo ([Para abrir clique aqui](./Files/savedGameMap.json));
+- (Docs)[./Docs] : Constituída pelos documentos fornecidos pelos docentes da disciplina
+- (ed_project)[./ed_project/]: Projeto Desenvolvido
+- (ApiDocs)[./ed_project/target/site/apidocs/index.html] : Onde pode ser ecnontrado o JavaDoc do projeto
+- (Files)[./Files/] : Contém os seguintes ficheiros
+  - Ficheiro resultante da exportação do Jogo;
   ```json
     {
       "map": [
