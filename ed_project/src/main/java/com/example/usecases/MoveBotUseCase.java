@@ -61,19 +61,23 @@ public class MoveBotUseCase {
 	/**
 	 * Executa o processo de movimentação dos bots no jogo.
 	 *
-	 * @throws EmptyListException    Se a queue de bots estiver vazia.
-	 * @throws InvalidValueException Se o valor inserido for inválido enquanto
-	 *                               index da lista
-	 * @throws EmptyMapException     Se o mapa para o jogo não estiver definido
-	 * @throws ElementNotFoundException Se o elemento a procurar não existir no conjunto
+	 * @throws EmptyListException       Se a queue de bots estiver vazia.
+	 * @throws InvalidValueException    Se o valor inserido for inválido enquanto
+	 *                                  index da lista
+	 * @throws EmptyMapException        Se o mapa para o jogo não estiver definido
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no
+	 *                                  conjunto
 	 * 
 	 */
-	public void execute() throws EmptyListException, InvalidValueException, EmptyMapException, ElementNotFoundException {
+	public void execute()
+			throws EmptyListException, InvalidValueException, EmptyMapException, ElementNotFoundException {
 		boolean play = true;
 		Player playerToPlay;
 
 		do {
 			playerToPlay = game.getPlayerTurn();
+
+			this.game.getGameMap().seeVertex();
 
 			int newLocation = scanner.getInputInt(
 					"[" + playerToPlay.getPlayerName()
@@ -89,6 +93,7 @@ public class MoveBotUseCase {
 				System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
 				newLocation = scanner.getInputInt(
 						"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot: ");
+				newPositionIndex = this.game.getGameMap().findVertexIndex(newLocation);
 			}
 
 			Bot botToMove = playerToPlay.getBotToPlay();

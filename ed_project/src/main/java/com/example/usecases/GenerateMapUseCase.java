@@ -97,8 +97,6 @@ public class GenerateMapUseCase {
 
 				int randomDistanceBetweenNeighbors = randomLib.getRandomNumber(0, 16);
 
-				System.out.println(i + " -> " + randomNeighborIndex + ": " + randomDistanceBetweenNeighbors);
-
 				map.addEdge(i, randomNeighborIndex, randomDistanceBetweenNeighbors);
 				map.addEdge(randomNeighborIndex, i, randomDistanceBetweenNeighbors);
 			}

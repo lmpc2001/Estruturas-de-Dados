@@ -63,8 +63,6 @@ public class StartGameUseCase {
 	 */
 	public void execute()
 			throws EmptyMapException, EmptyListException, InvalidValueException, ElementNotFoundException {
-		this.game.getGameMap().seeVertex();
-
 		this.generateKickOffPlayerUseCase.execute();
 
 		moveBotUseCase.execute();

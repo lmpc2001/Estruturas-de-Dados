@@ -59,7 +59,7 @@ public class SetPlayerBotsStrategyUseCase {
 							+ " [1- Shortest_Path, 2- Random, 3- Avoid_Obstacles]: ");
 
 			while (!isStrategyValid(botStrategy - 1)) {
-				System.out.println("A estratégia selecionada já foi adotada por outro bot!");
+				System.out.println("\nA estratégia selecionada já foi adotada por outro bot!\n");
 				botStrategy = scanner
 						.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
 								+ " [1- Shortest_Path, 2- Random, 3- Avoid_Obstacles]: ");
