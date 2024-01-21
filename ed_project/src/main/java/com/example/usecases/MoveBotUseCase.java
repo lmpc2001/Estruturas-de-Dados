@@ -80,7 +80,7 @@ public class MoveBotUseCase {
 							+ "]: Escolha o vértice para onde deseja mover o bot (Digite -1 para sair): ");
 
 			if (newLocation == -1) {
-				break;
+				return;
 			}
 
 			int newPositionIndex = this.game.getGameMap().findVertexIndex(newLocation);

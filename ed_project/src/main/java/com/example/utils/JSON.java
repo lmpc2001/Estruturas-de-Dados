@@ -178,21 +178,21 @@ public class JSON {
 
 			String botName = (String) jsonPlayerBot.get("Name");
 			String botStrategy = (String) jsonPlayerBot.get("Strategy");
-			String botLocation = String.valueOf(jsonPlayerBot.get("Location"));
+			String botLocationIndex = String.valueOf(jsonPlayerBot.get("Location"));
 
 			Bot loadedBot;
 
 			switch (botStrategy) {
 				case "Shortest_Path":
-					loadedBot = new Bot(botName, Bot.Strategy.Shortest_Path, Integer.valueOf(botLocation));
+					loadedBot = new Bot(botName, Bot.Strategy.Shortest_Path, Integer.valueOf(botLocationIndex));
 					break;
 
 				case "Random":
-					loadedBot = new Bot(botName, Bot.Strategy.Random, Integer.valueOf(botLocation));
+					loadedBot = new Bot(botName, Bot.Strategy.Random, Integer.valueOf(botLocationIndex));
 					break;
 
 				case "Avoid_Obstacles":
-					loadedBot = new Bot(botName, Bot.Strategy.Avoid_Obstacles, Integer.valueOf(botLocation));
+					loadedBot = new Bot(botName, Bot.Strategy.Avoid_Obstacles, Integer.valueOf(botLocationIndex));
 					break;
 
 				default:

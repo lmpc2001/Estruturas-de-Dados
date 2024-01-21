@@ -139,7 +139,7 @@ public class Menu {
 		while (showMenu) {
 			System.out.println("\n*************** Configurações de Jogo ***************\n"
 					+ "| 1. Ver posição da bandeira \n"
-					+ "| 2. Ver nome do player \n"
+					+ "| 2. Ver Jogadores \n"
 					+ "| 3. Ver mapa \n"
 					+ "| 4. Ver ordem dos jogadores \n"
 					+ "| 5. Sair \n"
@@ -150,16 +150,19 @@ public class Menu {
 					Player actualPlayer = this.game.getPlayers().first();
 
 					System.out.println("[" + actualPlayer.getPlayerName() + "] A tua bandeira está na posição: "
-							+ actualPlayer.getFlag());
+							+ this.game.getGameMap().getVertex()[actualPlayer.getFlag()]);
 					break;
 				}
 				case 2: {
-					this.game.getGameMap().printAdjencyMatrixWithWeights();
+					System.out.println(this.game.getPlayers().toString());
 					break;
 				}
 				case 3: {
 					this.game.getGameMap().printAdjencyMatrixWithWeights();
-					this.game.getGameMap().printAdjencyMatrix();
+					break;
+				}
+				case 4: {
+					System.out.println(this.game.getPlayers().toString());
 					break;
 				}
 				default: {

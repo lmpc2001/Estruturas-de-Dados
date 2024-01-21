@@ -223,9 +223,9 @@ public class Bot {
 	 */
 	public String toString() {
 		return "Bot {\n" +
-				"Name: " + this.botName + "\n" +
-				"Strategy: " + this.strategy + "\n" +
-				"Current Location: " + this.currentLocation + "\n" +
+				"\tName: " + this.botName + "\n" +
+				"\tStrategy: " + this.strategy + "\n" +
+				"\tCurrent Location: " + this.currentLocation + "\n" +
 				"}";
 	}
 }

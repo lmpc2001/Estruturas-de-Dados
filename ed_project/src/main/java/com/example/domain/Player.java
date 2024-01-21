@@ -121,8 +121,8 @@ public class Player {
 
 	public String toString() {
 		return "Player {\n" +
-				"Name: " + this.playerName + "\n" +
-				"Bots: " + this.playerBots + "\n" +
+				"\tName: " + this.playerName + "\n" +
+				"\tBots: " + this.playerBots + "\n" +
 				"}";
 	}
 }
