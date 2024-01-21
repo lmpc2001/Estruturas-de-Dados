@@ -1,7 +1,9 @@
 package com.example.domain;
 
+import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.structures.implementation.list.UnorderedList;
+import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.usecases.exceptions.EmptyMapException;
 
 /**
@@ -113,6 +115,59 @@ public class Game {
 
 		if (botPosition == oppositePlayerFlagPosition) {
 			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Verifica se um vertice existe validando o indice recebido.
+	 *
+	 * @param vertexIndex o indice do vertice a validar
+	 * @return true se o indice do vertice for válido ou flase caso contrário
+	 */
+	public boolean isValidPosition(int vertexIndex) {
+		return vertexIndex >= 0 && vertexIndex < map.getNumberOfLocations();
+	}
+
+	/**
+	 * Verifica se os indices dos vertices são válidos e se existe uma aresta que os
+	 * ligue
+	 *
+	 * @param startVertexIndex  o indice do vertice inicial a validar
+	 * @param targetVertexIndex o indice do vertice de destino a validar
+	 * @return true se os indices dos vertices forem válidos e existir um caminho
+	 *         entre eles ou false caso contrário
+	 */
+	public boolean isValidPositionWithEdge(int startVertexIndex, int targetVertexIndex) {
+		return targetVertexIndex >= 0 && targetVertexIndex < map.getNumberOfLocations()
+				&& map.downloadAdjencyMatrix()[startVertexIndex][targetVertexIndex]; // Valida se a posição é válida e
+																						// se existe um
+		// caminho entre os dois pontos
+	}
+
+	/**
+	 * Verifica se uma posição no mapa está ocupada por algum bot de qualquer
+	 * jogador.
+	 * 
+	 * @param vertexIndex O indice do vertice a ser verificado.
+	 * @return true se a posição estiver ocupada, false caso contrário.
+	 * @throws ElementNotFoundException Se o vertice a procurar não existir
+	 * @throws EmptyListException       Se a lista de jogadores estiver vazia.
+	 */
+	public boolean isPositionTaken(int vertexIndex) throws ElementNotFoundException, EmptyListException {
+		LinkedQueue<Bot> playerBots;
+
+		for (Player player : players) {
+			playerBots = player.getPlayerBots().copyLinkedQueue();
+
+			while (!playerBots.isEmpty()) {
+				int botLocationIndex = playerBots.dequeue().getCurrentPosition();
+
+				if (botLocationIndex == vertexIndex) {
+					return true;
+				}
+			}
 		}
 
 		return false;

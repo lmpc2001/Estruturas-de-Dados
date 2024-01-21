@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.example.domain.Bot;
-import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.utils.TestScanners;

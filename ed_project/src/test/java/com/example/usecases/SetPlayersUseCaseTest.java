@@ -72,8 +72,8 @@ public class SetPlayersUseCaseTest {
 		assertEquals("Player 1", player1.getPlayerName());
 		assertEquals("Player 2", player2.getPlayerName());
 
-		assertEquals(2, player1.getFlag());
-		assertEquals(1, player2.getFlag());
+		assertEquals(1, player1.getFlag());
+		assertEquals(0, player2.getFlag());
 
 		assertEquals(2, player1.getPlayerBots().size());
 		assertEquals(2, player2.getPlayerBots().size());
@@ -82,13 +82,13 @@ public class SetPlayersUseCaseTest {
 		assertEquals("Random", player1.getPlayerBots().dequeue().getStrategy().toString());
 
 		assertEquals("Bot 2", player1.getPlayerBots().first().getBotName());
-		assertEquals("Objective_Weighted", player1.getPlayerBots().dequeue().getStrategy().toString());
+		assertEquals("Avoid_Obstacles", player1.getPlayerBots().dequeue().getStrategy().toString());
 
 		assertEquals("Bot 3", player2.getPlayerBots().first().getBotName());
 		assertEquals("Shortest_Path" , player2.getPlayerBots().dequeue().getStrategy().toString());
 
 		assertEquals("Bot 4", player2.getPlayerBots().first().getBotName());
-		assertEquals("Objective_Weighted", player2.getPlayerBots().dequeue().getStrategy().toString());
+		assertEquals("Avoid_Obstacles", player2.getPlayerBots().dequeue().getStrategy().toString());
 		
 		UnorderedList<Player> players = new UnorderedList<>();
 		players.addToRear(player1);

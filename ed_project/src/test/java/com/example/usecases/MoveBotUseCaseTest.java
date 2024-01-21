@@ -30,10 +30,10 @@ public class MoveBotUseCaseTest {
 		Game game = new Game();
 		GameMap map = new GameMap(4, 0.5);
 
-		map.addVertex(1);
-		map.addVertex(2);
-		map.addVertex(3);
-		map.addVertex(4);
+		map.addVertex(1); // 0
+		map.addVertex(2); // 1
+		map.addVertex(3); // 2
+		map.addVertex(4); // 3
 		
 		map.addEdge(1, 2, 2.0);
 		map.addEdge(3, 1, 5.0);
@@ -42,8 +42,8 @@ public class MoveBotUseCaseTest {
 		
 		game.setGameMap(map);
 		
-		player1.setFlag(1);
-		bot1.setCurrentPosition(1);
+		player1.setFlag(0);
+		bot1.setCurrentPosition(0);
 		player1.addBot(bot1);
 		
 		player2.setFlag(3);
@@ -55,9 +55,9 @@ public class MoveBotUseCaseTest {
 
 		MoveBotUseCase moveBotUseCase = new MoveBotUseCase(game, scanner);
 
-		scanner.setInputInt(0);
-		scanner.setInputInt(2);
-		scanner.setInputInt(3);
+		scanner.setInputInt(2); // index 1
+		scanner.setInputInt(3); // index 2
+		scanner.setInputInt(4); // index 3
 		moveBotUseCase.execute();
 
 		assertEquals(3, player1.getPlayerBots().first().getCurrentPosition());

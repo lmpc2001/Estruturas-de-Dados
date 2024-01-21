@@ -3,6 +3,7 @@ package com.example.usecases;
 import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
+import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.ScannersADT;
 
@@ -45,8 +46,10 @@ public class SetFlagLocationUseCase {
 	 *
 	 * @param player O jogador que irá definir a localização da sua bandeira
 	 * @throws EmptyMapException se o mapa estiver vazio
+	 * @throws ElementNotFoundException  Se o elemento a procurar não existir
 	 */
-	public void execute(Player player) throws EmptyMapException {
+	public void execute(Player player) throws EmptyMapException, ElementNotFoundException {
+		int vertex;
 		int vertexIndex;
 		GameMap map = game.getGameMap();
 
@@ -57,8 +60,8 @@ public class SetFlagLocationUseCase {
 		map.seeVertex();
 
 		do {
-			vertexIndex = scanner.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
-
+			vertex = scanner.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
+			vertexIndex = game.getGameMap().findVertexIndex(vertex);
 		} while (!this.game.getGameMap().isValidPosition(vertexIndex));
 
 		player.setFlag(vertexIndex);

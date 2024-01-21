@@ -4,9 +4,9 @@ import com.example.configs.Properties;
 import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.domain.exceptions.InvalidStrategyException;
+import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.usecases.exceptions.EmptyMapException;
-import com.example.utils.Scanners;
 import com.example.utils.ScannersADT;
 
 /**
@@ -77,8 +77,9 @@ public class SetPlayersUseCase {
 	 * @throws EmptyListException       Se a lista estiver vazia
 	 * @throws InvalidStrategyException Se a estratégia escolhida pelo utilizador
 	 *                                  não existir
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir
 	 */
-	public void execute() throws EmptyMapException, EmptyListException, InvalidStrategyException {
+	public void execute() throws EmptyMapException, EmptyListException, InvalidStrategyException, ElementNotFoundException {
 		int numberOfPlayerBots = scanner.getInputInt("| Nº de bots por jogador: ");
 
 		for (int i = 0; i < Properties.MAX_PLAYERS; i++) {

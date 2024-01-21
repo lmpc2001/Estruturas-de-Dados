@@ -373,7 +373,7 @@ public class Graph<T> implements GraphADT<T> {
      * @return index do vértice caso exista
      * @throws ElementNotFoundException Se o elemento não existir no grafo
      */
-    protected int findVertexIndex(T vertex) throws ElementNotFoundException {
+    public int findVertexIndex(T vertex) throws ElementNotFoundException {
         for (int i = 0; i < numOfVertices; i++) {
             if (this.vertex[i].equals(vertex)) {
                 return i;

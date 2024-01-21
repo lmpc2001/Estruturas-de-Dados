@@ -191,8 +191,8 @@ public class JSON {
 					loadedBot = new Bot(botName, Bot.Strategy.Random, Integer.valueOf(botLocation));
 					break;
 
-				case "Objective_Weighted":
-					loadedBot = new Bot(botName, Bot.Strategy.Objective_Weighted, Integer.valueOf(botLocation));
+				case "Avoid_Obstacles":
+					loadedBot = new Bot(botName, Bot.Strategy.Avoid_Obstacles, Integer.valueOf(botLocation));
 					break;
 
 				default:

@@ -59,32 +59,6 @@ public class GameMap extends Network {
 	}
 
 	/**
-	 * Verifica se uma posição no mapa está ocupada por algum bot de qualquer
-	 * jogador.
-	 *
-	 * @param newPosition A posição a ser verificada.
-	 * @param gamePlayers A lista de jogadores no jogo.
-	 * @return true se a posição estiver ocupada, false caso contrário.
-	 * @throws EmptyListException Se a lista de jogadores estiver vazia.
-	 */
-	public boolean isPositionOccupied(int newPosition, UnorderedList<Player> gamePlayers) throws EmptyListException {
-		for (Player player : gamePlayers) {
-			LinkedQueue<Bot> bots = player.getPlayerBots().copyLinkedQueue();
-
-			do {
-				int botLocation = bots.dequeue().getCurrentPosition();
-
-				if (botLocation == newPosition) {
-					return true;
-				}
-
-			} while (!bots.isEmpty());
-		}
-
-		return false;
-	}
-
-	/**
 	 * Verifica se um vertice existe validando o indice recebido.
 	 *
 	 * @param vertexIndex o indice do vertice a validar

@@ -17,7 +17,7 @@ import com.example.structures.implementation.queue.LinkedQueue;
 public class Player {
 	private String playerName;
 	private LinkedQueue<Bot> playerBots;
-	private int flag;
+	private int flag; // indice do vertice onde se encontra a bandeira do jogador 
 
 	/**
 	 * Cria um novo jogador com o nome fornecido.
@@ -66,7 +66,7 @@ public class Player {
 	}
 
 	/**
-	 * Obtém a posição atual da bandeira do jogador.
+	 * Obtém o indice do vertice onde se encontra a bandeira do jogador.
 	 *
 	 * @return o index do vértice onde está colocada a bandeira
 	 */
@@ -77,10 +77,10 @@ public class Player {
 	/**
 	 * Define a posição da bandeira do jogador.
 	 *
-	 * @param flagVertex o index do vértice onde está colocada a bandeira
+	 * @param flagVertexIndex o index do vértice onde está colocada a bandeira
 	 */
-	public void setFlag(int flagVertex) {
-		this.flag = flagVertex;
+	public void setFlag(int flagVertexIndex) {
+		this.flag = flagVertexIndex;
 	}
 
 	/**

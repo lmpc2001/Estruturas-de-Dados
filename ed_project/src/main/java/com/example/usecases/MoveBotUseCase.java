@@ -3,8 +3,8 @@ package com.example.usecases;
 import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.Player;
+import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
-import com.example.structures.implementation.list.UnorderedList;
 import com.example.structures.implementation.network.exceptions.InvalidValueException;
 import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.ScannersADT;
@@ -65,9 +65,10 @@ public class MoveBotUseCase {
 	 * @throws InvalidValueException Se o valor inserido for inválido enquanto
 	 *                               index da lista
 	 * @throws EmptyMapException     Se o mapa para o jogo não estiver definido
+	 * @throws ElementNotFoundException Se o elemento a procurar não existir no conjunto
 	 * 
 	 */
-	public void execute() throws EmptyListException, InvalidValueException, EmptyMapException {
+	public void execute() throws EmptyListException, InvalidValueException, EmptyMapException, ElementNotFoundException {
 		boolean play = true;
 		Player playerToPlay;
 
@@ -82,9 +83,9 @@ public class MoveBotUseCase {
 				break;
 			}
 
-			UnorderedList<Player> gamePlayers = game.getPlayers();
+			int newPositionIndex = this.game.getGameMap().findVertexIndex(newLocation);
 
-			while (game.getGameMap().isPositionOccupied(newLocation, gamePlayers)) {
+			while (game.isPositionTaken(newPositionIndex)) {
 				System.out.println("A posição escolhida já se encontra ocupada pelo seu adversário");
 				newLocation = scanner.getInputInt(
 						"[" + playerToPlay.getPlayerName() + "]: Escolha o vértice para onde deseja mover o bot: ");
@@ -101,17 +102,17 @@ public class MoveBotUseCase {
 			// + "]: Insira a nova linha para onde deseja mover o bot: ");
 			// } while (game.getGameMap().isValidPosition(nextPosition));
 
-			// botToMove.moveByShortestPath(game.getGameMap(), newLocation);
+			botToMove.moveByShortestPath(game.getGameMap(), newLocation);
 			// break;
 			// case "Random":
 			// botToMove.moveRandomly(game.getGameMap());
 			// break;
-			// case "Objective_Weighted":
+			// case "Avoid_Obstacles":
 			// botToMove.moveRandomly(game.getGameMap());
 			// break;
 			// }
 
-			botToMove.setCurrentPosition(newLocation);
+			botToMove.setCurrentPosition(newPositionIndex);
 
 			play = !game.checkWin(botToMove);
 		} while (play);

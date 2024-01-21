@@ -4,9 +4,7 @@ import com.example.configs.Properties;
 import com.example.domain.Bot;
 import com.example.domain.Game;
 import com.example.domain.Player;
-import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.EmptyListException;
-import com.example.structures.implementation.LinearNode;
 import com.example.structures.implementation.queue.LinkedQueue;
 import com.example.utils.ScannersADT;
 
@@ -58,13 +56,13 @@ public class SetPlayerBotsStrategyUseCase {
 
 			int botStrategy = scanner
 					.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
-							+ " [1- Shortest_Path, 2- Random, 3- Objective_Weighted]: ");
+							+ " [1- Shortest_Path, 2- Random, 3- Avoid_Obstacles]: ");
 
 			while (!isStrategyValid(botStrategy - 1)) {
 				System.out.println("A estratégia selecionada já foi adotada por outro bot!");
 				botStrategy = scanner
 						.getInputInt("Escolha a estratégia a adotar pelo bot " + bot.getBotName()
-								+ " [1- Shortest_Path, 2- Random, 3- Objective_Weighted]: ");
+								+ " [1- Shortest_Path, 2- Random, 3- Avoid_Obstacles]: ");
 			}
 
 			bot.setStrategy(Bot.Strategy.values()[botStrategy - 1]);
