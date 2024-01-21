@@ -52,15 +52,15 @@ $ cd c:${PATH_TO_PROJECT_FOLDER} ; /usr/bin/env C:\\Program\ Files\\Java\\jdk-17
 ## Extrutura dos Packages
 
 - com.example:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/)):
+  - Contém o ficheiro principal do projeto ([Para abrir clique aqui](./ed_project/src/main/java/com/example/)):
     - App
   
 - com.example.configs:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/configs/)):
+  - Contém os ficheiros com as configurações do projeto (constantes, etc.) ([Para abrir clique aqui](./ed_project/src/main/java/com/example/configs/)):
     - Properties
   
 - com.example.domain:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/domain/)):
+  - Contém todas as entidades identificadas durante o estudo do problema e necessárias para a sua resolução ([Para abrir clique aqui](./ed_project/src/main/java/com/example/domain/)):
     - Bot
     - Game
     - GameMap
@@ -68,12 +68,12 @@ $ cd c:${PATH_TO_PROJECT_FOLDER} ; /usr/bin/env C:\\Program\ Files\\Java\\jdk-17
     - Player
 
 - com.example.domain.exceptions:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/domain/exceptions/)):
+  - Contém as excepções relativas às entidades do projeto e por elas disparadas ([Para abrir clique aqui](./ed_project/src/main/java/com/example/domain/exceptions/)):
     - EmptyMapException
     - InvalidStrategyException
 
 - com.example.structures.adt:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/adt/)):
+  - Contém as interfaces a implementar pelas estruturas de dados utilizadas ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/adt/)):
     - GraphADT
     - ListADT
     - NetowkrADT
@@ -82,38 +82,38 @@ $ cd c:${PATH_TO_PROJECT_FOLDER} ; /usr/bin/env C:\\Program\ Files\\Java\\jdk-17
     - UnorderListADT
 
 - com.example.structures.exceptions:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/exceptions/)):
+  - Contém as excepções globais, relativas às estruturas de dados e por elas utilizadas  ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/exceptions/)):
     - ElementNotFoundException
     - EmptyListException
 
 - com.example.structures.implementation:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/)):
+  - Contém a implementação dos componentes partilhados entre várias estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/)):
     - LinearNode
   
 - com.example.structures.implementation.list:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/list/)):
+  - Contém a implementação das listas utilizadas ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/list/)):
     - ArrayList
     - ArrayUnorderedList
   
 - com.example.structures.implementation.network:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/network/)):
+  - Contém a implementação da estrutura "Network" ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/network/)):
     - Graph
     - Network
   
 - com.example.structures.implementation.network.exceptions:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/network/exceptions/)):
+  - Contém as excepções utilizadas pela estrutura "Network" ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/network/exceptions/)):
     - InvalidValueException
 
 - com.example.structures.implementation.queue:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/queue/)):
+  - Contém a implementação de uma "LinkedQueue" ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/queue/)):
     - LinkedQueue
   
 - com.example.structures.implementation.stack:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/stack/)):
+  - Contém a implementação de uma "LinkedStack" ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/stack/)):
     - LinkedStack
   
 - com.example.usecases:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/usecases/)):
+  - Contém os casos de uso identificados para a resolução do problema  ([Para abrir clique aqui](./ed_project/src/main/java/com/example/usecases/)):
     - GenerateKickOffPlayerUseCase
     - GenerateMapUseCase
     - LoadPreviousGameUseCase
@@ -125,7 +125,7 @@ $ cd c:${PATH_TO_PROJECT_FOLDER} ; /usr/bin/env C:\\Program\ Files\\Java\\jdk-17
     - StartGameUseCase
   
 - com.example.utils:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/utils/)):
+  - Contém as bibliotecas costumizadas e utilizadas no projeto ([Para abrir clique aqui](./ed_project/src/main/java/com/example/utils/)):
     - JSON
     - Menu
     - Randomness
