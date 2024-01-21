@@ -6,6 +6,7 @@
   - [Table of Contents](#table-of-contents)
   - [Objetivos](#objetivos)
   - [Implementação](#implementação)
+  - [Ferramentas necessárias antes de Iniciar a aplicação](#ferramentas-necessárias-antes-de-iniciar-a-aplicação)
   - [Testar a Aplicação via Testes Unitários](#testar-a-aplicação-via-testes-unitários)
   - [Iniciar o Jogo - Com o VS Code](#iniciar-o-jogo---com-o-vs-code)
   - [Extrutura dos Packages](#extrutura-dos-packages)
@@ -28,6 +29,10 @@ Para além disso, foram utilizadas algumas ferramentas e boas práticas, tais co
   - Documentação do código através do JavaDoc;
   - Implementação de padrões de programação como: POO e SOLID;
 
+## Ferramentas necessárias antes de Iniciar a aplicação
+* [Instalar Java](https://www.java.com/en/download/);
+* [Instalar JDK 17 (Java Development Kit)](https://www.oracle.com/java/technologies/downloads/);
+
 ## Testar a Aplicação via Testes Unitários
 
 ```bash
@@ -41,8 +46,7 @@ $ mvn test -Dtest="com.example.**"
 ## Iniciar o Jogo - Com o VS Code
 
 ```bash
-/usr/bin/env C:\\Program\ Files\\Java\\jdk-17\\bin\\java.exe @C:\\Users\\luism\\AppData\\Local\\Temp\\cp_2ndk4ucmrzg93ipjtuamvwdor.argfile com.example.App 
-
+$ cd c:${PATH_TO_PROJECT_FOLDER} ; /usr/bin/env C:\\Program\ Files\\Java\\jdk-17\\bin\\java.exe @C:${PATH_TO_YOUR_PC_USER}\AppData\\Local\\Temp\\cp_70tnek3dfhj7e490u65v9ybik.argfile com.example.App
 ```
 
 ## Extrutura dos Packages
