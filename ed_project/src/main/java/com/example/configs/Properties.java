@@ -1,5 +1,7 @@
 package com.example.configs;
 
+import java.io.File;
+
 /**
  * A classe Properties contém as configurações estáticas da aplicação.
  * Inclui informações como o caminho para o arquivo onde o jogo deve ser
@@ -13,7 +15,7 @@ public final class Properties {
 	/**
 	 * O caminho do arquivo de jogo salvo.
 	 */
-	public static final String GAME_FILE_PATH = "C:\\Users\\luism\\Desktop\\ESTG\\2_ano\\ED\\Estruturas-de-Dados\\Files\\savedGameMap.json";
+	public static final String GAME_FILE_PATH = new File("./Files/savedGame.json").getAbsolutePath();
 
 	/**
 	 * Tamanho padrão das listas.

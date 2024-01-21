@@ -1,0 +1,52 @@
+{
+	"map": [
+		[
+			0.0,
+			2.0,
+			5.0,
+			0.0
+		],
+		[
+			0.0,
+			0.0,
+			0.0,
+			0.0
+		],
+		[
+			5.0,
+			0.0,
+			0.0,
+			0.0
+		],
+		[
+			0.0,
+			1.0,
+			0.0,
+			0.0
+		]
+	],
+	"Players": [
+		{
+			"bots": [
+				{
+					"Strategy": "Random",
+					"Name": "Bot 1",
+					"Location": 1
+				}
+			],
+			"flag": 1,
+			"name": "Player 1"
+		},
+		{
+			"bots": [
+				{
+					"Strategy": "Shortest_Path",
+					"Name": "Bot 2",
+					"Location": 2
+				}
+			],
+			"flag": 2,
+			"name": "Player 2"
+		}
+	]
+}
