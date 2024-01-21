@@ -48,15 +48,15 @@ $ mvn test -Dtest="com.example.**"
 ## Extrutura dos Packages
 
 - com.example:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/)):
     - App
   
 - com.example.configs:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/configs/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/configs/)):
     - Properties
   
 - com.example.domain:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/domain/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/domain/)):
     - Bot
     - Game
     - GameMap
@@ -64,12 +64,12 @@ $ mvn test -Dtest="com.example.**"
     - Player
 
 - com.example.domain.exceptions:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/domain/exceptions/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/domain/exceptions/)):
     - EmptyMapException
     - InvalidStrategyException
 
 - com.example.structures.adt:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/adt/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/adt/)):
     - GraphADT
     - ListADT
     - NetowkrADT
@@ -78,38 +78,38 @@ $ mvn test -Dtest="com.example.**"
     - UnorderListADT
 
 - com.example.structures.exceptions:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/exceptions/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/exceptions/)):
     - ElementNotFoundException
     - EmptyListException
 
 - com.example.structures.implementation:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/implementation/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/)):
     - LinearNode
   
 - com.example.structures.implementation.list:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/implementation/list/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/list/)):
     - ArrayList
     - ArrayUnorderedList
   
 - com.example.structures.implementation.network:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/implementation/network/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/network/)):
     - Graph
     - Network
   
 - com.example.structures.implementation.network.exceptions:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/implementation/network/exception/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/network/exceptions/)):
     - InvalidValueException
 
 - com.example.structures.implementation.queue:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/implementation/queue/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/queue/)):
     - LinkedQueue
   
 - com.example.structures.implementation.stack:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/structures/implementation/stack/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/structures/implementation/stack/)):
     - LinkedStack
   
 - com.example.usecases:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/usecases/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/usecases/)):
     - GenerateKickOffPlayerUseCase
     - GenerateMapUseCase
     - LoadPreviousGameUseCase
@@ -121,7 +121,7 @@ $ mvn test -Dtest="com.example.**"
     - StartGameUseCase
   
 - com.example.utils:
-  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./src/main/java/com/example/utils/)):
+  - Contem as seguintes estruturas de dados ([Para abrir clique aqui](./ed_project/src/main/java/com/example/utils/)):
     - JSON
     - Menu
     - Randomness
