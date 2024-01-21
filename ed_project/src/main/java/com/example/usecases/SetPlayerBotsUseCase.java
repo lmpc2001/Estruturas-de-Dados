@@ -2,7 +2,7 @@ package com.example.usecases;
 
 import com.example.domain.Bot;
 import com.example.domain.Player;
-import com.example.utils.Scanners;
+import com.example.utils.ScannersADT;
 
 /**
  * A classe SetPlayerBotsUseCase é responsável por gerir as operações
@@ -21,15 +21,17 @@ import com.example.utils.Scanners;
  * @author Luís Costa [8200737]
  * @see com.example.domain.Player
  * @see com.example.domain.Bot
- * @see com.example.utils.Scanners
+ * @see com.example.utils.ScannersADT
  * 
  */
 public class SetPlayerBotsUseCase {
+	private ScannersADT scanner;
 
 	/**
 	 * Constrói uma nova instância da classe SetPlayerBotsUseCase.
 	 */
-	public SetPlayerBotsUseCase() {
+	public SetPlayerBotsUseCase(ScannersADT scanner) {
+		this.scanner = scanner;
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class SetPlayerBotsUseCase {
 	 */
 	public void execute(Player player, int numberOfPlayerBots) {
 		for (int i = 0; i < numberOfPlayerBots; i++) {
-			String botName = Scanners
+			String botName = scanner
 					.getInputString("Defina o nome do bot " + (i + 1) + " do player " + player.getPlayerName() + ":");
 
 			Bot bot = new Bot(botName);

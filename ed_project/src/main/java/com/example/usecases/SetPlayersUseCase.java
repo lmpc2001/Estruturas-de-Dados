@@ -7,6 +7,7 @@ import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.EmptyListException;
 import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.Scanners;
+import com.example.utils.ScannersADT;
 
 /**
  * A classe SetPlayersUseCase é responsável por gerir todas as operações
@@ -38,7 +39,9 @@ public class SetPlayersUseCase {
 	private Game game;
 	private SetPlayerBotsUseCase setPlayerBotsUseCase;
 	private SetFlagLocationUseCase setFlagLocationUseCase;
-	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;
+	private SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase;	
+	private ScannersADT scanner;
+
 
 	/**
 	 * Constrói uma nova instância da classe SetPlayersUseCase.
@@ -58,11 +61,13 @@ public class SetPlayersUseCase {
 	public SetPlayersUseCase(Game game,
 			SetFlagLocationUseCase setFlagLocationUseCase,
 			SetPlayerBotsUseCase setPlayerBotsUseCase,
-			SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase) {
+			SetPlayerBotsStrategyUseCase setPlayerBotsStrategyUseCase,
+			ScannersADT scanner) {
 		this.game = game;
 		this.setFlagLocationUseCase = setFlagLocationUseCase;
 		this.setPlayerBotsUseCase = setPlayerBotsUseCase;
 		this.setPlayerBotsStrategyUseCase = setPlayerBotsStrategyUseCase;
+		this.scanner = scanner;
 	}
 
 	/**
@@ -74,17 +79,17 @@ public class SetPlayersUseCase {
 	 *                                  não existir
 	 */
 	public void execute() throws EmptyMapException, EmptyListException, InvalidStrategyException {
-		int numberOfPlayerBots = Scanners.getInputInt("| Nº de bots por jogador: ");
+		int numberOfPlayerBots = scanner.getInputInt("| Nº de bots por jogador: ");
 
 		for (int i = 0; i < Properties.MAX_PLAYERS; i++) {
-			String namePlayer = Scanners.getInputString("\n| Nome do jogador " + (i + 1) + ": ");
+			String namePlayer = scanner.getInputString("\n| Nome do jogador " + (i + 1) + ": ");
 			Player player = new Player(namePlayer);
 
 			this.setFlagLocationUseCase.execute(player);
 			this.setPlayerBotsUseCase.execute(player, numberOfPlayerBots);
-			this.setPlayerBotsStrategyUseCase.execute(player);
-
 			game.addPlayer(player);
+
+			this.setPlayerBotsStrategyUseCase.execute(player);
 		}
 	}
 }

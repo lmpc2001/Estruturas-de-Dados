@@ -4,7 +4,7 @@ import com.example.domain.Game;
 import com.example.domain.GameMap;
 import com.example.domain.Player;
 import com.example.usecases.exceptions.EmptyMapException;
-import com.example.utils.Scanners;
+import com.example.utils.ScannersADT;
 
 /**
  * A classe SetFlagLocationUseCase é responsável pela definição da
@@ -20,12 +20,13 @@ import com.example.utils.Scanners;
  * @see com.example.domain.Game
  * @see com.example.domain.Player
  * @see com.example.domain.GameMap
- * @see com.example.utils.Scanners
+ * @see com.example.utils.ScannersADT
  * @see com.example.usecases.exceptions.EmptyMapException;
  * 
  */
 public class SetFlagLocationUseCase {
 	private Game game;
+	private ScannersADT scanner;
 
 	/**
 	 * Constrói uma nova instância da classe StartGameUseCase.
@@ -33,8 +34,9 @@ public class SetFlagLocationUseCase {
 	 * @param game Instancia da classe jogo referente ao jogo atual
 	 * 
 	 */
-	public SetFlagLocationUseCase(Game game) {
+	public SetFlagLocationUseCase(Game game, ScannersADT scanner) {
 		this.game = game;
+		this.scanner = scanner;
 	}
 
 	/**
@@ -54,7 +56,7 @@ public class SetFlagLocationUseCase {
 		map.seeVertex();
 
 		do {
-			vertexIndex = Scanners.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
+			vertexIndex = scanner.getInputInt("Selecione a posição onde deseja guardar a bandeira: ");
 			
 		} while (!this.game.getGameMap().isValidPosition(vertexIndex));
 

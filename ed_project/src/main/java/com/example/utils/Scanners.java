@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Luís Costa [8200737]
  * 
  */
-public class Scanners {
+public class Scanners implements ScannersADT {
 
 	/**
 	 * Obtém um número inteiro selecionado pelo utilizador.
@@ -18,7 +18,7 @@ public class Scanners {
 	 * @param mensagem A mensagem a ser exibida antes de receber o valor.
 	 * @return O número inteiro fornecido pelo utilizador.
 	 */
-	public static int getInputInt(String mensagem) {
+	public int getInputInt(String mensagem) {
 		int input = 0;
 		boolean erro = false;
 
@@ -43,7 +43,7 @@ public class Scanners {
 	 * @param mensagem A mensagem a ser exibida antes de receber o valor.
 	 * @return O número decimal fornecido pelo utilizador.
 	 */
-	public static double getInputDouble(String mensagem) {
+	public double getInputDouble(String mensagem) {
 		double input = 0;
 		boolean erro = false;
 
@@ -69,7 +69,7 @@ public class Scanners {
 	 *                 pelo utilizador.
 	 * @return A string fornecida pelo utilizador.
 	 */
-	public static String getInputString(String mensagem) {
+	public String getInputString(String mensagem) {
 		String input = "";
 		boolean erro = false;
 

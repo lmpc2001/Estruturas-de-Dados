@@ -5,6 +5,7 @@ import com.example.domain.Game;
 import com.example.domain.Player;
 import com.example.structures.implementation.list.UnorderedList;
 import com.example.utils.Randomness;
+import com.example.utils.RandomnessADT;
 
 /**
  * A classe GenerateKickOffPlayerUseCase é responsável por realizar as operações
@@ -29,14 +30,16 @@ import com.example.utils.Randomness;
  */
 public class GenerateKickOffPlayerUseCase {
 	private Game game;
+	private RandomnessADT randomLib;
 
 	/**
 	 * Constrói uma nova instância da classe GenerateKickOffPlayerUseCase.
 	 *
 	 * @param game O jogo no qual a escolha do pontapé inicial será realizada.
 	 */
-	public GenerateKickOffPlayerUseCase(Game game) {
+	public GenerateKickOffPlayerUseCase(Game game, RandomnessADT randomLib) {
 		this.game = game;
+		this.randomLib = randomLib;
 	}
 
 	/**
@@ -47,7 +50,7 @@ public class GenerateKickOffPlayerUseCase {
 		UnorderedList<Player> gamePlayers = game.getPlayers();
 		UnorderedList<Player> orderedPlayers = new UnorderedList<>(Properties.MAX_PLAYERS);
 
-		int playerIndex = Randomness.getRandomNumber(0, Properties.MAX_PLAYERS);
+		int playerIndex = randomLib.getRandomNumber(0, Properties.MAX_PLAYERS);
 		int count = 0;
 
 		for (Player player : gamePlayers) {
