@@ -1,0 +1,26 @@
+-classpath
+'C:/Users/luism/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'1.8'
+-sourcepath
+'C:/Users/luism/Desktop/ESTG/2_ano/ED/Estruturas-de-Dados/ed_project/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/luism/Desktop/ESTG/2_ano/ED/Estruturas-de-Dados/ed_project/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'ed_project 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/luism/Desktop/ESTG/2_ano/ED/Estruturas-de-Dados/ed_project/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'ed_project 1.0-SNAPSHOT API'

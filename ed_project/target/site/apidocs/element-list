@@ -1,0 +1,15 @@
+com.example
+com.example.configs
+com.example.domain
+com.example.domain.exceptions
+com.example.structures.adt
+com.example.structures.exceptions
+com.example.structures.implementation
+com.example.structures.implementation.list
+com.example.structures.implementation.network
+com.example.structures.implementation.network.exceptions
+com.example.structures.implementation.queue
+com.example.structures.implementation.stack
+com.example.usecases
+com.example.usecases.exceptions
+com.example.utils

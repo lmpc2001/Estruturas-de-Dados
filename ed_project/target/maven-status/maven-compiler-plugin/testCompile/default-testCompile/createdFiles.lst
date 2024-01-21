@@ -1,0 +1,17 @@
+com\example\structures\NetworkTest.class
+com\example\usecases\LoadPreviousGameUseCaseTest.class
+com\example\usecases\MoveBotUseCaseTest.class
+com\example\structures\ArrayListTest.class
+com\example\structures\UnorderedListTest.class
+com\example\usecases\SetPlayerBotsUseCaseTest.class
+com\example\structures\LinkedQueueTest.class
+com\example\usecases\SetFlagLocationUseCaseTest.class
+com\example\usecases\SetPlayersUseCaseTest.class
+com\example\usecases\GenerateKickOffPlayerUseCaseTest.class
+com\example\structures\GraphTest.class
+com\example\usecases\GenerateMapUseCaseTest.class
+com\example\structures\LinkedStackTest.class
+com\example\utils\TestRandomness.class
+com\example\usecases\SetPlayerBotsStrategyUseCaseTest.class
+com\example\AppTest.class
+com\example\utils\TestScanners.class
