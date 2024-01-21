@@ -38,15 +38,18 @@ public class GenerateMapUseCaseTest {
 	@Test
 	public void shouldGenerateAMapWithUniDirectionalPaths() throws ElementNotFoundException, EmptyMapException {
 		Game game = new Game();
+		int numOfVertices = 6;
+		double edgeDensity = 0.5;
+		double expectedNumberOfEdges = (numOfVertices * (numOfVertices -1)) * edgeDensity;
 
 		Randomness randomLib = new Randomness();
 		TestScanners scanner = new TestScanners();
 
 		GenerateMapUseCase generateMapUseCase = new GenerateMapUseCase(game, randomLib, scanner);
 
-		scanner.setInputInt(6); // número de vertices a criar no mapa
+		scanner.setInputInt(numOfVertices); // número de vertices a criar no mapa
 		scanner.setInputString("n"); // caminhos bidirecionais
-		scanner.setInputDouble(0.5); // densidade das arestas
+		scanner.setInputDouble(edgeDensity); // densidade das arestas
 
 		generateMapUseCase.execute();
 
@@ -55,5 +58,6 @@ public class GenerateMapUseCaseTest {
 		assertNotNull(map);
 
 		assertEquals(6, map.getNumberOfLocations());
+		assertEquals((int) expectedNumberOfEdges, map.numberOfEdges());
 	}
 }

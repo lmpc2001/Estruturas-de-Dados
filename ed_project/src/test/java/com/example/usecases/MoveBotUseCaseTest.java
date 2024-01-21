@@ -56,8 +56,11 @@ public class MoveBotUseCaseTest {
 		MoveBotUseCase moveBotUseCase = new MoveBotUseCase(game, scanner);
 
 		scanner.setInputInt(0);
+		scanner.setInputInt(2);
+		scanner.setInputInt(3);
 		moveBotUseCase.execute();
 
-		assertEquals(0, player1.getPlayerBots().first().getCurrentPosition());
+		assertEquals(3, player1.getPlayerBots().first().getCurrentPosition());
+		assertEquals(2, player2.getPlayerBots().first().getCurrentPosition());
 	}
 }

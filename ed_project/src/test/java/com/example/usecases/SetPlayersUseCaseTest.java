@@ -10,6 +10,7 @@ import com.example.domain.Player;
 import com.example.domain.exceptions.InvalidStrategyException;
 import com.example.structures.exceptions.ElementNotFoundException;
 import com.example.structures.exceptions.EmptyListException;
+import com.example.structures.implementation.list.UnorderedList;
 import com.example.usecases.exceptions.EmptyMapException;
 import com.example.utils.TestScanners;
 
@@ -61,8 +62,6 @@ public class SetPlayersUseCaseTest {
 		scanner.setInputInt(1); 				// estratégia a adotar pelo bot 1 -- Player 2
 		scanner.setInputInt(3); 				// estratégia a adotar pelo bot 4 -- -- Player 2
 		
-		
-
 		setPlayersUseCase.execute();
 
 		assertEquals(2, game.getPlayers().size());
@@ -90,5 +89,11 @@ public class SetPlayersUseCaseTest {
 
 		assertEquals("Bot 4", player2.getPlayerBots().first().getBotName());
 		assertEquals("Objective_Weighted", player2.getPlayerBots().dequeue().getStrategy().toString());
+		
+		UnorderedList<Player> players = new UnorderedList<>();
+		players.addToRear(player1);
+		players.addToRear(player2);
+
+		assertEquals(game.getPlayers().toString(), players.toString());
 	}
 }

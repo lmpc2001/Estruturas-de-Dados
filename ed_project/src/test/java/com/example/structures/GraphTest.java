@@ -45,7 +45,7 @@ public class GraphTest {
 		graph.addEdge("A", "B");
 
 		assertTrue(graph.downloadAdjencyMatrix()[0][1]);
-		assertTrue(graph.downloadAdjencyMatrix()[1][0]);
+		assertFalse(graph.downloadAdjencyMatrix()[1][0]);
 	}
 
 	@Test
