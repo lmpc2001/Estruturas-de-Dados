@@ -28,6 +28,7 @@ Para além disso, foram utilizadas algumas ferramentas e boas práticas, tais co
 - **Boas Práticas:**
   - Documentação do código através do JavaDoc;
   - Implementação de padrões de programação como: POO e SOLID;
+  - Utilização do conceito de Clean Architecture;
 
 ## Ferramentas necessárias antes de Iniciar a aplicação
 * [Instalar Java](https://www.java.com/en/download/);
