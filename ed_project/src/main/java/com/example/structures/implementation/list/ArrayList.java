@@ -252,7 +252,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
 	 * aumentada.
 	 */
 	protected void increaseListCapacity() {
-		T[] tmpList = (T[]) (new Object[this.list.length + 1]);
+		T[] tmpList = (T[]) (new Object[this.list.length * 2]);
 		System.arraycopy(this.list, 0, tmpList, 0, rear);
 		this.list = tmpList;
 	}

@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="PT"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\luism\AppData\Local\Temp\surefire16295576458691215397\surefirebooter14404625789737180977.jar C:\Users\luism\AppData\Local\Temp\surefire16295576458691215397 2024-01-21T20-24-32_068-jvmRun1 surefire6153870748826966801tmp surefire_06931399614128060634tmp"/>
+    <property name="sun.java.command" value="C:\Users\luism\AppData\Local\Temp\surefire10669850269722422775\surefirebooter7332322957514832975.jar C:\Users\luism\AppData\Local\Temp\surefire10669850269722422775 2024-01-23T22-12-21_731-jvmRun1 surefire1130270631102700021tmp surefire_05732463173320060314tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\luism\Desktop\ESTG\2_ano\ED\Estruturas-de-Dados\ed_project\target\test-classes;C:\Users\luism\Desktop\ESTG\2_ano\ED\Estruturas-de-Dados\ed_project\target\classes;C:\Users\luism\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\luism\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\luism\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\luism\AppData\Local\Temp\surefire16295576458691215397\surefirebooter14404625789737180977.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\luism\AppData\Local\Temp\surefire10669850269722422775\surefirebooter7332322957514832975.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.6+9-LTS-190"/>

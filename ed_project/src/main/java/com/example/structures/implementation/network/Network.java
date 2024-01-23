@@ -1,6 +1,5 @@
 package com.example.structures.implementation.network;
 
-
 import java.util.Arrays;
 
 import com.example.structures.adt.NetworkADT;
@@ -67,7 +66,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 	@Override
 	public void addEdge(T vertex1, T vertex2, double weight) throws ElementNotFoundException {
 		super.addEdge(vertex1, vertex2);
-		
+
 		if (weight < 0.0) {
 			throw new InvalidValueException();
 		}
@@ -212,7 +211,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 	 * Aumenta a capacidade da matriz de adjacência.
 	 */
 	private void increaseCapacity() {
-		double[][] newMatrix = new double[this.numOfVertices][this.numOfVertices];
+		double[][] newMatrix = new double[this.numOfVertices * 2][this.numOfVertices * 2];
 
 		for (int i = 0; i < numOfVertices; i++) {
 			for (int j = 0; j < numOfVertices; j++) {

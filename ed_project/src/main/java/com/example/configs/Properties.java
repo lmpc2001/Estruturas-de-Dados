@@ -15,7 +15,7 @@ public final class Properties {
 	/**
 	 * O caminho do arquivo de jogo salvo.
 	 */
-	public static final String GAME_FILE_PATH = new File("./Files/savedGame.json").getAbsolutePath();
+	public static final String GAME_FILE_PATH = new File("../Files/savedGame.json").getAbsolutePath();
 
 	/**
 	 * Tamanho padrão das listas.
