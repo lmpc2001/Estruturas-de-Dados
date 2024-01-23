@@ -29,6 +29,7 @@ Para além disso, foram utilizadas algumas ferramentas e boas práticas, tais co
   - Documentação do código através do JavaDoc;
   - Implementação de padrões de programação como: POO e SOLID;
   - Utilização do conceito de Clean Architecture;
+  - Controlo de versões via Github [@lmpc2001](https://github.com/lmpc2001/Estruturas-de-Dados);
 
 ## Ferramentas necessárias antes de Iniciar a aplicação
 * [Instalar Java](https://www.java.com/en/download/);
